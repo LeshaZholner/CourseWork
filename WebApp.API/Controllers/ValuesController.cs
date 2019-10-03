@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using WebApp.API.Models;
 using WebApp.BLL.DTO;
-using WebApp.BLL.Services;
+using WebApp.BLL.Services.AppointmentService;
 
 namespace WebApp.API.Controllers
 {
@@ -15,23 +15,9 @@ namespace WebApp.API.Controllers
     {
         IAppointmentService appointmentService;
 
-        //public ValuesController(IAppointmentService serv)
-        //{
-        //    appointmentService = serv;
-        //}
-
-        public ValuesController()
+        public ValuesController(IAppointmentService serv)
         {
-            appointmentService = new AppointmentService("DefaultConnection");
-        }
-
-        // GET api/values
-        public IEnumerable<DoctorViewModel> Get()
-        {
-            var doctorsDTO = appointmentService.GetDoctors();
-            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<DoctorDTO, DoctorViewModel>()).CreateMapper();
-            var doctors = mapper.Map<IEnumerable<DoctorDTO>, IEnumerable<DoctorViewModel>>(doctorsDTO);
-            return doctors;
+            appointmentService = serv;
         }
 
         // GET api/values/5
