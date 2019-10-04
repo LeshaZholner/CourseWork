@@ -11,9 +11,5 @@
         {
             AutomaticMigrationsEnabled = false;
         }
-
-        protected override void Seed(WebApp.DAL.AppointmentContext context)
-        {
-        }
     }
 }

@@ -42,5 +42,11 @@ namespace WebApp.BLL.Services.AppointmentService
             Database.Appointments.Create(appointment);
             Database.Save();
         }
+
+        public IEnumerable<AppointmentDTO> GetAppointments()
+        {
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Appointment, AppointmentDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<Appointment>, List<AppointmentDTO>>(Database.Appointments.GetAll());
+        }
     }
 }

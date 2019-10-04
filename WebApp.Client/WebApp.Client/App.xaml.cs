@@ -1,4 +1,5 @@
 ﻿using System;
+using WebApp.Client.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,7 @@ namespace WebApp.Client
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new RegisterPage());
         }
 
         protected override void OnStart()

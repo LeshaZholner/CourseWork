@@ -7,13 +7,13 @@ namespace WebApp.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.3.0")]
-    public sealed partial class Init : IMigrationMetadata
+    public sealed partial class ChangedDoctor : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangedDoctor));
         
         string IMigrationMetadata.Id
         {
-            get { return "201909261652284_Init"; }
+            get { return "201910041330338_ChangedDoctor"; }
         }
         
         string IMigrationMetadata.Source

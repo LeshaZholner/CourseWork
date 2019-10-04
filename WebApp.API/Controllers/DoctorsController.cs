@@ -20,7 +20,6 @@ namespace WebApp.API.Controllers
             appointmentService = serv;
         }
 
-        // GET api/values
         public IEnumerable<DoctorViewModel> Get()
         {
             var doctorsDTO = appointmentService.GetDoctors();

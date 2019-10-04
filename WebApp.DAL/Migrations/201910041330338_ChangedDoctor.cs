@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init : DbMigration
+    public partial class ChangedDoctor : DbMigration
     {
         public override void Up()
         {
@@ -28,6 +28,7 @@
                         Id = c.Int(nullable: false, identity: true),
                         FirstName = c.String(),
                         SecondName = c.String(),
+                        PhoneNumber = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
