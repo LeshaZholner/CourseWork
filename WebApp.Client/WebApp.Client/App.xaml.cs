@@ -1,4 +1,5 @@
 ﻿using System;
+using WebApp.Client.DI;
 using WebApp.Client.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,6 +12,7 @@ namespace WebApp.Client
         {
             InitializeComponent();
 
+            DiCollection.ServiceCollection.
             MainPage = new NavigationPage(new RegisterPage());
         }
 

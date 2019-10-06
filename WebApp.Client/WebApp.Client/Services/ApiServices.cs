@@ -9,7 +9,7 @@ using WebApp.Client.Models;
 
 namespace WebApp.Client.Services
 {
-    public class ApiServices
+    public class ApiServices : IApiServices
     {
         public async Task<bool> RegisterAsync(string email, string password, string confirmPassword)
         {
