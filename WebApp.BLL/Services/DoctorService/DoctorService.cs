@@ -39,6 +39,17 @@ namespace WebApp.BLL.Services.DoctorService
             return mapper.Map<IEnumerable<Doctor>, List<DoctorDTO>>(Database.Doctors.GetAll());
         }
 
+        public IEnumerable<DoctorDTO> GetDoctors(Func<DoctorDTO, bool> predicate)
+        {
+            return GetDoctors().Where(predicate);
+        }
+        public void AddDoctor(DoctorDTO doctor)
+        {
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<DoctorDTO, Doctor>()).CreateMapper();
+            Database.Doctors.Create(mapper.Map<DoctorDTO, Doctor>(doctor));
+            Database.Save();
+        }
+
         public void Dispose()
         {
             Database.Dispose();

@@ -61,6 +61,7 @@ namespace WebApp.API.Controllers
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
+
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };

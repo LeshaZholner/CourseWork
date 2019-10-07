@@ -14,6 +14,7 @@ namespace WebApp.API.App_Start
     using Ninject.Web.Common;
     using WebApp.BLL.Services.AppointmentService;
     using WebApp.BLL.Services.DoctorService;
+    using WebApp.BLL.Services.SpecializationService;
 
     public static class NinjectWebCommon 
     {
@@ -68,6 +69,7 @@ namespace WebApp.API.App_Start
         {
             kernel.Bind<IAppointmentService>().To<AppointmentService>();
             kernel.Bind<IDoctorService>().To<DoctorService>();
+            kernel.Bind<ISpecializationService>().To<SpecializationService>();
         }        
     }
 }

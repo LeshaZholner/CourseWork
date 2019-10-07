@@ -10,7 +10,9 @@ namespace WebApp.BLL.Services.DoctorService
     public interface IDoctorService
     {
         IEnumerable<DoctorDTO> GetDoctors();
+        IEnumerable<DoctorDTO> GetDoctors(Func<DoctorDTO, bool> predicate);
         DoctorDTO GetDoctor(int? id);
+        void AddDoctor(DoctorDTO doctor);
         void Dispose();
     }
 }

@@ -19,6 +19,7 @@
 
         public virtual DbSet<Doctor> Doctors { get; set; }
         public virtual DbSet<Appointment> Appointments { get; set; }
+        public virtual DbSet<Specialization> Specializations { get; set; }
 
     }
 }

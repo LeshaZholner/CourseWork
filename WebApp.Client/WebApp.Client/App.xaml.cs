@@ -12,7 +12,6 @@ namespace WebApp.Client
         {
             InitializeComponent();
 
-            DiCollection.ServiceCollection.
             MainPage = new NavigationPage(new RegisterPage());
         }
 

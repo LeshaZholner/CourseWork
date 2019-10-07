@@ -20,6 +20,7 @@ namespace WebApp.API.Controllers
             this.appointmentService = appointmentService;
         }
 
+        [HttpPost]
         public void Post([FromBody] AppointmentViewModel value)
         {
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<AppointmentViewModel, AppointmentDTO>()).CreateMapper();

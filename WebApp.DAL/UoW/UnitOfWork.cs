@@ -13,17 +13,20 @@ namespace WebApp.DAL.UoW
         private AppointmentContext context;
         private IRepository<Doctor> _doctors;
         private IRepository<Appointment> _appointment;
+        private IRepository<Specialization> _specializations;
 
         private bool disposed = false;
 
         public IRepository<Doctor> Doctors => _doctors;
         public IRepository<Appointment> Appointments => _appointment;
+        public IRepository<Specialization> Specializations => _specializations;
 
         public UnitOfWork(string connectionString)
         {
             this.context = new AppointmentContext(connectionString);
             _doctors = new DoctorRepository(context);
             _appointment = new AppointmentRepository(context);
+            _specializations = new SpecializationRepository(context);
         }
         public void Dispose()
         {
@@ -42,7 +45,6 @@ namespace WebApp.DAL.UoW
                 this.disposed = true;
             }
         }
-
         public void Save()
         {
             context.SaveChanges();

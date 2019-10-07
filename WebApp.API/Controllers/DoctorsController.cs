@@ -22,10 +22,18 @@ namespace WebApp.API.Controllers
 
         public IEnumerable<DoctorViewModel> Get()
         {
-            var doctorsDTO = appointmentService.GetDoctors();
+            var doctorsDTO = appointmentService.GetDoctors(d => d.SpecializationId == 1);
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<DoctorDTO, DoctorViewModel>()).CreateMapper();
             var doctors = mapper.Map<IEnumerable<DoctorDTO>, IEnumerable<DoctorViewModel>>(doctorsDTO);
             return doctors;
+        }
+
+        [HttpPost]
+        public void Post([FromBody] DoctorViewModel value)
+        {
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<DoctorViewModel, DoctorDTO>()).CreateMapper();
+            var doctorDTO = mapper.Map<DoctorViewModel, DoctorDTO>(value);
+            appointmentService.AddDoctor(doctorDTO);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace WebApp.Client.DI
     public static class DiCollection
     {
         public static ServiceProvider ServiceProvider = new ServiceCollection()
-            .AddScoped<IApiServices, ApiServices>()
+            .AddScoped<IApiServices, ApiServices>(i => new ApiServices())
             .BuildServiceProvider();
     }
 }
