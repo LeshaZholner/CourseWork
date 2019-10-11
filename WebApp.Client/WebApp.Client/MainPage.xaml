@@ -6,8 +6,17 @@
              mc:Ignorable="d"
              x:Class="WebApp.Client.MainPage">
 
+    <ContentPage.BindingContext>
+        
+    </ContentPage.BindingContext>
     <StackLayout>
-       
+        <Entry Text="{Binding UserName}"
+               Placeholder="username"/>
+        <Entry Text="{Binding Password}"
+               Placeholder="password"
+               IsPassword="True"/>
+        <Button Command="{Binding LoginCommand}"
+                Text="Login"/>
     </StackLayout>
 
 </ContentPage>

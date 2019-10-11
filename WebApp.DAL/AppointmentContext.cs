@@ -16,10 +16,17 @@
         {
 
         }
-
         public virtual DbSet<Doctor> Doctors { get; set; }
         public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<Specialization> Specializations { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Doctor>()
+                .HasRequired(d => d.Specialization)
+                .WithMany(s => s.Doctors)
+                .HasForeignKey(d => d.SpecializationId);
+        }
 
     }
 }
