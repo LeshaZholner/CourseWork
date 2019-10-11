@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -48,6 +49,21 @@ namespace WebApp.Client.Services
 
             var content = await response.Content.ReadAsStringAsync();
 
+            var accessToken = JObject.Parse(content)["access_token"];
+        }
+
+        public async Task<bool> PostAppointemntAsync(Appointment appointment)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Current.Properties["Token"].ToString());
+
+            var json = JsonConvert.SerializeObject(appointment);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync("https://webappapi20191004033419.azurewebsites.net/api/appointments", content);
+            string result = await response.Content.ReadAsStringAsync();
+
+            return response.IsSuccessStatusCode;
         }
     }
 }

@@ -5,7 +5,7 @@ using WebApp.Client.Services;
 
 namespace WebApp.Client.DI
 {
-    public static class DiCollection
+    public static class Bootstrap
     {
         public static ServiceProvider ServiceProvider = new ServiceCollection()
             .AddScoped<IApiServices, ApiServices>(i => new ApiServices())

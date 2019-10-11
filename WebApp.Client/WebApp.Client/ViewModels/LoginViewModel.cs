@@ -11,7 +11,7 @@ namespace WebApp.Client.ViewModels
 {
     public class LoginViewModel
     {
-        private IApiServices apiServices = DiCollection.ServiceProvider.GetService<IApiServices>();
+        private IApiServices apiServices = Bootstrap.ServiceProvider.GetService<IApiServices>();
         public string UserName { get; set; }
         public string Password { get; set; }
 
