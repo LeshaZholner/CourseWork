@@ -28,7 +28,7 @@ namespace WebApp.Client.Services
             HttpContent content = new StringContent(json,Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync("https://webappapi20191004033419.azurewebsites.net/api/Account/Register", content);
-            string result = await response.Content.ReadAsStringAsync();
+
             return response.IsSuccessStatusCode;
         }
 
@@ -50,6 +50,8 @@ namespace WebApp.Client.Services
             var content = await response.Content.ReadAsStringAsync();
 
             var accessToken = JObject.Parse(content)["access_token"];
+
+            App.Current.Properties["access_token"] = accessToken;
         }
 
         public async Task<bool> PostAppointemntAsync(Appointment appointment)
@@ -61,7 +63,7 @@ namespace WebApp.Client.Services
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync("https://webappapi20191004033419.azurewebsites.net/api/appointments", content);
-            string result = await response.Content.ReadAsStringAsync();
+
 
             return response.IsSuccessStatusCode;
         }
