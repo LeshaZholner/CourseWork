@@ -24,7 +24,7 @@ namespace WebApp.Client.Services.AppointmentServices
         public async Task<bool> MakeAppointmentAsync(Appointment appointment)
         {
             var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Current.Properties["Token"].ToString());
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Current.Properties["access_token"].ToString());
 
             var json = JsonConvert.SerializeObject(appointment);
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");

@@ -18,7 +18,9 @@
                IsPassword="True"/>
         <Button Command="{Binding LoginCommand}"
                 Text="Login"/>
-        <Button Text="Login"
+        <Button Text="Show All Appointment"
                 Clicked="Button_Clicked"/>
+        <Button Text="Make Appointment"
+                Clicked="Button_Clicked_1"/>
     </StackLayout>
 </ContentPage>
