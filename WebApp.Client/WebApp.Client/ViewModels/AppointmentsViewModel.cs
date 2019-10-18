@@ -16,6 +16,12 @@ namespace WebApp.Client.ViewModels
     {
         private IAppointmentServices appointmentServices = Bootstrap.ServiceProvider.GetService<IAppointmentServices>();
         private List<Appointment> _appointments;
+     
+        public AppointmentsViewModel()
+        {
+            _appointments = appointmentServices.GetAppointmentAsync().Result;
+        }
+
         public List<Appointment> Appointments 
         {
             get { return _appointments; }

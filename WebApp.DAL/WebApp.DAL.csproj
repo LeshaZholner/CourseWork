@@ -69,6 +69,10 @@
     <Compile Include="Migrations\201910111325574_added specialization-to-doctors Relationships.designer.cs">
       <DependentUpon>201910111325574_added specialization-to-doctors Relationships.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910180923093_rename_appointments_numberphone.cs" />
+    <Compile Include="Migrations\201910180923093_rename_appointments_numberphone.designer.cs">
+      <DependentUpon>201910180923093_rename_appointments_numberphone.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AppointmentRepository.cs" />
@@ -91,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910111325574_added specialization-to-doctors Relationships.resx">
       <DependentUpon>201910111325574_added specialization-to-doctors Relationships.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910180923093_rename_appointments_numberphone.resx">
+      <DependentUpon>201910180923093_rename_appointments_numberphone.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

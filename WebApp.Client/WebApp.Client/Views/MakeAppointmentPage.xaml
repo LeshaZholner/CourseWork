@@ -10,14 +10,15 @@
         <viewModel:MakeAppointmentViewModel/>
     </ContentPage.BindingContext>
     <StackLayout>
-        <Entry Text="{Binding DoctorId}"
-               Placeholder="doctorid"/>
-        <Entry Text="{Binding PhoneNumber}"
-               Placeholder="phonenumber"/>
-        <Label Text="Date From"/>
-        <DatePicker Date="{Binding DateFrom}"/>
-        <Label Text="Date To"/>
-        <DatePicker Date="{Binding DateTo}"/>
+        <Picker Title="select doctor"
+                ItemsSource="{Binding Doctors}"
+                SelectedItem="{Binding SelectDoctor}"/>
+        <Label Text="Date"/>
+        <DatePicker Date="{Binding DateAppointment}"/>
+        <Label Text="Time From"/>
+        <TimePicker Time="{Binding TimeFrom}"/>
+        <Label Text="Time To"/>
+        <TimePicker Time="{Binding DateTo}"/>
         <Button Command="{Binding MakeAppointmentCommand}"
                 Text="Add new appointment"/>
 

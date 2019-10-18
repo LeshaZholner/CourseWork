@@ -8,6 +8,8 @@ using WebApp.Client.Models;
 using WebApp.Client.Services.AppointmentServices;
 using Xamarin.Forms;
 using Microsoft.Extensions.DependencyInjection;
+using System.Runtime.CompilerServices;
+using WebApp.Client.Services.DoctorServices;
 
 namespace WebApp.Client.ViewModels
 {
@@ -15,10 +17,38 @@ namespace WebApp.Client.ViewModels
     {
         public string PhoneNumber { get; set; }
         public int DoctorId { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
+        public DateTime DateAppointment { get; set; }
+        public TimeSpan TimeFrom { get; set; }
+        public TimeSpan TimeTo { get; set; }
+
+        private List<Doctor> doctors;
+        public List<Doctor> Doctors 
+        {
+            get { return doctors; }
+            set
+            {
+                doctors = value;
+                OnPropertChanged();
+            }
+        }
+
+        private Doctor selectDoctor;
+        public Doctor SelectDoctor 
+        {
+            get { return selectDoctor; }
+            set
+            {
+                selectDoctor = SelectDoctor;
+                OnPropertChanged();
+            }
+        }
 
         private IAppointmentServices appointmentServices = Bootstrap.ServiceProvider.GetService<IAppointmentServices>();
+        private IDoctorServices doctorServices = Bootstrap.ServiceProvider.GetService<IDoctorServices>();
+        public MakeAppointmentViewModel()
+        {
+            doctors = doctorServices.GetDoctorsAsync().Result;
+        }
 
         public ICommand MakeAppointmentCommand
         {
@@ -30,8 +60,9 @@ namespace WebApp.Client.ViewModels
                     {
                         DoctorId = this.DoctorId,
                         PhoneNumber = this.PhoneNumber,
-                        DateFrom = this.DateFrom,
-                        DateTo = this.DateTo
+                        DateAppointment = this.DateAppointment,
+                        TimeTo = this.TimeTo,
+                        TimeFrom = this.TimeFrom,
                     };
                     await appointmentServices.MakeAppointmentAsync(appointment);
                 });
@@ -39,5 +70,10 @@ namespace WebApp.Client.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

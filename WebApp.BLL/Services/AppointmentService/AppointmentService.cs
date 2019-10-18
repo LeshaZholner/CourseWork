@@ -34,10 +34,13 @@ namespace WebApp.BLL.Services.AppointmentService
             }
             var appointment = new Appointment
             {
-                NumberPhone = appointmentDTO.NumberPhone,
+                PhoneNumber = appointmentDTO.PhoneNumber,
                 DoctorID = appointmentDTO.DoctorID,
-                DateFrom = appointmentDTO.DateFrom,
-                DateTo = appointmentDTO.DateTo,
+                DateAppointment = appointmentDTO.DateAppointment,
+                TimeFrom = appointmentDTO.TimeFrom,
+                TimeTo = appointmentDTO.TimeTo,
+                FirstName = appointmentDTO.FirstName,
+                LastName = appointmentDTO.LastName
             };
             Database.Appointments.Create(appointment);
             Database.Save();

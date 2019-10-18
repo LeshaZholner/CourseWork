@@ -20,9 +20,9 @@ namespace WebApp.API.Controllers
             appointmentService = serv;
         }
 
-        public IEnumerable<DoctorViewModel> Get()
+        public IEnumerable<DoctorViewModel> Get(int specializationId)
         {
-            var doctorsDTO = appointmentService.GetDoctors(d => d.SpecializationId == 1);
+            var doctorsDTO = appointmentService.GetDoctors(d => d.SpecializationId == specializationId);
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<DoctorDTO, DoctorViewModel>()).CreateMapper();
             var doctors = mapper.Map<IEnumerable<DoctorDTO>, IEnumerable<DoctorViewModel>>(doctorsDTO);
             return doctors;

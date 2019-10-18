@@ -7,11 +7,8 @@
     <ContentPage.BindingContext>
         <viewModels:AppointmentsViewModel/>
     </ContentPage.BindingContext>
-    
+
     <StackLayout>
-        <Button Command="{Binding GetAppointmentsCommand}"
-                Text="Get All"/>
-        
         <ListView ItemsSource="{Binding Appointments}"
                   HasUnevenRows="True">
             <ListView.ItemTemplate>

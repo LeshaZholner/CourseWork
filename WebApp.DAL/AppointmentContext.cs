@@ -26,6 +26,11 @@
                 .HasRequired(d => d.Specialization)
                 .WithMany(s => s.Doctors)
                 .HasForeignKey(d => d.SpecializationId);
+
+            modelBuilder.Entity<Appointment>()
+                .HasRequired(d => d.Doctor)
+                .WithMany(s => s.Appointments)
+                .HasForeignKey(d => d.DoctorID);
         }
 
     }

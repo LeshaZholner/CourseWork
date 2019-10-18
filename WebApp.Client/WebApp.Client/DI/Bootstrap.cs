@@ -3,6 +3,7 @@ using System;
 using System.Text;
 using WebApp.Client.Services;
 using WebApp.Client.Services.AppointmentServices;
+using WebApp.Client.Services.DoctorServices;
 
 namespace WebApp.Client.DI
 {
@@ -11,6 +12,7 @@ namespace WebApp.Client.DI
         public static ServiceProvider ServiceProvider = new ServiceCollection()
             .AddScoped<IApiServices, ApiServices>(i => new ApiServices())
             .AddScoped<IAppointmentServices, AppointmentServices>(i => new AppointmentServices())
+            .AddScoped<IDoctorServices, DoctorServices>(i => new DoctorServices())
             .BuildServiceProvider();
     }
 }

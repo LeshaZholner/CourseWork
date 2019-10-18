@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using WebApp.Client.DI;
+using WebApp.Client.Models;
+using WebApp.Client.Services.AppointmentServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

@@ -329,9 +329,11 @@ namespace WebApp.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, LastName = model.Lastname, FirstName = model.Firstname, PhoneNumber = model.Phonenumber};
+            
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            
 
             if (!result.Succeeded)
             {
