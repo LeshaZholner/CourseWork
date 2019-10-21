@@ -11,8 +11,8 @@ namespace WebApp.BLL.Services.DoctorService
     {
         IEnumerable<DoctorDTO> GetDoctors();
         IEnumerable<DoctorDTO> GetDoctors(Func<DoctorDTO, bool> predicate);
-        DoctorDTO GetDoctor(int? id);
-        void AddDoctor(DoctorDTO doctor);
+        DoctorDTO GetDoctor(int id);
+        int AddDoctor(DoctorDTO doctor);
         void Dispose();
     }
 }

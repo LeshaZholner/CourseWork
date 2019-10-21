@@ -19,18 +19,17 @@ namespace WebApp.BLL.Services.DoctorService
             Database = uow;
         }
 
-        public DoctorDTO GetDoctor(int? id)
+        public DoctorDTO GetDoctor(int id)
         {
-            if (id == null)
-            {
-                throw new ValidationException($"Incorrect id", "");
-            }
-            var doctor = Database.Doctors.Get(id.Value);
+            var doctor = Database.Doctors.Get(id);
             if (doctor == null)
             {
-                throw new ValidationException($"Doctor {id} not found", "");
+                return null;
             }
-            return new DoctorDTO { Id = doctor.Id, FirstName = doctor.FirstName, SecondName = doctor.SecondName };
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Doctor, DoctorDTO>()).CreateMapper();
+            return mapper.Map<Doctor, DoctorDTO>(doctor);
+
+            //return new DoctorDTO { Id = doctor.Id, FirstName = doctor.FirstName, SecondName = doctor.SecondName, PhoneNumber = doctor.PhoneNumber, SpecializationId = doctor.SpecializationId };
         }
 
         public IEnumerable<DoctorDTO> GetDoctors()
@@ -43,11 +42,10 @@ namespace WebApp.BLL.Services.DoctorService
         {
             return GetDoctors().Where(predicate);
         }
-        public void AddDoctor(DoctorDTO doctor)
+        public int AddDoctor(DoctorDTO doctor)
         {
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<DoctorDTO, Doctor>()).CreateMapper();
-            Database.Doctors.Create(mapper.Map<DoctorDTO, Doctor>(doctor));
-            Database.Save();
+            return Database.Doctors.Create(mapper.Map<DoctorDTO, Doctor>(doctor));
         }
 
         public void Dispose()

@@ -25,7 +25,7 @@ namespace WebApp.BLL.Services.AppointmentService
             Database.Dispose();
         }
 
-        public void MakeAppointment(AppointmentDTO appointmentDTO)
+        public int MakeAppointment(AppointmentDTO appointmentDTO)
         {
             var doctor = Database.Doctors.Get(appointmentDTO.DoctorID);
             if (doctor == null)
@@ -42,8 +42,7 @@ namespace WebApp.BLL.Services.AppointmentService
                 FirstName = appointmentDTO.FirstName,
                 LastName = appointmentDTO.LastName
             };
-            Database.Appointments.Create(appointment);
-            Database.Save();
+            return Database.Appointments.Create(appointment);
         }
 
         public IEnumerable<AppointmentDTO> GetAppointments()

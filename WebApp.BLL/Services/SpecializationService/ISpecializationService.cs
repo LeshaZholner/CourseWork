@@ -12,8 +12,8 @@ namespace WebApp.BLL.Services.SpecializationService
     {
         IEnumerable<SpecializationDTO> GetSpecializations();
         IEnumerable<SpecializationDTO> GetSpecializations(Func<SpecializationDTO, bool> predicate);
-        SpecializationDTO GetSpecialization(int? id);
-        void AddSpecialization(SpecializationDTO specialization);
+        SpecializationDTO GetSpecialization(int id);
+        int AddSpecialization(SpecializationDTO specialization);
         void Dispose();
     }
 }

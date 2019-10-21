@@ -29,11 +29,17 @@ namespace WebApp.API.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] DoctorViewModel value)
+        public IHttpActionResult Post([FromBody] DoctorCreateViewModel value)
         {
-            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<DoctorViewModel, DoctorDTO>()).CreateMapper();
-            var doctorDTO = mapper.Map<DoctorViewModel, DoctorDTO>(value);
-            appointmentService.AddDoctor(doctorDTO);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<DoctorCreateViewModel, DoctorDTO>()).CreateMapper();
+            var doctorDTO = mapper.Map<DoctorCreateViewModel, DoctorDTO>(value);
+            var id = appointmentService.AddDoctor(doctorDTO);
+
+            return CreatedAtRoute("DefaultApi", new { id }, value);
         }
     }
 }

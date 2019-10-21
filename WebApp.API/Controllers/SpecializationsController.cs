@@ -25,10 +25,17 @@ namespace WebApp.API.Controllers
             return mapper.Map<IEnumerable<SpecializationDTO>, List<SpecializationViewModel>>(specializationService.GetSpecializations());
         }
 
-        public void Post([FromBody]SpecializationViewModel value)
+        public IHttpActionResult Post([FromBody]SpecializationCreateViewModel value)
         {
-            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<SpecializationViewModel, SpecializationDTO>()).CreateMapper();
-            specializationService.AddSpecialization(mapper.Map<SpecializationViewModel, SpecializationDTO>(value));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<SpecializationCreateViewModel, SpecializationDTO>()).CreateMapper();
+            var id = specializationService.AddSpecialization(mapper.Map<SpecializationCreateViewModel, SpecializationDTO>(value));
+
+            return CreatedAtRoute("DefaultApi", new { id }, value);
         }
     }
 }

@@ -49,14 +49,15 @@ namespace WebApp.API.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
         [Display(Name = "firstname")]
         public string Firstname { get; set; }
 
-
+        [Required]
         [Display(Name = "lastname")]
         public string Lastname { get; set; }
 
-
+        [Required]
         [Display(Name = "phonenumber")]
         public string Phonenumber { get; set; }
     }

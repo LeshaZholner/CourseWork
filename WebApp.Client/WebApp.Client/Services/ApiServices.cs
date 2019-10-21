@@ -20,14 +20,17 @@ namespace WebApp.Client.Services
             {
                 Email = email,
                 Password = password,
-                ConfirmPassword = confirmPassword
+                ConfirmPassword = confirmPassword,
+                FirstName = "Fn",
+                LastName = "Ln",
+                PhoneNumber = "789456"
             };
 
             var json = JsonConvert.SerializeObject(model);
 
             HttpContent content = new StringContent(json,Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync("https://webappapi20191004033419.azurewebsites.net/api/Account/Register", content);
+            var response = await client.PostAsync("https://webappapi20191021021236.azurewebsites.net/api/Account/Register", content);
 
             return response.IsSuccessStatusCode;
         }
@@ -41,7 +44,7 @@ namespace WebApp.Client.Services
                 new KeyValuePair<string, string>("grant_type", "password")
             };
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://webappapi20191004033419.azurewebsites.net/Token");
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://webappapi20191021021236.azurewebsites.net/Token");
             request.Content = new FormUrlEncodedContent(key);
 
             var client = new HttpClient();

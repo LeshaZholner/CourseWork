@@ -15,9 +15,11 @@ namespace WebApp.DAL.Repositories
         {
             this.context = context;
         }
-        public void Create(Appointment item)
+        public int Create(Appointment item)
         {
-            context.Appointments.Add(item);
+            var appointmentEntity = context.Appointments.Add(item);
+            context.SaveChanges();
+            return appointmentEntity.Id;
         }
 
         public void Delete(int id)
@@ -33,8 +35,7 @@ namespace WebApp.DAL.Repositories
 
         public Appointment Get(int id)
         {
-            var item = context.Appointments.Find(id);
-            return item != null ? item : throw new Exception($"Appointment ${id} not found");
+            return context.Appointments.Find(id);
         }
 
         public IEnumerable<Appointment> GetAll()

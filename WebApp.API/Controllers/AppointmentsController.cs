@@ -21,11 +21,17 @@ namespace WebApp.API.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] AppointmentViewModel value)
+        public IHttpActionResult Post([FromBody] AppointmentCreateViewModel value)
         {
-            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<AppointmentViewModel, AppointmentDTO>()).CreateMapper();
-            var appointmentDTO = mapper.Map<AppointmentViewModel, AppointmentDTO>(value);
-            appointmentService.MakeAppointment(appointmentDTO);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<AppointmentCreateViewModel, AppointmentDTO>()).CreateMapper();
+            var appointmentDTO = mapper.Map<AppointmentCreateViewModel, AppointmentDTO>(value);
+            var id = appointmentService.MakeAppointment(appointmentDTO);
+
+            return CreatedAtRoute("DefaultApi", new { id }, value);
         }
 
         public IEnumerable<AppointmentViewModel> Get()

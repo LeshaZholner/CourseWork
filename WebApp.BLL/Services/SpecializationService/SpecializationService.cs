@@ -35,26 +35,21 @@ namespace WebApp.BLL.Services.SpecializationService
             return GetSpecializations().Where(predicate);
         }
 
-        public SpecializationDTO GetSpecialization(int? id)
+        public SpecializationDTO GetSpecialization(int id)
         {
-            if (id == null)
-            {
-                throw new ValidationException($"Incorrect id", "");
-            }
-            var specialization = Database.Specializations.Get(id.Value);
+            var specialization = Database.Specializations.Get(id);
             if (specialization == null)
             {
-                throw new ValidationException($"specialization {id} not found", "");
+                return null;
             }
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Specialization, SpecializationDTO>()).CreateMapper();
-            return mapper.Map<Specialization, SpecializationDTO>(Database.Specializations.Get(id.Value));
+            return mapper.Map<Specialization, SpecializationDTO>(Database.Specializations.Get(id));
         }
 
-        public void AddSpecialization(SpecializationDTO specialization)
+        public int AddSpecialization(SpecializationDTO specialization)
         {
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<SpecializationDTO, Specialization>()).CreateMapper();
-            Database.Specializations.Create(mapper.Map<SpecializationDTO, Specialization>(specialization));
-            Database.Save();
+            return Database.Specializations.Create(mapper.Map<SpecializationDTO, Specialization>(specialization));
         }
     }
 }

@@ -15,9 +15,11 @@ namespace WebApp.DAL.Repositories
         {
             this.context = context;
         }
-        public void Create(Specialization item)
+        public int Create(Specialization item)
         {
-            context.Specializations.Add(item);
+            var specializationEntity = context.Specializations.Add(item);
+            context.SaveChanges();
+            return specializationEntity.Id;
         }
 
         public void Delete(int id)
@@ -33,8 +35,7 @@ namespace WebApp.DAL.Repositories
 
         public Specialization Get(int id)
         {
-            var spec = context.Specializations.Find(id);
-            return spec != null ? spec : throw new Exception($"Specialization {id} not found!"); 
+            return context.Specializations.Find(id); 
         }
 
         public IEnumerable<Specialization> GetAll()

@@ -16,9 +16,12 @@ namespace WebApp.DAL.Repositories
             this.context = context;
         }
 
-        public void Create(Doctor item)
+        public int Create(Doctor item)
         {
-            context.Doctors.Add(item);
+            var doctorentity = context.Doctors.Add(item);
+            context.SaveChanges();
+
+            return doctorentity.Id;
         }
 
         public void Delete(int id)
@@ -34,8 +37,7 @@ namespace WebApp.DAL.Repositories
 
         public Doctor Get(int id)
         {
-            var item = context.Doctors.Find(id);
-            return item != null ? item : throw new Exception($"Doctor {id} not found");  
+            return context.Doctors.Find(id);
         }
 
         public IEnumerable<Doctor> GetAll()
