@@ -19,7 +19,18 @@ namespace WebApp.API.Controllers
             specializationService = serv;
         }
 
-        public IEnumerable<SpecializationViewModel> Get()
+        public IHttpActionResult Get(int id)
+        {
+            var specialization = specializationService.GetSpecialization(id);
+            if (specialization == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(specialization);
+        }
+
+        public IEnumerable<SpecializationViewModel> GetSpecialization()
         {
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<SpecializationDTO, SpecializationViewModel>()).CreateMapper();
             return mapper.Map<IEnumerable<SpecializationDTO>, List<SpecializationViewModel>>(specializationService.GetSpecializations());

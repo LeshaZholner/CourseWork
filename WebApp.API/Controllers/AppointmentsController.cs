@@ -34,7 +34,18 @@ namespace WebApp.API.Controllers
             return CreatedAtRoute("DefaultApi", new { id }, value);
         }
 
-        public IEnumerable<AppointmentViewModel> Get()
+        public IHttpActionResult Get(int id)
+        {
+            var appointment = appointmentService.GetAppointment(id);
+            if(appointment == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(appointment);
+        }
+
+        public IEnumerable<AppointmentViewModel> GetAppointments()
         {
             var appointmentDTO = appointmentService.GetAppointments();
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<AppointmentDTO, AppointmentViewModel>()).CreateMapper();

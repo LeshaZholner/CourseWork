@@ -13,16 +13,27 @@ namespace WebApp.API.Controllers
     [Authorize]
     public class DoctorsController : ApiController
     {
-        IDoctorService appointmentService;
+        IDoctorService doctorService;
 
         public DoctorsController(IDoctorService serv)
         {
-            appointmentService = serv;
+            doctorService = serv;
         }
 
-        public IEnumerable<DoctorViewModel> Get(int specializationId)
+        public IHttpActionResult Get(int id)
         {
-            var doctorsDTO = appointmentService.GetDoctors(d => d.SpecializationId == specializationId);
+            var doctor = doctorService.GetDoctor(id);
+            if (doctor == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(doctor);
+        }
+
+        public IEnumerable<DoctorViewModel> GetDoctors(int specializationId)
+        {
+            var doctorsDTO = doctorService.GetDoctors(d => d.SpecializationId == specializationId);
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<DoctorDTO, DoctorViewModel>()).CreateMapper();
             var doctors = mapper.Map<IEnumerable<DoctorDTO>, IEnumerable<DoctorViewModel>>(doctorsDTO);
             return doctors;
@@ -37,7 +48,7 @@ namespace WebApp.API.Controllers
             }
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<DoctorCreateViewModel, DoctorDTO>()).CreateMapper();
             var doctorDTO = mapper.Map<DoctorCreateViewModel, DoctorDTO>(value);
-            var id = appointmentService.AddDoctor(doctorDTO);
+            var id = doctorService.AddDoctor(doctorDTO);
 
             return CreatedAtRoute("DefaultApi", new { id }, value);
         }

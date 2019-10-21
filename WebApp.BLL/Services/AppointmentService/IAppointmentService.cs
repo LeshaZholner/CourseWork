@@ -11,6 +11,7 @@ namespace WebApp.BLL.Services.AppointmentService
     {
         int MakeAppointment(AppointmentDTO appointmentDTO);
         IEnumerable<AppointmentDTO> GetAppointments();
+        AppointmentDTO GetAppointment(int id);
         void Dispose();
     }
 }
