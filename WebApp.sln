@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.API", "WebApp.API\We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Client.Android", "WebApp.Client\WebApp.Client.Android\WebApp.Client.Android.csproj", "{37AE3E56-8056-4142-B300-6D05066A0E28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Client", "WebApp.Client\WebApp.Client\WebApp.Client.csproj", "{42EBE5A5-B44F-4F95-8EF7-919C2EC68B66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp.Client", "WebApp.Client\WebApp.Client\WebApp.Client.csproj", "{42EBE5A5-B44F-4F95-8EF7-919C2EC68B66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Admin", "WebApp.Admin\WebApp.Admin.csproj", "{90AEDED7-BA21-4745-8F38-2642425E46B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{42EBE5A5-B44F-4F95-8EF7-919C2EC68B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42EBE5A5-B44F-4F95-8EF7-919C2EC68B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42EBE5A5-B44F-4F95-8EF7-919C2EC68B66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90AEDED7-BA21-4745-8F38-2642425E46B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90AEDED7-BA21-4745-8F38-2642425E46B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90AEDED7-BA21-4745-8F38-2642425E46B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90AEDED7-BA21-4745-8F38-2642425E46B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
