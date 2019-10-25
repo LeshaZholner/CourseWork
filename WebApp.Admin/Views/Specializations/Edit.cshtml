@@ -1,4 +1,4 @@
-﻿@model WebApp.Admin.Entities.Specialization
+﻿@model WebApp.Admin.Models.Specializations.Specialization
 
 @{
     ViewBag.Title = "Edit";
@@ -34,7 +34,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", routeValues: null, htmlAttributes: new { @class = "btn btn-sm btn-primary", @role = "button" })
 </div>
 
 @section Scripts {

@@ -3,7 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using WebApp.Admin.Entities;
+using WebApp.Admin.Models.Doctors;
+using WebApp.Admin.Models.Specializations;
 
 namespace WebApp.Admin.Models
 {
@@ -39,8 +40,8 @@ namespace WebApp.Admin.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<WebApp.Admin.Entities.Specialization> Specializations { get; set; }
+        public System.Data.Entity.DbSet<Specialization> Specializations { get; set; }
 
-        public System.Data.Entity.DbSet<WebApp.Admin.Entities.Doctor> Doctors { get; set; }
+        public System.Data.Entity.DbSet<Doctor> Doctors { get; set; }
     }
 }

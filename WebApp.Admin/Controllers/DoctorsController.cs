@@ -6,8 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using WebApp.Admin.Entities;
 using WebApp.Admin.Models;
+using WebApp.Admin.Models.Doctors;
 
 namespace WebApp.Admin.Controllers
 {

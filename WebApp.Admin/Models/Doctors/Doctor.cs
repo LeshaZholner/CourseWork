@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using WebApp.Admin.Models.Specializations;
 
-namespace WebApp.Admin.Entities
+namespace WebApp.Admin.Models.Doctors
 {
     public class Doctor
     {
         public int Id { get; set; }
+        [Required]
         public int SpecializationId { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string SecondName { get; set; }
+        [Required]
         public string PhoneNumber { get; set; }
         public virtual Specialization Specialization { get; set; }
-        
+
     }
 }
