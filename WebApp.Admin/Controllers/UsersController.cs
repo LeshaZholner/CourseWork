@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WebApp.Admin.Entities;
 using WebApp.Admin.Models;
 
 namespace WebApp.Admin.Controllers
@@ -14,18 +16,19 @@ namespace WebApp.Admin.Controllers
     [Authorize]
     public class UsersController : Controller
     {
-        //private ApplicationDbContext db = new ApplicationDbContext();
-        private UserManager<User> _userManager;
-       
-        public UsersController(UserManager<User> userManager)
+        private UserManager<ApplicationUser> _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
+        public UsersController()
         {
-            _userManager = userManager;
+            //_userManager = userManager;
+            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
 
         // GET: AspNetUsers
         public ActionResult Index()
         {
-            return View(_userManager.Users.ToList());
+            var users = _userManager.Users.ToList();
+            return View(users);
         }
 
         // GET: AspNetUsers/Create
@@ -43,7 +46,7 @@ namespace WebApp.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User()
+                var user = new ApplicationUser()
                 {
                     Email = model.Email,
                     LastName = model.LastName,

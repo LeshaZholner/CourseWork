@@ -175,38 +175,16 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SpecializationsController.cs" />
+    <Compile Include="Entities\Doctor.cs" />
+    <Compile Include="Entities\Specialization.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AppointmentDb.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppointmentDb.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AppointmentDb.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppointmentDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AppointmentDb.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppointmentDb.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\CreateUserViewModel.cs" />
-    <Compile Include="Models\Doctor.cs">
-      <DependentUpon>AppointmentDb.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\EditUserViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Specialization.cs">
-      <DependentUpon>AppointmentDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>AppointmentDb.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -219,25 +197,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\AppointmentDb.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AppointmentDb.edmx</DependentUpon>
-      <LastGenOutput>AppointmentDb.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\AppointmentDb.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AppointmentDb.edmx</DependentUpon>
-      <LastGenOutput>AppointmentDb.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\AppointmentDb.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AppointmentDb.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\AppointmentDb.edmx.diagram">
-      <DependentUpon>AppointmentDb.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
