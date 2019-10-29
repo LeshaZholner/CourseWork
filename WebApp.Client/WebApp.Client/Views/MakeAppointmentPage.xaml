@@ -5,16 +5,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="clr-namespace:WebApp.Client.ViewModels"
              mc:Ignorable="d"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              x:Class="WebApp.Client.Views.MakeAppointmentPage">
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <viewModel:MakeAppointmentViewModel/>
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
     <StackLayout>
         <Picker Title="select doctor"
                 ItemsSource="{Binding Doctors}"
+                ItemDisplayBinding="{Binding FirstName}"
                 SelectedItem="{Binding SelectDoctor}"/>
         <Label Text="Date"/>
-        <DatePicker Date="{Binding DateAppointment}"/>
+        <DatePicker Date="{Binding DateAppointment}"
+                    MinimumDate="{x:Static system:DateTime.Today}"/>
         <Label Text="Time From"/>
         <TimePicker Time="{Binding TimeFrom}"/>
         <Label Text="Time To"/>

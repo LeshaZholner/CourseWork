@@ -16,7 +16,7 @@ namespace WebApp.Client.Services.DoctorServices
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Current.Properties["access_token"].ToString());
 
-            var response = await client.GetAsync("https://webappapi20191021021236.azurewebsites.net/api/doctors");
+            var response = await client.GetAsync("https://lesha-zholner-webappapi.azurewebsites.net/api/doctors/getdoctorsbyspecializationId");
             var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<Doctor>>(content);
         }

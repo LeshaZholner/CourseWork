@@ -4,11 +4,13 @@
              xmlns:viewModels="clr-namespace:WebApp.Client.ViewModels"
              x:Class="WebApp.Client.Views.AppointmentsPage">
 
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <viewModels:AppointmentsViewModel/>
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
 
     <StackLayout>
+        <Button Command="{Binding MakeAppointmentCommand}" 
+                Text="Add"/>
         <ListView ItemsSource="{Binding Appointments}"
                   HasUnevenRows="True">
             <ListView.ItemTemplate>
@@ -16,8 +18,9 @@
                     <ViewCell>
                         <StackLayout>
                             <Label Text="{Binding PhoneNumber}"/>
-                            <Label Text="{Binding DateFrom}"/>
-                            <Label Text="{Binding DateTo}"/>
+                            <Label Text="{Binding DateAppointment}"/>
+                            <Label Text="{Binding TimeFrom}"/>
+                            <Label Text="{Binding TimeTo}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

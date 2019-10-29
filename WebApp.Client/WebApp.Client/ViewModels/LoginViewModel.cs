@@ -6,6 +6,7 @@ using WebApp.Client.DI;
 using WebApp.Client.Services;
 using Xamarin.Forms;
 using Microsoft.Extensions.DependencyInjection;
+using WebApp.Client.Views;
 
 namespace WebApp.Client.ViewModels
 {
@@ -20,7 +21,23 @@ namespace WebApp.Client.ViewModels
             get
             {
                 return new Command(async () => {
-                   await apiServices.LoginUserAsync(UserName, Password);
+
+                    var isSucces = await apiServices.LoginUserAsync(UserName, Password);
+                    if (isSucces)
+                    {
+                        await Application.Current.MainPage.Navigation.PushAsync(new AppointmentsPage());
+                    }
+                });
+            }
+        }
+
+        public ICommand RegisterCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
                 });
             }
         }

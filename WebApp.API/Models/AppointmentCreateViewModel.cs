@@ -10,6 +10,7 @@ namespace WebApp.API.Models
     {
         [Required]
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Invalid Phone number")]
         public string PhoneNumber { get; set; }
         [Required]
         public string FirstName { get; set; }

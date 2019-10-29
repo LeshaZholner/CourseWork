@@ -32,6 +32,11 @@
             modelBuilder.Entity<Doctor>().Property(d => d.SpecializationId).IsRequired();
             modelBuilder.Entity<Doctor>().Property(d => d.PhoneNumber).IsRequired();
 
+            modelBuilder.Entity<Appointment>()
+                .HasRequired(d => d.Doctor)
+                .WithMany(s => s.Appointments)
+                .HasForeignKey(d => d.DoctorID);
+
             modelBuilder.Entity<Appointment>().Property(a => a.FirstName).IsRequired();
             modelBuilder.Entity<Appointment>().Property(a => a.LastName).IsRequired();
             modelBuilder.Entity<Appointment>().Property(a => a.PhoneNumber).IsRequired();
@@ -42,10 +47,7 @@
             modelBuilder.Entity<Specialization>().Property(a => a.Name).IsRequired();
 
 
-            modelBuilder.Entity<Appointment>()
-                .HasRequired(d => d.Doctor)
-                .WithMany(s => s.Appointments)
-                .HasForeignKey(d => d.DoctorID);
+            
         }
 
     }

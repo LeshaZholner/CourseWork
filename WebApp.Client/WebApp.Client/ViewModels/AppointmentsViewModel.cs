@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using WebApp.Client.Views;
 
 namespace WebApp.Client.ViewModels
 {
@@ -17,9 +18,9 @@ namespace WebApp.Client.ViewModels
         private IAppointmentServices appointmentServices = Bootstrap.ServiceProvider.GetService<IAppointmentServices>();
         private List<Appointment> _appointments;
      
-        public AppointmentsViewModel()
+        public AppointmentsViewModel(List<Appointment> appointments)
         {
-            _appointments = appointmentServices.GetAppointmentAsync().Result;
+            _appointments = appointments;
         }
 
         public List<Appointment> Appointments 
@@ -37,6 +38,16 @@ namespace WebApp.Client.ViewModels
             {
                 return new Command(async () => {
                     Appointments = await appointmentServices.GetAppointmentAsync();
+                });
+            }
+        }
+
+        public ICommand MakeAppointmentCommand
+        {
+            get
+            {
+                return new Command(async () => {
+                    await Application.Current.MainPage.Navigation.PushAsync(new MakeAppointmentPage());
                 });
             }
         }

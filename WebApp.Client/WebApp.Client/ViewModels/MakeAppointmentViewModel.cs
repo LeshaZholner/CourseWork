@@ -15,7 +15,6 @@ namespace WebApp.Client.ViewModels
 {
     public class MakeAppointmentViewModel : INotifyPropertyChanged
     {
-        public string PhoneNumber { get; set; }
         public int DoctorId { get; set; }
         public DateTime DateAppointment { get; set; }
         public TimeSpan TimeFrom { get; set; }
@@ -38,16 +37,46 @@ namespace WebApp.Client.ViewModels
             get { return selectDoctor; }
             set
             {
-                selectDoctor = SelectDoctor;
+                selectDoctor = value;
                 OnPropertChanged();
             }
         }
 
         private IAppointmentServices appointmentServices = Bootstrap.ServiceProvider.GetService<IAppointmentServices>();
         private IDoctorServices doctorServices = Bootstrap.ServiceProvider.GetService<IDoctorServices>();
-        public MakeAppointmentViewModel()
+        public MakeAppointmentViewModel(List<Doctor> doctors)
         {
-            doctors = doctorServices.GetDoctorsAsync().Result;
+            this.doctors = doctors;
+            //doctors = new List<Doctor>()
+            //{
+            //    new Doctor()
+            //    {
+            //        Id = 4,
+            //        FirstName = "vrach1",
+            //        SecondName = "secondName2",
+            //        PhoneNumber = "888-888",
+            //        SpecializationId = 1,
+                    
+            //    },
+            //    new Doctor()
+            //    {
+            //        Id = 5,
+            //        FirstName = "vrach2",
+            //        SecondName = "secondName2",
+            //        PhoneNumber = "888-888",
+            //        SpecializationId = 2,
+
+            //    },
+            //    new Doctor()
+            //    {
+            //        Id = 6,
+            //        FirstName = "vrach3",
+            //        SecondName = "secondName2",
+            //        PhoneNumber = "888-888",
+            //        SpecializationId = 1,
+
+            //    }
+            //};
         }
 
         public ICommand MakeAppointmentCommand
@@ -58,11 +87,13 @@ namespace WebApp.Client.ViewModels
                 {
                     var appointment = new Appointment()
                     {
-                        DoctorId = this.DoctorId,
-                        PhoneNumber = this.PhoneNumber,
+                        DoctorId = selectDoctor.Id,
+                        PhoneNumber = "777-777-8888",
                         DateAppointment = this.DateAppointment,
                         TimeTo = this.TimeTo,
                         TimeFrom = this.TimeFrom,
+                        FirstName = "FN",
+                        LastName = "LN"
                     };
                     await appointmentServices.MakeAppointmentAsync(appointment);
                 });

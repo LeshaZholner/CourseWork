@@ -12,7 +12,7 @@ namespace WebApp.Client
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new RegisterPage());
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()

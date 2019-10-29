@@ -16,7 +16,7 @@ namespace WebApp.Client.Services.AppointmentServices
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Current.Properties["access_token"].ToString());
 
-            var response = await client.GetAsync("https://webappapi20191021021236.azurewebsites.net/api/appointments");
+            var response = await client.GetAsync("https://lesha-zholner-webappapi.azurewebsites.net/api/appointments");
             var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<Appointment>>(content);
         }
@@ -29,7 +29,7 @@ namespace WebApp.Client.Services.AppointmentServices
             var json = JsonConvert.SerializeObject(appointment);
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync("https://webappapi20191021021236.azurewebsites.net/api/appointments", content);
+            var response = await client.PostAsync("https://lesha-zholner-webappapi.azurewebsites.net/api/appointments", content);
 
             return response.IsSuccessStatusCode;
         }

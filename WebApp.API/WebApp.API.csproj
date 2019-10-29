@@ -236,7 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\WebAppAPI20191021021236 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Lesha-Zholner-WebAppAPI - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebApp.BLL\WebApp.BLL.csproj">

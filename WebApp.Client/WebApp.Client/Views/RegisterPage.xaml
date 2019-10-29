@@ -18,9 +18,15 @@
         <Entry Text="{Binding ConfirmPassword}"
                Placeholder="confirm password"
                IsPassword="True"/>
+        <Entry Text="{Binding FirstName}"
+               Placeholder="firstname"/>
+        <Entry Text="{Binding LastName}"
+               Placeholder="lastname"/>
+        <Entry Text="{Binding PhoneNumber}"
+               Placeholder="phonenumber"/>
         <Button Command="{Binding RegisterCommand}"
                 Text="Register"/>
-        <Button Text="Login"
-                Clicked="Button_Clicked"/>
+        <Button Command="{Binding LoginCommand}"
+                Text="Login"/>
     </StackLayout>
 </ContentPage>

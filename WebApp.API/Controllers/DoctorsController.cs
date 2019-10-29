@@ -31,9 +31,11 @@ namespace WebApp.API.Controllers
             return Ok(doctor);
         }
 
-        public IEnumerable<DoctorViewModel> GetDoctors(int specializationId)
+        [Route("api/doctors/getdoctorsbyspecializationId")]
+        [HttpGet]
+        public IEnumerable<DoctorViewModel> GetDoctors(int? specializationId = 0)
         {
-            var doctorsDTO = doctorService.GetDoctors(d => d.SpecializationId == specializationId);
+            var doctorsDTO = specializationId != 0 ? doctorService.GetDoctors(d => d.SpecializationId == specializationId) : doctorService.GetDoctors();
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<DoctorDTO, DoctorViewModel>()).CreateMapper();
             var doctors = mapper.Map<IEnumerable<DoctorDTO>, IEnumerable<DoctorViewModel>>(doctorsDTO);
             return doctors;

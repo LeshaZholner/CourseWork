@@ -12,30 +12,20 @@ namespace WebApp.Client.Services
 {
     public class ApiServices : IApiServices
     {
-        public async Task<bool> RegisterAsync(string email, string password, string confirmPassword)
+        public async Task<bool> RegisterAsync(RegisterBindingModel model)
         {
             var client = new HttpClient();
 
-            var model = new RegisterBindingModel()
-            {
-                Email = email,
-                Password = password,
-                ConfirmPassword = confirmPassword,
-                FirstName = "Fn",
-                LastName = "Ln",
-                PhoneNumber = "789456"
-            };
-
             var json = JsonConvert.SerializeObject(model);
 
-            HttpContent content = new StringContent(json,Encoding.UTF8, "application/json");
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync("https://webappapi20191021021236.azurewebsites.net/api/Account/Register", content);
+            var response = await client.PostAsync("https://lesha-zholner-webappapi.azurewebsites.net/api/Account/Register", content);
 
             return response.IsSuccessStatusCode;
         }
 
-        public async Task LoginUserAsync(string username, string password)
+        public async Task<bool> LoginUserAsync(string username, string password)
         {
             var key = new List<KeyValuePair<string, string>>
             {
@@ -44,7 +34,7 @@ namespace WebApp.Client.Services
                 new KeyValuePair<string, string>("grant_type", "password")
             };
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://webappapi20191021021236.azurewebsites.net/Token");
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://lesha-zholner-webappapi.azurewebsites.net/Token");
             request.Content = new FormUrlEncodedContent(key);
 
             var client = new HttpClient();
@@ -54,6 +44,7 @@ namespace WebApp.Client.Services
 
             var token = JsonConvert.DeserializeObject<JwtToken>(content);
             App.Current.Properties["access_token"] = token.AccessToken;
+            return response.IsSuccessStatusCode;
         }
     }
 }
