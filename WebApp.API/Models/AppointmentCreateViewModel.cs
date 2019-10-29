@@ -9,6 +9,7 @@ namespace WebApp.API.Models
     public class AppointmentCreateViewModel
     {
         [Required]
+        [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
         [Required]
         public string FirstName { get; set; }

@@ -11,6 +11,7 @@ namespace WebApp.API.Models
         [Required]
         public string SecondName { get; set; }
         [Required]
+        [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
     }
 }

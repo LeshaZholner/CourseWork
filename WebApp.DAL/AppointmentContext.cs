@@ -28,6 +28,19 @@
                 .HasForeignKey(d => d.SpecializationId);
 
             modelBuilder.Entity<Doctor>().Property(d => d.FirstName).IsRequired();
+            modelBuilder.Entity<Doctor>().Property(d => d.SecondName).IsRequired();
+            modelBuilder.Entity<Doctor>().Property(d => d.SpecializationId).IsRequired();
+            modelBuilder.Entity<Doctor>().Property(d => d.PhoneNumber).IsRequired();
+
+            modelBuilder.Entity<Appointment>().Property(a => a.FirstName).IsRequired();
+            modelBuilder.Entity<Appointment>().Property(a => a.LastName).IsRequired();
+            modelBuilder.Entity<Appointment>().Property(a => a.PhoneNumber).IsRequired();
+            modelBuilder.Entity<Appointment>().Property(a => a.DateAppointment).IsRequired();
+            modelBuilder.Entity<Appointment>().Property(a => a.TimeFrom).IsRequired();
+            modelBuilder.Entity<Appointment>().Property(a => a.TimeTo).IsRequired();
+
+            modelBuilder.Entity<Specialization>().Property(a => a.Name).IsRequired();
+
 
             modelBuilder.Entity<Appointment>()
                 .HasRequired(d => d.Doctor)

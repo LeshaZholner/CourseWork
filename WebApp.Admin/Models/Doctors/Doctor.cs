@@ -13,6 +13,7 @@ namespace WebApp.Admin.Models.Doctors
         [Required]
         public string SecondName { get; set; }
         [Required]
+        [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
         public virtual Specialization Specialization { get; set; }
 
