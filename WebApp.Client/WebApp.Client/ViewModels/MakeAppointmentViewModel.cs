@@ -16,7 +16,7 @@ namespace WebApp.Client.ViewModels
     public class MakeAppointmentViewModel : INotifyPropertyChanged
     {
         public int DoctorId { get; set; }
-        public DateTime DateAppointment { get; set; }
+        public DateTime DateAppointment { get; set; } = DateTime.Now;
         public TimeSpan TimeFrom { get; set; }
         public TimeSpan TimeTo { get; set; }
 
@@ -47,36 +47,6 @@ namespace WebApp.Client.ViewModels
         public MakeAppointmentViewModel(List<Doctor> doctors)
         {
             this.doctors = doctors;
-            //doctors = new List<Doctor>()
-            //{
-            //    new Doctor()
-            //    {
-            //        Id = 4,
-            //        FirstName = "vrach1",
-            //        SecondName = "secondName2",
-            //        PhoneNumber = "888-888",
-            //        SpecializationId = 1,
-                    
-            //    },
-            //    new Doctor()
-            //    {
-            //        Id = 5,
-            //        FirstName = "vrach2",
-            //        SecondName = "secondName2",
-            //        PhoneNumber = "888-888",
-            //        SpecializationId = 2,
-
-            //    },
-            //    new Doctor()
-            //    {
-            //        Id = 6,
-            //        FirstName = "vrach3",
-            //        SecondName = "secondName2",
-            //        PhoneNumber = "888-888",
-            //        SpecializationId = 1,
-
-            //    }
-            //};
         }
 
         public ICommand MakeAppointmentCommand

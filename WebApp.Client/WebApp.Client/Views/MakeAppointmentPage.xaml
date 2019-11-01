@@ -21,7 +21,7 @@
         <Label Text="Time From"/>
         <TimePicker Time="{Binding TimeFrom}"/>
         <Label Text="Time To"/>
-        <TimePicker Time="{Binding DateTo}"/>
+        <TimePicker Time="{Binding TimeTo}"/>
         <Button Command="{Binding MakeAppointmentCommand}"
                 Text="Add new appointment"/>
 

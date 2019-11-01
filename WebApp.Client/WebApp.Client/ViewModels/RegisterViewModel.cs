@@ -17,6 +17,12 @@ namespace WebApp.Client.ViewModels
         private IApiServices apiServices = Bootstrap.ServiceProvider.GetService<IApiServices>();
 
         private RegisterBindingModel registerModel;
+        private bool isEmailValid;
+        private bool isPasswordValid;
+        private bool isConfirmPasswordValid;
+        private bool isFirstNameValid;
+        private bool isLastNameValid;
+        private bool isPhonenumberValid;
 
         public RegisterViewModel()
         {
@@ -99,6 +105,32 @@ namespace WebApp.Client.ViewModels
             }
         }
 
+        public bool IsEmailValid
+        {
+            get { return isEmailValid; }
+            set
+            {
+                if (isEmailValid != value)
+                {
+                    isEmailValid = value;
+                    OnPropertyChanged("IsEmailValid");
+                }
+            }
+        }
+
+        public bool IsPaswordValid
+        {
+            get { return isEmailValid; }
+            set
+            {
+                if (isEmailValid != value)
+                {
+                    isEmailValid = value;
+                    OnPropertyChanged("IsEmailValid");
+                }
+            }
+        }
+
 
         public ICommand RegisterCommand
         {
@@ -130,8 +162,7 @@ namespace WebApp.Client.ViewModels
 
         protected void OnPropertyChanged(string propName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
     }
 }

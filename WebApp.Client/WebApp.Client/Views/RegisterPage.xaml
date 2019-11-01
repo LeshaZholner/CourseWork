@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:WebApp.Client.Behaviors"
              mc:Ignorable="d"
              x:Class="WebApp.Client.Views.RegisterPage"
              xmlns:vm="clr-namespace:WebApp.Client.ViewModels">
@@ -11,19 +12,44 @@
     </ContentPage.BindingContext>
     <StackLayout Orientation="Vertical">
         <Entry Text="{Binding Email}"
-               Placeholder="email"/>
+               Placeholder="email">
+            <Entry.Behaviors>
+                <local:EmailValidatorBehavior/>
+            </Entry.Behaviors>
+        </Entry>
         <Entry Text="{Binding Password}"
                Placeholder="password"
-               IsPassword="True"/>
+               IsPassword="True"
+               x:Name="password">
+            <Entry.Behaviors>
+                <local:PasswordValidationBehavior/>
+            </Entry.Behaviors>
+        </Entry>
         <Entry Text="{Binding ConfirmPassword}"
                Placeholder="confirm password"
-               IsPassword="True"/>
+               IsPassword="True">
+            <Entry.Behaviors>
+                <local:CompareValidationBehavior BindingContext="{x:Reference password}" Text="{Binding Text}"/>
+            </Entry.Behaviors>
+        </Entry>
         <Entry Text="{Binding FirstName}"
-               Placeholder="firstname"/>
+               Placeholder="firstname">
+            <Entry.Behaviors>
+                <local:RequiredValidationBehavior/>
+            </Entry.Behaviors>
+        </Entry>
         <Entry Text="{Binding LastName}"
-               Placeholder="lastname"/>
+               Placeholder="lastname">
+            <Entry.Behaviors>
+                <local:RequiredValidationBehavior/>
+            </Entry.Behaviors>
+        </Entry>
         <Entry Text="{Binding PhoneNumber}"
-               Placeholder="phonenumber"/>
+               Placeholder="phonenumber">
+            <Entry.Behaviors>
+                <local:PhonenumberValidationBehavior/>
+            </Entry.Behaviors>
+        </Entry>
         <Button Command="{Binding RegisterCommand}"
                 Text="Register"/>
         <Button Command="{Binding LoginCommand}"
