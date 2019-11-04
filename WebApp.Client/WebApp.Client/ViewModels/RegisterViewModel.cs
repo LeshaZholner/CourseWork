@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using WebApp.Client.Views;
 using WebApp.Client.Models;
 using System.ComponentModel;
+using WebApp.Client.Helpers;
+using System.Linq;
 
 namespace WebApp.Client.ViewModels
 {
@@ -17,24 +19,18 @@ namespace WebApp.Client.ViewModels
         private IApiServices apiServices = Bootstrap.ServiceProvider.GetService<IApiServices>();
 
         private RegisterBindingModel registerModel;
-        private bool isEmailValid;
-        private bool isPasswordValid;
-        private bool isConfirmPasswordValid;
-        private bool isFirstNameValid;
-        private bool isLastNameValid;
-        private bool isPhonenumberValid;
-
+        
         public RegisterViewModel()
         {
             registerModel = new RegisterBindingModel();
         }
 
-        public string Email 
+        public string Email
         {
             get { return registerModel.Email; }
             set
             {
-                if(registerModel.Email != value)
+                if (registerModel.Email != value)
                 {
                     registerModel.Email = value;
                     OnPropertyChanged("Email");
@@ -105,32 +101,13 @@ namespace WebApp.Client.ViewModels
             }
         }
 
-        public bool IsEmailValid
+        public bool IsValid
         {
-            get { return isEmailValid; }
-            set
+            get
             {
-                if (isEmailValid != value)
-                {
-                    isEmailValid = value;
-                    OnPropertyChanged("IsEmailValid");
-                }
+                return ValidationHelper.IsRegisterPageValidation(Email, Password, ConfirmPassword, PhoneNumber, FirstName, LastName);
             }
         }
-
-        public bool IsPaswordValid
-        {
-            get { return isEmailValid; }
-            set
-            {
-                if (isEmailValid != value)
-                {
-                    isEmailValid = value;
-                    OnPropertyChanged("IsEmailValid");
-                }
-            }
-        }
-
 
         public ICommand RegisterCommand
         {
@@ -138,10 +115,15 @@ namespace WebApp.Client.ViewModels
             {
                 return new Command(async() => 
                 {
-                    var isSucces = await apiServices.RegisterAsync(registerModel);
-                    if (isSucces)
+                    var request = await apiServices.RegisterAsync(registerModel);
+
+                    if (request.IsSucces)
                     {
                         await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Error", request.ErrorRequest.GetMessage(), "Ok");
                     }
                 });
             }

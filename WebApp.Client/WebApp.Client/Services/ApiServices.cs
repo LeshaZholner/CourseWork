@@ -7,12 +7,13 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using WebApp.Client.Models;
+using WebApp.Client.Request;
 
 namespace WebApp.Client.Services
 {
     public class ApiServices : IApiServices
     {
-        public async Task<bool> RegisterAsync(RegisterBindingModel model)
+        public async Task<ApiRequest> RegisterAsync(RegisterBindingModel model)
         {
             var client = new HttpClient();
 
@@ -22,7 +23,15 @@ namespace WebApp.Client.Services
 
             var response = await client.PostAsync("https://lesha-zholner-webappapi.azurewebsites.net/api/Account/Register", content);
 
-            return response.IsSuccessStatusCode;
+            if (response.IsSuccessStatusCode)
+            {
+                return new ApiRequest() { IsSucces = true };
+            }
+
+            var contentResponse = await response.Content.ReadAsStringAsync();
+            var error = JsonConvert.DeserializeObject<ErrorRequest>(contentResponse);
+
+            return new ApiRequest() { IsSucces = false, ErrorRequest = error };
         }
 
         public async Task<bool> LoginUserAsync(string username, string password)
