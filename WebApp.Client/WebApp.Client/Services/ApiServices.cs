@@ -43,7 +43,7 @@ namespace WebApp.Client.Services
                 new KeyValuePair<string, string>("grant_type", "password")
             };
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://lesha-zholner-webappapi.azurewebsites.net/Token");
+            var request = new HttpRequestMessage(HttpMethod.Post, AppSettingsManager.Settings["UrlGetToken"]);
             request.Content = new FormUrlEncodedContent(key);
 
             var client = new HttpClient();
