@@ -8,6 +8,12 @@ namespace WebApp.Client.Behaviors
 {
     public class RequiredValidationBehavior : Behavior<Entry>
     {
+        public static readonly BindableProperty IsValidPropperty = BindableProperty.Create(nameof(IsValid), typeof(bool), typeof(RegisterPageValidationBehavior), false, BindingMode.OneWayToSource);
+        public bool IsValid
+        {
+            get { return (bool)GetValue(IsValidPropperty); }
+            set { SetValue(IsValidPropperty, value); }
+        }
         protected override void OnAttachedTo(Entry bindable)
         {
             bindable.TextChanged += HandleTextChanged;
@@ -16,9 +22,8 @@ namespace WebApp.Client.Behaviors
 
         private void HandleTextChanged(object sender, TextChangedEventArgs e)
         {
-            bool isValid = false;
-            isValid = e.NewTextValue.Length != 0;
-            ((Entry)sender).BackgroundColor = isValid ? Color.Default : Color.Salmon;
+            IsValid = e.NewTextValue.Length != 0;
+            ((Entry)sender).BackgroundColor = IsValid ? Color.Default : Color.Salmon;
         }
 
         protected override void OnDetachingFrom(Entry binable)

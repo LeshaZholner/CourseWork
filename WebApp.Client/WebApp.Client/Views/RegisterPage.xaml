@@ -7,21 +7,18 @@
              mc:Ignorable="d"
              x:Class="WebApp.Client.Views.RegisterPage"
              xmlns:vm="clr-namespace:WebApp.Client.ViewModels">
+
     <ContentPage.BindingContext>
         <vm:RegisterViewModel/>
     </ContentPage.BindingContext>
+
     <StackLayout Orientation="Vertical">
+
         <Entry Text="{Binding Email}"
                Placeholder="email"
                AutomationId="email">
             <Entry.Behaviors>
-                <local:RegisterPageValidationBehavior Email="{Binding Email}" 
-                                                      Password="{Binding Password}" 
-                                                      ConfirmPassword="{Binding ConfirmPassword}" 
-                                                      Phonenumber="{Binding PhoneNumber}" 
-                                                      FirstName="{Binding FirstName}"
-                                                      LastName="{Binding LastName}"
-                                                      x:Name="Validator"/>
+                <local:EmailValidatorBehavior x:Name="EmailValidator"/>
             </Entry.Behaviors>
         </Entry>
         <Entry Text="{Binding Password}"
@@ -30,13 +27,7 @@
                x:Name="password"
                AutomationId="password">
             <Entry.Behaviors>
-                <local:RegisterPageValidationBehavior Email="{Binding Email}" 
-                                                      Password="{Binding Password}" 
-                                                      ConfirmPassword="{Binding ConfirmPassword}" 
-                                                      Phonenumber="{Binding PhoneNumber}" 
-                                                      FirstName="{Binding FirstName}"
-                                                      LastName="{Binding LastName}"
-                                                      x:Name="Validator2"/>
+                <local:PasswordValidationBehavior x:Name="PasswordValidator"/>
             </Entry.Behaviors>
         </Entry>
         <Entry Text="{Binding ConfirmPassword}"
@@ -44,70 +35,55 @@
                IsPassword="True"
                AutomationId="confirmPassword">
             <Entry.Behaviors>
-                <local:RegisterPageValidationBehavior Email="{Binding Email}" 
-                                                      Password="{Binding Password}" 
-                                                      ConfirmPassword="{Binding ConfirmPassword}" 
-                                                      Phonenumber="{Binding PhoneNumber}" 
-                                                      FirstName="{Binding FirstName}"
-                                                      LastName="{Binding LastName}"
-                                                      x:Name="Validator3"/>
+                <local:CompareValidationBehavior x:Name="ConfirmPasswordValidator" BindingContext="{x:Reference password}" Text="{Binding Text}"/>
             </Entry.Behaviors>
         </Entry>
         <Entry Text="{Binding FirstName}"
                Placeholder="firstname"
                AutomationId="firstname">
             <Entry.Behaviors>
-                <local:RegisterPageValidationBehavior Email="{Binding Email}" 
-                                                      Password="{Binding Password}" 
-                                                      ConfirmPassword="{Binding ConfirmPassword}" 
-                                                      Phonenumber="{Binding PhoneNumber}" 
-                                                      FirstName="{Binding FirstName}"
-                                                      LastName="{Binding LastName}"
-                                                       x:Name="Validator4"/>
+                <local:RequiredValidationBehavior x:Name="FirstNameValidator"/>
             </Entry.Behaviors>
         </Entry>
         <Entry Text="{Binding LastName}"
                Placeholder="lastname"
                AutomationId="lastname">
             <Entry.Behaviors>
-                <local:RegisterPageValidationBehavior Email="{Binding Email}" 
-                                                      Password="{Binding Password}" 
-                                                      ConfirmPassword="{Binding ConfirmPassword}" 
-                                                      Phonenumber="{Binding PhoneNumber}" 
-                                                      FirstName="{Binding FirstName}"
-                                                      LastName="{Binding LastName}"
-                                                      x:Name="Validator5"/>
+                <local:RequiredValidationBehavior x:Name="LastNameValidator"/>
             </Entry.Behaviors>
         </Entry>
         <Entry Text="{Binding PhoneNumber}"
                Placeholder="phonenumber"
                AutomationId="phonenumber">
             <Entry.Behaviors>
-                <local:RegisterPageValidationBehavior Email="{Binding Email}" 
-                                                      Password="{Binding Password}" 
-                                                      ConfirmPassword="{Binding ConfirmPassword}" 
-                                                      Phonenumber="{Binding PhoneNumber}" 
-                                                      FirstName="{Binding FirstName}"
-                                                      LastName="{Binding LastName}"
-                                                      x:Name="Validator6"/>
+                <local:PhonenumberValidationBehavior x:Name="PhonenumberValidator"/>
             </Entry.Behaviors>
         </Entry>
         <Button Command="{Binding RegisterCommand}"
-                Text="Register">
+                Text="Register"
+                x:Name="registerBtn">
             <Button.Triggers>
-                <DataTrigger TargetType="Button"
-                             Binding="{Binding Source={x:Reference Validator}, Path=IsValid}"
-                             Value="True">
+                <MultiTrigger TargetType="Button">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Source={x:Reference EmailValidator}, Path=IsValid}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding Source={x:Reference PasswordValidator}, Path=IsValid}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding Source={x:Reference ConfirmPasswordValidator}, Path=IsValid}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding Source={x:Reference FirstNameValidator}, Path=IsValid}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding Source={x:Reference LastNameValidator}, Path=IsValid}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding Source={x:Reference PhonenumberValidator}, Path=IsValid}"
+                                          Value="true"/> 
+                    </MultiTrigger.Conditions>
                     <Setter Property="IsEnabled" Value="True"/>
-                </DataTrigger>
-                <DataTrigger TargetType="Button"
-                             Binding="{Binding Source={x:Reference Validator}, Path=IsValid}"
-                             Value="False">
-                    <Setter Property="IsEnabled" Value="False"/>
-                </DataTrigger>
+                </MultiTrigger>
             </Button.Triggers>
         </Button>
-        <Button Command="{Binding LoginCommand}"
+        <Button IsEnabled="True" 
+                Command="{Binding LoginCommand}"
                 Text="Login"/>
     </StackLayout>
 </ContentPage>

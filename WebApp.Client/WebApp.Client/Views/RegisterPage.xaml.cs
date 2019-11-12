@@ -15,6 +15,7 @@ namespace WebApp.Client.Views
         public RegisterPage()
         {
             InitializeComponent();
+            registerBtn.IsEnabled = false;
         }
     }
 }

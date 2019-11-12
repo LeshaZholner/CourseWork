@@ -9,6 +9,12 @@ namespace WebApp.Client.Behaviors
     public class PasswordValidationBehavior : Behavior<Entry>
     {
         const string passwordRegex = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+        public static readonly BindableProperty IsValidPropperty = BindableProperty.Create(nameof(IsValid), typeof(bool), typeof(RegisterPageValidationBehavior), false, BindingMode.OneWayToSource);
+        public bool IsValid
+        {
+            get { return (bool)GetValue(IsValidPropperty); }
+            set { SetValue(IsValidPropperty, value); }
+        }
 
         protected override void OnAttachedTo(Entry bindable)
         {
@@ -18,7 +24,6 @@ namespace WebApp.Client.Behaviors
 
         void HandleTextChanged(object sender, TextChangedEventArgs e)
         {
-            bool IsValid = false;
             IsValid = (Regex.IsMatch(e.NewTextValue, passwordRegex));
             ((Entry)sender).BackgroundColor = IsValid ? Color.Default : Color.Salmon;
         }

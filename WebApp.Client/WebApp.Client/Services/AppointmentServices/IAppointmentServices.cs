@@ -9,6 +9,7 @@ namespace WebApp.Client.Services.AppointmentServices
     public interface IAppointmentServices
     {
         Task<bool> MakeAppointmentAsync(Appointment appointment);
+        Task<bool> DeleteAppointmentAsync(int id);
         Task<List<Appointment>> GetAppointmentAsync();
     }
 }

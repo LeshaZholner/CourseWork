@@ -8,6 +8,12 @@ namespace WebApp.Client.Behaviors
     public class CompareValidationBehavior : Behavior<Entry>
     {
         public static BindableProperty TextProperty = BindableProperty.Create<CompareValidationBehavior, string>(tc => tc.Text, string.Empty, BindingMode.TwoWay);
+        public static readonly BindableProperty IsValidPropperty = BindableProperty.Create(nameof(IsValid), typeof(bool), typeof(RegisterPageValidationBehavior), false, BindingMode.OneWayToSource);
+        public bool IsValid
+        {
+            get { return (bool)GetValue(IsValidPropperty); }
+            set { SetValue(IsValidPropperty, value); }
+        }
         public string Text
         {
             get { return (string)GetValue(TextProperty); }
@@ -25,7 +31,6 @@ namespace WebApp.Client.Behaviors
 
         void HandleTextChanged(object sender, TextChangedEventArgs e)
         {
-            bool IsValid = false;
             IsValid = e.NewTextValue == Text;
 
             ((Entry)sender).TextColor = IsValid ? Color.Default : Color.Salmon;

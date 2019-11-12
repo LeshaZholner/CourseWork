@@ -2,12 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:WebApp.Client.ViewModels"
-             x:Class="WebApp.Client.Views.AppointmentsPage">
-
-    <!--<ContentPage.BindingContext>
-        <viewModels:AppointmentsViewModel/>
-    </ContentPage.BindingContext>-->
-
+             x:Class="WebApp.Client.Views.AppointmentsPage"
+             x:Name="RegisterPage">
     <StackLayout>
         <Button Command="{Binding MakeAppointmentCommand}" 
                 Text="Add"/>
@@ -21,7 +17,8 @@
                             <Label Text="{Binding DateAppointment}"/>
                             <Label Text="{Binding TimeFrom}"/>
                             <Label Text="{Binding TimeTo}"/>
-                        </StackLayout>
+                            <Button Text="Cancel" Command="{Binding Path=BindingContext.RamoveAppointmentCommand, Source={x:Reference RegisterPage}}" CommandParameter="{Binding }"/>
+                        </StackLayout> 
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -10,20 +10,22 @@ using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using WebApp.Client.Views;
+using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace WebApp.Client.ViewModels
 {
     public class AppointmentsViewModel : INotifyPropertyChanged
     {
         private IAppointmentServices appointmentServices = Bootstrap.ServiceProvider.GetService<IAppointmentServices>();
-        private List<Appointment> _appointments;
+        private ObservableCollection<Appointment> _appointments;
      
         public AppointmentsViewModel(List<Appointment> appointments)
         {
-            _appointments = appointments;
+            _appointments = new ObservableCollection<Appointment>(appointments);
         }
 
-        public List<Appointment> Appointments 
+        public ObservableCollection<Appointment> Appointments 
         {
             get { return _appointments; }
             set {
@@ -32,15 +34,16 @@ namespace WebApp.Client.ViewModels
             } 
         }
 
-        public ICommand GetAppointmentsCommand
-        {
-            get
-            {
-                return new Command(async () => {
-                    Appointments = await appointmentServices.GetAppointmentAsync();
-                });
-            }
-        }
+        //public ICommand GetAppointmentsCommand
+        //{
+        //    get
+        //    {
+        //        return new Command(async () => {
+        //            var response = await appointmentServices.GetAppointmentAsync();
+        //            Appointments = new ObservableCollection<Appointment>(response);
+        //        });
+        //    }
+        //}
 
         public ICommand MakeAppointmentCommand
         {
@@ -48,6 +51,18 @@ namespace WebApp.Client.ViewModels
             {
                 return new Command(async () => {
                     await Application.Current.MainPage.Navigation.PushAsync(new MakeAppointmentPage());
+                });
+            }
+        }
+
+        public ICommand RamoveAppointmentCommand
+        {
+            get
+            {
+                return new Command(async (item) => {
+                    Appointment appointment = item as Appointment;
+                    await appointmentServices.DeleteAppointmentAsync(appointment.Id);
+                    _appointments.Remove(appointment);
                 });
             }
         }

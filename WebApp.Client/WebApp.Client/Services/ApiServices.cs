@@ -21,7 +21,7 @@ namespace WebApp.Client.Services
 
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync("https://lesha-zholner-webappapi.azurewebsites.net/api/Account/Register", content);
+            var response = await client.PostAsync(AppSettingsManager.Settings["Url"]+"/api/Account/Register", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -43,7 +43,7 @@ namespace WebApp.Client.Services
                 new KeyValuePair<string, string>("grant_type", "password")
             };
 
-            var request = new HttpRequestMessage(HttpMethod.Post, AppSettingsManager.Settings["UrlGetToken"]);
+            var request = new HttpRequestMessage(HttpMethod.Post, AppSettingsManager.Settings["Url"]+"/Token");
             request.Content = new FormUrlEncodedContent(key);
 
             var client = new HttpClient();

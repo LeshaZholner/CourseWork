@@ -7,9 +7,6 @@
              mc:Ignorable="d"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              x:Class="WebApp.Client.Views.MakeAppointmentPage">
-    <!--<ContentPage.BindingContext>
-        <viewModel:MakeAppointmentViewModel/>
-    </ContentPage.BindingContext>-->
     <StackLayout>
         <Picker Title="select doctor"
                 ItemsSource="{Binding Doctors}"
