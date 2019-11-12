@@ -56,5 +56,10 @@ namespace WebApp.BLL.Services.AppointmentService
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Appointment, AppointmentDTO>()).CreateMapper();
             return mapper.Map<Appointment, AppointmentDTO>(Database.Appointments.Get(id));
         }
+
+        public void DeleteAppointment(int id)
+        {
+            Database.Appointments.Delete(id);
+        }
     }
 }

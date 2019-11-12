@@ -26,6 +26,7 @@ namespace WebApp.DAL.Repositories
         {
             var item = Get(id);
             context.Appointments.Remove(item);
+            context.SaveChanges();
         }
 
         public IEnumerable<Appointment> Find(Func<Appointment, bool> predicate)

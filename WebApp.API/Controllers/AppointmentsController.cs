@@ -45,6 +45,13 @@ namespace WebApp.API.Controllers
             return Ok(appointment);
         }
 
+        [Route("api/appointments/remove")]
+        [HttpPost]
+        public void Remove([FromBody] int id)
+        {
+            appointmentService.DeleteAppointment(id);
+        }
+
         public IEnumerable<AppointmentViewModel> GetAppointments()
         {
             var appointmentDTO = appointmentService.GetAppointments();
