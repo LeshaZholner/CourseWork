@@ -10,43 +10,82 @@ using Xamarin.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
 using WebApp.Client.Services.DoctorServices;
+using System.Collections.ObjectModel;
+using WebApp.Client.Services;
 
 namespace WebApp.Client.ViewModels
 {
     public class MakeAppointmentViewModel : INotifyPropertyChanged
     {
+        private IAppointmentServices appointmentServices = Bootstrap.ServiceProvider.GetService<IAppointmentServices>();
+        private IDoctorServices doctorServices = Bootstrap.ServiceProvider.GetService<IDoctorServices>();
+        private IApiServices apiServices = Bootstrap.ServiceProvider.GetService<IApiServices>();
+
         public int DoctorId { get; set; }
         public DateTime DateAppointment { get; set; } = DateTime.Now;
         public TimeSpan TimeFrom { get; set; }
         public TimeSpan TimeTo { get; set; }
 
-        private List<Doctor> doctors;
-        public List<Doctor> Doctors 
+
+        private List<Specialization> specializations;
+        private Specialization selectSpecialization;
+        public List<Specialization> Specializations
+        {
+            get { return specializations; }
+            set
+            {
+                specializations = value;
+                OnPropertChanged("Specializations");
+            }
+        }
+        public Specialization SelectSpecialization
+        {
+            get { return selectSpecialization; }
+            set
+            {
+                selectSpecialization = value;
+                OnPropertChanged("SelectSpecialization");
+            }
+        }
+
+
+        private ObservableCollection<Doctor> doctors;
+        private Doctor selectDoctor;
+        public ObservableCollection<Doctor> Doctors 
         {
             get { return doctors; }
             set
             {
                 doctors = value;
-                OnPropertChanged();
+                OnPropertChanged("Doctors");
             }
         }
-
-        private Doctor selectDoctor;
         public Doctor SelectDoctor 
         {
             get { return selectDoctor; }
             set
             {
                 selectDoctor = value;
-                OnPropertChanged();
+                OnPropertChanged("SelectDoctor");
             }
         }
 
-        private IAppointmentServices appointmentServices = Bootstrap.ServiceProvider.GetService<IAppointmentServices>();
-        private IDoctorServices doctorServices = Bootstrap.ServiceProvider.GetService<IDoctorServices>();
-        public MakeAppointmentViewModel(List<Doctor> doctors)
+
+        
+        public MakeAppointmentViewModel(List<Specialization> specializations)
         {
-            this.doctors = doctors;
+            this.specializations = specializations;
+        }
+
+        public ICommand GetDoctorsCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    Doctors = new ObservableCollection<Doctor>(await doctorServices.GetDoctorsAsync(selectSpecialization.Id));
+                });
+            }
         }
 
         public ICommand MakeAppointmentCommand
@@ -55,15 +94,16 @@ namespace WebApp.Client.ViewModels
             {
                 return new Command(async () =>
                 {
+                    var userInfo = await apiServices.UserInfoAsync();
                     var appointment = new Appointment()
                     {
                         DoctorId = selectDoctor.Id,
-                        PhoneNumber = "777-777-8888",
-                        DateAppointment = this.DateAppointment,
-                        TimeTo = this.TimeTo,
-                        TimeFrom = this.TimeFrom,
-                        FirstName = "FN",
-                        LastName = "LN"
+                        PhoneNumber = userInfo.Phonenumber,
+                        DateAppointment = DateAppointment,
+                        TimeTo = TimeTo,
+                        TimeFrom = TimeFrom,
+                        FirstName = userInfo.FirstName,
+                        LastName = userInfo.LastName
                     };
                     await appointmentServices.MakeAppointmentAsync(appointment);
                 });

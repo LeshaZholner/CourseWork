@@ -29,6 +29,9 @@ namespace WebApp.API.Models
     {
         public string Email { get; set; }
 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Phonenumber { get; set; }
         public bool HasRegistered { get; set; }
 
         public string LoginProvider { get; set; }

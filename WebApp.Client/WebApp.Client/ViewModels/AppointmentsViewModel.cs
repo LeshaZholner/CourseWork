@@ -30,20 +30,9 @@ namespace WebApp.Client.ViewModels
             get { return _appointments; }
             set {
                 _appointments = value;
-                OnPropertChanged();
+                OnPropertChanged("Appointments");
             } 
         }
-
-        //public ICommand GetAppointmentsCommand
-        //{
-        //    get
-        //    {
-        //        return new Command(async () => {
-        //            var response = await appointmentServices.GetAppointmentAsync();
-        //            Appointments = new ObservableCollection<Appointment>(response);
-        //        });
-        //    }
-        //}
 
         public ICommand MakeAppointmentCommand
         {

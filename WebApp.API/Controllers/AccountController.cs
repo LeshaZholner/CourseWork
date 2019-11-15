@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -16,6 +17,7 @@ using Microsoft.Owin.Security.OAuth;
 using WebApp.API.Models;
 using WebApp.API.Providers;
 using WebApp.API.Results;
+using System.Linq;
 
 namespace WebApp.API.Controllers
 {
@@ -57,11 +59,13 @@ namespace WebApp.API.Controllers
         public UserInfoViewModel GetUserInfo()
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
-
+                FirstName = identity.Claims.First(c => c.Type == "FirstName").Value,
+                LastName = identity.Claims.First(c => c.Type == "LastName").Value,
+                Phonenumber = identity.Claims.First(c => c.Type == "Phonenumber").Value,
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
@@ -329,11 +333,13 @@ namespace WebApp.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, LastName = model.Lastname, FirstName = model.Firstname, PhoneNumber = model.Phonenumber};
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email};
             
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
-            
+            await UserManager.AddClaimAsync(user.Id, new Claim("FirstName", model.Firstname));
+            await UserManager.AddClaimAsync(user.Id, new Claim("LastName", model.Lastname));
+            await UserManager.AddClaimAsync(user.Id, new Claim("Phonenumber", model.Phonenumber));
 
             if (!result.Succeeded)
             {

@@ -8,6 +8,6 @@ namespace WebApp.Client.Services.DoctorServices
 {
     public interface IDoctorServices
     {
-        Task<List<Doctor>> GetDoctorsAsync();
+        Task<List<Doctor>> GetDoctorsAsync(int? id);
     }
 }

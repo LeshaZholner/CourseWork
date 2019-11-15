@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using System.Linq;
 
 namespace WebApp.API.Models
 {
@@ -14,19 +15,9 @@ namespace WebApp.API.Models
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
-            // Add custom user claims here
-            userIdentity.AddClaim(new Claim("FirstName", FirstName));
-            userIdentity.AddClaim(new Claim("LastName", LastName));
-            userIdentity.AddClaim(new Claim("PhoneNumber", PhoneNumber));
 
             return userIdentity;
         }
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
-        [Required]
-        public string PhoneNumber { get; set; }
     }
     
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

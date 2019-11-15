@@ -55,5 +55,15 @@ namespace WebApp.Client.Services
             App.Current.Properties["access_token"] = token.AccessToken;
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<UserInfo> UserInfoAsync()
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Current.Properties["access_token"].ToString());
+
+            var response = await client.GetAsync(AppSettingsManager.Settings["Url"] + "/api/Account/UserInfo");
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<UserInfo>(content);
+        }
     }
 }
