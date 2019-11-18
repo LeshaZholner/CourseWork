@@ -56,6 +56,18 @@ namespace WebApp.Client.ViewModels
             }
         }
 
+        public ICommand EditAppointmentCommand
+        {
+            get
+            {
+                return new Command(async (item) =>
+                {
+                    Appointment appointment = item as Appointment;
+                    await Application.Current.MainPage.Navigation.PushAsync(new EditAppointmentPage(appointment));
+                });
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertChanged([CallerMemberName] string propertyName = null)

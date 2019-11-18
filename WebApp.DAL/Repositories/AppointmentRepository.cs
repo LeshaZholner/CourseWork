@@ -46,7 +46,12 @@ namespace WebApp.DAL.Repositories
 
         public void Update(Appointment item)
         {
-            context.Entry(item).State = System.Data.Entity.EntityState.Modified;
+            var appointment = context.Appointments.Find(item.Id);
+            if(appointment != null)
+            {
+                context.Entry(appointment).CurrentValues.SetValues(item);
+                context.SaveChanges();
+            }
         }
     }
 }

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:WebApp.Client.ViewModels"
              x:Class="WebApp.Client.Views.AppointmentsPage"
-             x:Name="RegisterPage">
+             x:Name="appointmentsPage">
     <StackLayout>
         <Button Command="{Binding MakeAppointmentCommand}" 
                 Text="Add"/>
@@ -15,9 +15,10 @@
                         <StackLayout>
                             <Label Text="{Binding PhoneNumber}"/>
                             <Label Text="{Binding DateAppointment}"/>
-                            <Label Text="{Binding TimeFrom}"/>
-                            <Label Text="{Binding TimeTo}"/>
-                            <Button Text="Cancel" Command="{Binding Path=BindingContext.RamoveAppointmentCommand, Source={x:Reference RegisterPage}}" CommandParameter="{Binding }"/>
+                            <Label Text="{Binding Path=TimeFrom, StringFormat={}{0:hh}:{0:mm}, FallbackValue=00:00}"/>
+                            <Label Text="{Binding Path=TimeTo, StringFormat={}{0:hh}:{0:mm}, FallbackValue=00:00}"/>
+                            <Button Text="Cancel" Command="{Binding Path=BindingContext.RamoveAppointmentCommand, Source={x:Reference appointmentsPage}}" CommandParameter="{Binding }"/>
+                            <Button Text="Edit" Command="{Binding Path=BindingContext.EditAppointmentCommand, Source={x:Reference appointmentsPage}}" CommandParameter="{Binding }"/>
                         </StackLayout> 
                     </ViewCell>
                 </DataTemplate>

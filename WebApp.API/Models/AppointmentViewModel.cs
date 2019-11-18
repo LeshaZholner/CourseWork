@@ -14,6 +14,6 @@ namespace WebApp.API.Models
         public int DoctorId { get; set; }
         public DateTime DateAppointment { get; set; }
         public TimeSpan TimeFrom { get; set; }
-        public TimeSpan FromTo { get; set; }
+        public TimeSpan TimeTo { get; set; }
     }
 }

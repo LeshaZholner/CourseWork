@@ -45,5 +45,18 @@ namespace WebApp.Client.Services.AppointmentServices
 
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<bool> UpdateAppointmentment(Appointment appointment)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Current.Properties["access_token"].ToString());
+
+            var json = JsonConvert.SerializeObject(appointment);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PutAsync(AppSettingsManager.Settings["Url"] + $"/api/appointments/edit?id={appointment.Id}", content);
+
+            return response.IsSuccessStatusCode;
+        }
     }
 }

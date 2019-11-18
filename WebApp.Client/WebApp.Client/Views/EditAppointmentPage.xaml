@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="WebApp.Client.Views.EditAppointmentPage"
+             xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <DatePicker Date="{Binding  SelectAppointment.DateAppointment}"
+                    MinimumDate="{x:Static system:DateTime.Today}"/>
+            <Label Text="Time From"/>
+            <TimePicker Time="{Binding  SelectAppointment.TimeFrom}"/>
+            <Label Text="Time To"/>
+            <TimePicker Time="{Binding  SelectAppointment.TimeTo}"/>
+            <Button Command="{Binding SaveAppointmentCommand}"
+                Text="Save"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -33,7 +33,7 @@ namespace WebApp.Client.Behaviors
         {
             IsValid = e.NewTextValue == Text;
 
-            ((Entry)sender).TextColor = IsValid ? Color.Default : Color.Salmon;
+            ((Entry)sender).BackgroundColor = IsValid ? Color.Default : Color.Salmon;
         }
 
         protected override void OnDetachingFrom(Entry bindable)

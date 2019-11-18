@@ -44,6 +44,25 @@ namespace WebApp.API.Controllers
 
             return Ok(appointment);
         }
+        [Route("api/appointments/edit")]
+        [HttpPut]
+        public IHttpActionResult Put(int id, [FromBody] AppointmentCreateViewModel value)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var appointment = appointmentService.GetAppointment(id);
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<AppointmentCreateViewModel, AppointmentDTO>()).CreateMapper();
+            var appointmentDTO = mapper.Map<AppointmentCreateViewModel, AppointmentDTO>(value);
+            appointmentDTO.Id = id;
+            appointmentService.Update(appointmentDTO);
+            return Ok();
+        }
 
         [Route("api/appointments/remove")]
         [HttpPost]
