@@ -12,5 +12,6 @@ namespace WebApp.Client.Services
         Task<ApiRequest> RegisterAsync(RegisterBindingModel model);
         Task<bool> LoginUserAsync(string username, string password);
         Task<UserInfo> UserInfoAsync();
+        Task<ApiRequest> ChangePasswordAsync(ChangePassword model);
     }
 }

@@ -65,5 +65,25 @@ namespace WebApp.Client.Services
             var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<UserInfo>(content);
         }
+
+        public async Task<ApiRequest> ChangePasswordAsync(ChangePassword model)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Current.Properties["access_token"].ToString());
+
+            var json = JsonConvert.SerializeObject(model);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(AppSettingsManager.Settings["Url"] + "/api/Account/ChangePassword", content);
+            if (response.IsSuccessStatusCode)
+            {
+                return new ApiRequest() { IsSucces = true };
+            }
+
+            var contentResponse = await response.Content.ReadAsStringAsync();
+            var error = JsonConvert.DeserializeObject<ErrorRequest>(contentResponse);
+
+            return new ApiRequest() { IsSucces = false, ErrorRequest = error };
+        }
     }
 }

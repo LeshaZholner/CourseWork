@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using WebApp.Client.Models;
+using WebApp.Client.Views;
 using Xamarin.Forms;
 
 namespace WebApp.Client.ViewModels
@@ -22,7 +23,7 @@ namespace WebApp.Client.ViewModels
             {
                 return new Command(async () =>
                 {
-                    
+                    await App.Current.MainPage.Navigation.PushAsync(new ChangePasswordPage());
                 });
             }
         }
