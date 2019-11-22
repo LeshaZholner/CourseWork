@@ -34,6 +34,5 @@
         <TimePicker Time="{Binding TimeTo}"/>
         <Button Command="{Binding MakeAppointmentCommand}"
                 Text="Add new appointment"/>
-
     </StackLayout>
 </ContentPage>
