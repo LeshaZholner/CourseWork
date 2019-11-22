@@ -6,8 +6,6 @@
              mc:Ignorable="d"
              x:Class="WebApp.Client.Views.EditAppointmentPage"
              xmlns:system="clr-namespace:System;assembly=mscorlib">
-    
-    
     <ContentPage.Content>
         <StackLayout>
             <DatePicker Date="{Binding  SelectAppointment.DateAppointment}"

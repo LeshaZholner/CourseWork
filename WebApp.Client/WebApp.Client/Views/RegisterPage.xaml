@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:WebApp.Client.Behaviors"
              mc:Ignorable="d"
              x:Class="WebApp.Client.Views.RegisterPage"
-             xmlns:vm="clr-namespace:WebApp.Client.ViewModels">
+             xmlns:vm="clr-namespace:WebApp.Client.ViewModels"
+             NavigationPage.HasNavigationBar="false">
 
     <ContentPage.BindingContext>
         <vm:RegisterViewModel/>

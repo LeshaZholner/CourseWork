@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:WebApp.Client.Behaviors"
              mc:Ignorable="d"
              x:Class="WebApp.Client.Views.LoginPage"
-             xmlns:viewModels="clr-namespace:WebApp.Client.ViewModels">
+             xmlns:viewModels="clr-namespace:WebApp.Client.ViewModels"
+             NavigationPage.HasNavigationBar="false">
 
     <ContentPage.BindingContext>
         <viewModels:LoginViewModel/>

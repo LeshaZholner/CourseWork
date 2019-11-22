@@ -35,7 +35,7 @@ namespace WebApp.Client.ViewModels
                     var isSucces = await apiServices.LoginUserAsync(UserName, Password);
                     if (isSucces)
                     {
-                        await Application.Current.MainPage.Navigation.PushAsync(new AppointmentsPage());
+                        await Application.Current.MainPage.Navigation.PushAsync(new MainPage());
                     }
                 });
             }

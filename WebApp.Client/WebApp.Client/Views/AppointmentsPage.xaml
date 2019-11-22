@@ -15,8 +15,8 @@
                         <StackLayout>
                             <Label Text="{Binding PhoneNumber}"/>
                             <Label Text="{Binding DateAppointment}"/>
-                            <Label Text="{Binding Path=TimeFrom, StringFormat={}{0:hh}:{0:mm}, FallbackValue=00:00}"/>
-                            <Label Text="{Binding Path=TimeTo, StringFormat={}{0:hh}:{0:mm}, FallbackValue=00:00}"/>
+                            <Label Text="{Binding Path=TimeFrom, StringFormat='{0:c}'}"/>
+                            <Label Text="{Binding Path=TimeTo, StringFormat='{0:c}'}"/>
                             <Button Text="Cancel" Command="{Binding Path=BindingContext.RamoveAppointmentCommand, Source={x:Reference appointmentsPage}}" CommandParameter="{Binding }"/>
                             <Button Text="Edit" Command="{Binding Path=BindingContext.EditAppointmentCommand, Source={x:Reference appointmentsPage}}" CommandParameter="{Binding }"/>
                         </StackLayout> 

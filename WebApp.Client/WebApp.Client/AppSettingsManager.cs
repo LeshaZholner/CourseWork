@@ -58,7 +58,6 @@ namespace WebApp.Client
                 }
                 catch (Exception)
                 {
-                    //Debug.WriteLine($"Unable to retrieve secret '{name}'");
                     return string.Empty;
                 }
             }
