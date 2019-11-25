@@ -17,18 +17,31 @@
         <Entry Text="{Binding UserName}"
                Placeholder="username">
             <Entry.Behaviors>
-                <local:EmailValidatorBehavior/>
+                <local:RequiredValidationBehavior x:Name="EmailValidator"/>
             </Entry.Behaviors>
         </Entry>
         <Entry Text="{Binding Password}"
                Placeholder="password"
                IsPassword="True">
             <Entry.Behaviors>
-                <local:RequiredValidationBehavior/>
+                <local:RequiredValidationBehavior x:Name="PasswordValidator"/>
             </Entry.Behaviors>
         </Entry>
         <Button Command="{Binding LoginCommand}"
-                Text="Login"/>
+                Text="Login"
+                x:Name="loginBtn">
+            <Button.Triggers>
+                <MultiTrigger TargetType="Button">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Source={x:Reference EmailValidator}, Path=IsValid}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding Source={x:Reference PasswordValidator}, Path=IsValid}"
+                                          Value="true"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiTrigger>
+            </Button.Triggers>
+        </Button>
         <Button Command="{Binding RegisterCommand}"
                 Text="Register"/>
     </StackLayout>

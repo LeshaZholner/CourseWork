@@ -32,10 +32,14 @@ namespace WebApp.Client.ViewModels
                 return new Command(async () => {
 
 
-                    var isSucces = await apiServices.LoginUserAsync(UserName, Password);
-                    if (isSucces)
+                    var request = await apiServices.LoginUserAsync(UserName, Password);
+                    if (request.IsSucces)
                     {
                         await Application.Current.MainPage.Navigation.PushAsync(new MainPage());
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Error", request.ErrorRequest.GetMessage(), "Ok");
                     }
                 });
             }

@@ -15,6 +15,7 @@ namespace WebApp.Client.Views
         public LoginPage()
         {
             InitializeComponent();
+            loginBtn.IsEnabled = false;
         }
     }
 }

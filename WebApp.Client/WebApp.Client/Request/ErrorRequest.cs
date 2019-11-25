@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WebApp.Client.Request
 {
-    public class ErrorRequest
+    public class ErrorRequest : IErrorRequest
     {
         public string Message { get; set; }
 

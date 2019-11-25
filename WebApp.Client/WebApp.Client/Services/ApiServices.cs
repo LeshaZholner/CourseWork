@@ -34,7 +34,7 @@ namespace WebApp.Client.Services
             return new ApiRequest() { IsSucces = false, ErrorRequest = error };
         }
 
-        public async Task<bool> LoginUserAsync(string username, string password)
+        public async Task<ApiRequest> LoginUserAsync(string username, string password)
         {
             var key = new List<KeyValuePair<string, string>>
             {
@@ -51,9 +51,15 @@ namespace WebApp.Client.Services
 
             var content = await response.Content.ReadAsStringAsync();
 
-            var token = JsonConvert.DeserializeObject<JwtToken>(content);
-            App.Current.Properties["access_token"] = token.AccessToken;
-            return response.IsSuccessStatusCode;
+            if (response.IsSuccessStatusCode)
+            {
+                var token = JsonConvert.DeserializeObject<JwtToken>(content);
+                App.Current.Properties["access_token"] = token.AccessToken;
+                return new ApiRequest() { IsSucces = true };
+            }
+            var error = JsonConvert.DeserializeObject<ErrorLoginRequest>(content);
+
+            return new ApiRequest() { IsSucces = false, ErrorRequest = error };
         }
 
         public async Task<UserInfo> UserInfoAsync()
