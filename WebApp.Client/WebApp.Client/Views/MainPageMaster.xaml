@@ -11,7 +11,8 @@
         <ListView x:Name="MenuItemsListView"
               SeparatorVisibility="None"
               HasUnevenRows="true"
-              ItemsSource="{Binding MenuItems}">
+              ItemsSource="{Binding MenuItems}"
+              SelectedItem="{Binding SelectItem}">
             <d:ListView.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>Page 1</x:String>
@@ -48,11 +49,16 @@
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
                     d:Text="{Binding .}"
-                    FontSize="24"/>
+                    FontSize="24"></Label>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.Behaviors>
+                <behaviorsPack:EventToCommandBehavior
+                                        EventName="ItemSelected"
+                                        Command="{Binding SetPageCommand}"/>
+            </ListView.Behaviors>
         </ListView>
     </StackLayout>
 </ContentPage>

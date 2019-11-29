@@ -44,6 +44,7 @@ namespace WebApp.API.Controllers
 
             return Ok(appointment);
         }
+
         [Route("api/appointments/edit")]
         [HttpPut]
         public IHttpActionResult Put(int id, [FromBody] AppointmentCreateViewModel value)

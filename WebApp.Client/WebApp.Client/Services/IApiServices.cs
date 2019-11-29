@@ -13,5 +13,6 @@ namespace WebApp.Client.Services
         Task<ApiRequest> LoginUserAsync(string username, string password);
         Task<UserInfo> UserInfoAsync();
         Task<ApiRequest> ChangePasswordAsync(ChangePassword model);
+        Task<ApiRequest> LogoutUserAsync();
     }
 }

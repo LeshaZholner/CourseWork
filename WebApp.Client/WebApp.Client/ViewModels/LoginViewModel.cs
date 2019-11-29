@@ -35,7 +35,8 @@ namespace WebApp.Client.ViewModels
                     var request = await apiServices.LoginUserAsync(UserName, Password);
                     if (request.IsSucces)
                     {
-                        await Application.Current.MainPage.Navigation.PushAsync(new MainPage());
+                        Application.Current.MainPage = new NavigationPage(new MainPage());
+                        //await Application.Current.MainPage.Navigation.PushAsync(new MainPage());
                     }
                     else
                     {

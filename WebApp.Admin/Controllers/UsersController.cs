@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using WebApp.Admin.Models;
@@ -45,14 +46,17 @@ namespace WebApp.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var user = new ApplicationUser()
                 {
                     Email = model.Email,
-                    LastName = model.LastName,
-                    FirstName = model.FirstName,
                     PhoneNumber = model.PhoneNumber
                 };
+                
                 _userManager.Create(user, model.Password);
+                _userManager.AddClaim(user.Id, new Claim("FirstName", model.FirstName));
+                _userManager.AddClaim(user.Id, new Claim("LastName", model.LastName));
+                _userManager.AddClaim(user.Id, new Claim("Phonenumber", model.PhoneNumber));
                 return RedirectToAction("Index");
             }
 
@@ -67,16 +71,15 @@ namespace WebApp.Admin.Controllers
             {
                 return HttpNotFound();
             }
-
+            var claims = _userManager.GetClaims(user.Id);
             EditUserViewModel model = new EditUserViewModel()
             {
                 Id = user.Id,
                 Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                PhoneNumber = user.PhoneNumber
+                FirstName = claims.First(c => c.Type == "FirstName").Value,
+                LastName = claims.First(c => c.Type == "LastName").Value,
+                PhoneNumber = claims.First(c => c.Type == "Phonenumber").Value,
             };
-
             return View(model);
         }
 
@@ -93,11 +96,12 @@ namespace WebApp.Admin.Controllers
                 if(user != null)
                 {
                     user.Email = model.Email;
-                    user.FirstName = model.FirstName;
-                    user.LastName = model.LastName;
                     user.PhoneNumber = model.PhoneNumber;
                 }
                 _userManager.Update(user);
+                _userManager.AddClaim(user.Id, new Claim("FirstName", model.FirstName));
+                _userManager.AddClaim(user.Id, new Claim("LastName", model.LastName));
+                _userManager.AddClaim(user.Id, new Claim("Phonenumber", model.PhoneNumber));
                 return RedirectToAction("Index");
             }
             return View(model);

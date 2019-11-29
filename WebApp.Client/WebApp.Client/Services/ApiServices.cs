@@ -91,5 +91,24 @@ namespace WebApp.Client.Services
 
             return new ApiRequest() { IsSucces = false, ErrorRequest = error };
         }
+
+        public async Task<ApiRequest> LogoutUserAsync()
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Current.Properties["access_token"].ToString());
+
+            var response = await client.PostAsync(AppSettingsManager.Settings["Url"] + "/api/Account/Register", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                App.Current.Properties["access_token"] = null;
+                return new ApiRequest() { IsSucces = true };
+            }
+
+            var contentResponse = await response.Content.ReadAsStringAsync();
+            var error = JsonConvert.DeserializeObject<ErrorRequest>(contentResponse);
+
+            return new ApiRequest() { IsSucces = false, ErrorRequest = error };
+        }
     }
 }
