@@ -11,6 +11,16 @@ namespace WebApp.Client.Services.DoctorServices
 {
     public class DoctorServices : IDoctorServices
     {
+        public async Task<Doctor> GetDoctorAsync(int id)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Current.Properties["access_token"].ToString());
+
+            var response = await client.GetAsync(AppSettingsManager.Settings["Url"] + $"/api/doctors?id={id}");
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Doctor>(content);
+        }
+
         public async Task<List<Doctor>> GetDoctorsAsync(int? id)
         {
             var client = new HttpClient();

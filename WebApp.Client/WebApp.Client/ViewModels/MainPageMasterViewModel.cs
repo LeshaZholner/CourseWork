@@ -24,9 +24,9 @@ namespace WebApp.Client.ViewModels
         {
             MenuItems = new ObservableCollection<MainPageMasterMenuItem>(new[]
             {
-                    new MainPageMasterMenuItem { Id = 0, Title = "Account", TargetType = typeof(UserInfoPage) },
-                    new MainPageMasterMenuItem { Id = 1, Title = "Appointments", TargetType = typeof(AppointmentsPage) },
-                    new MainPageMasterMenuItem { Id = 2, Title = "Logout", TargetType = typeof(LoginPage) }
+                    new MainPageMasterMenuItem { Id = 0, Title = "Account", TargetType = typeof(UserInfoPage), Icon="\uf007" },
+                    new MainPageMasterMenuItem { Id = 1, Title = "Appointments", TargetType = typeof(AppointmentsPage), Icon="\uf46d" },
+                    new MainPageMasterMenuItem { Id = 2, Title = "Logout", TargetType = typeof(LoginPage), Icon="\uf2f5" }
                 });
         }
 

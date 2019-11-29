@@ -7,19 +7,44 @@
     <StackLayout>
         <Button Command="{Binding MakeAppointmentCommand}" 
                 Text="Add"/>
-        <ListView ItemsSource="{Binding Appointments}"
+        <ListView ItemsSource="{Binding AppointmentViews}"
                   HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout>
-                            <Label Text="{Binding PhoneNumber}"/>
-                            <Label Text="{Binding DateAppointment}"/>
+
+                        <Grid ColumnSpacing="1" RowSpacing="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Button Text="&#xf044;" FontFamily="{StaticResource fa-solid-900}" Command="{Binding Path=BindingContext.EditAppointmentCommand, Source={x:Reference appointmentsPage}}" CommandParameter="{Binding }"
+                                    Grid.Column="2" Grid.Row="0" BorderWidth="0" />
+                            <Button Text="&#xf00d;" FontFamily="{StaticResource fa-solid-900}" Command="{Binding Path=BindingContext.RamoveAppointmentCommand, Source={x:Reference appointmentsPage}}" CommandParameter="{Binding }" 
+                                    Grid.Column="3" Grid.Row="0" BorderWidth="0"/>
+
+                            <Label Text="{Binding DoctorName}"
+                                   Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4"/>
+                            <Label Text="{Binding DoctorSpecialization}"
+                                   Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"/>
+                            <Label Text="{Binding DateAppointment}"
+                                   Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4"/>
+                            <!--<Label Text="{Binding DateAppointment, StringFormat='Date = {0:N}'}"/>-->
+                        </Grid>
+                        
+                           
+                            <!--<Label Text="{Binding DateAppointment}"/>
                             <Label Text="{Binding Path=TimeFrom, StringFormat='{0:c}'}"/>
-                            <Label Text="{Binding Path=TimeTo, StringFormat='{0:c}'}"/>
-                            <Button Text="Cancel" Command="{Binding Path=BindingContext.RamoveAppointmentCommand, Source={x:Reference appointmentsPage}}" CommandParameter="{Binding }"/>
-                            <Button Text="Edit" Command="{Binding Path=BindingContext.EditAppointmentCommand, Source={x:Reference appointmentsPage}}" CommandParameter="{Binding }"/>
-                        </StackLayout> 
+                            <Label Text="{Binding Path=TimeTo, StringFormat='{0:c}'}"/>-->
+
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

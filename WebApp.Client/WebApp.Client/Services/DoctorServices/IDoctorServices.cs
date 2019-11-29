@@ -9,5 +9,6 @@ namespace WebApp.Client.Services.DoctorServices
     public interface IDoctorServices
     {
         Task<List<Doctor>> GetDoctorsAsync(int? id);
+        Task<Doctor> GetDoctorAsync(int id);
     }
 }

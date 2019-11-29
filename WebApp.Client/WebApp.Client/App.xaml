@@ -6,6 +6,10 @@
              mc:Ignorable="d"
              x:Class="WebApp.Client.App">
     <Application.Resources>
-
+        <OnPlatform x:TypeArguments="x:String" 
+                x:Key="fa-solid-900">
+            <On Platform="Android" 
+          Value="fa-solid-900.ttf#Regular" />
+        </OnPlatform>
     </Application.Resources>
 </Application>

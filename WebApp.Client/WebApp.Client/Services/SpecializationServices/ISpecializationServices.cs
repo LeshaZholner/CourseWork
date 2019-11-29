@@ -9,5 +9,6 @@ namespace WebApp.Client.Services.SpecializationServices
     public interface ISpecializationServices
     {
         Task<List<Specialization>> GetSpecializationsAsync();
+        Task<Specialization> GetSpecializationAsync(int id);
     }
 }

@@ -44,7 +44,12 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand">
+                        <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Label VerticalOptions="FillAndExpand" 
+                    VerticalTextAlignment="Center" Text="{Binding Icon}"
+                    d:Text="{Binding .}"
+                    FontFamily="{StaticResource fa-solid-900}"
+                    FontSize="20"></Label>
                             <Label VerticalOptions="FillAndExpand" 
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
