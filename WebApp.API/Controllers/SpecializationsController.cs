@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WebApp.API.Models;
+using WebApp.API.Models.Specialization;
 using WebApp.BLL.DTO;
 using WebApp.BLL.Services.SpecializationService;
 
@@ -21,11 +21,14 @@ namespace WebApp.API.Controllers
 
         public IHttpActionResult Get(int id)
         {
-            var specialization = specializationService.GetSpecialization(id);
-            if (specialization == null)
+            var specializationDTO = specializationService.GetSpecialization(id);
+            if (specializationDTO == null)
             {
                 return NotFound();
             }
+
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<SpecializationDTO, SpecializationViewModel>()).CreateMapper();
+            var specialization = mapper.Map<SpecializationDTO, SpecializationViewModel>(specializationDTO);
 
             return Ok(specialization);
         }

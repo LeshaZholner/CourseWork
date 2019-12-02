@@ -10,7 +10,7 @@ namespace WebApp.BLL.Services.AppointmentService
     public interface IAppointmentService
     {
         int MakeAppointment(AppointmentDTO appointmentDTO);
-        IEnumerable<AppointmentDTO> GetAppointments();
+        IEnumerable<AppointmentDTO> GetAppointments(string userId);
         void DeleteAppointment(int id);
         AppointmentDTO GetAppointment(int id);
         void Update(AppointmentDTO appointmentDTO);

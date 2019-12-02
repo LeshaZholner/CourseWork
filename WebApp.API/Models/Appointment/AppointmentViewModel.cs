@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
+using WebApp.API.Models.Doctor;
 
-namespace WebApp.BLL.DTO
+namespace WebApp.API.Models.Appointment
 {
-    public class AppointmentDTO
+    public class AppointmentViewModel
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
         public int DoctorId { get; set; }
+        public DoctorViewModel Doctor { get;set;}
         public DateTime DateAppointment { get; set; }
         public TimeSpan TimeFrom { get; set; }
         public TimeSpan TimeTo { get; set; }

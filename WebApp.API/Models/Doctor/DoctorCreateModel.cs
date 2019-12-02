@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApp.API.Models
+namespace WebApp.API.Models.Doctor
 {
-    public class DoctorCreateViewModel
+    public class DoctorCreateModel
     {
         [Required]
         public int SpecializationId { get; set; }

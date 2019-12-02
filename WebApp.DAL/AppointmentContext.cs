@@ -37,9 +37,7 @@
                 .WithMany(s => s.Appointments)
                 .HasForeignKey(d => d.DoctorID);
 
-            modelBuilder.Entity<Appointment>().Property(a => a.FirstName).IsRequired();
-            modelBuilder.Entity<Appointment>().Property(a => a.LastName).IsRequired();
-            modelBuilder.Entity<Appointment>().Property(a => a.PhoneNumber).IsRequired();
+            modelBuilder.Entity<Appointment>().Property(a => a.UserId).IsRequired();
             modelBuilder.Entity<Appointment>().Property(a => a.DateAppointment).IsRequired();
             modelBuilder.Entity<Appointment>().Property(a => a.TimeFrom).IsRequired();
             modelBuilder.Entity<Appointment>().Property(a => a.TimeTo).IsRequired();

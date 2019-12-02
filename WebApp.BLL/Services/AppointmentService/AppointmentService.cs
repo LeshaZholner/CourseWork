@@ -27,30 +27,27 @@ namespace WebApp.BLL.Services.AppointmentService
 
         public int MakeAppointment(AppointmentDTO appointmentDTO)
         {
-            var doctor = Database.Doctors.Get(appointmentDTO.DoctorID);
+            var doctor = Database.Doctors.Get(appointmentDTO.DoctorId);
             if (doctor == null)
             {
-                throw new ValidationException($"Doctor {appointmentDTO.DoctorID} not found", "");
+                throw new ValidationException($"Doctor {appointmentDTO.DoctorId} not found", "");
             }
             var appointment = new Appointment
             {
-                PhoneNumber = appointmentDTO.PhoneNumber,
-                DoctorID = appointmentDTO.DoctorID,
+                UserId = appointmentDTO.UserId,
+                DoctorID = appointmentDTO.DoctorId,
                 DateAppointment = appointmentDTO.DateAppointment,
                 TimeFrom = appointmentDTO.TimeFrom,
-                TimeTo = appointmentDTO.TimeTo,
-                FirstName = appointmentDTO.FirstName,
-                LastName = appointmentDTO.LastName
+                TimeTo = appointmentDTO.TimeTo
             };
             return Database.Appointments.Create(appointment);
         }
 
-        public IEnumerable<AppointmentDTO> GetAppointments()
+        public IEnumerable<AppointmentDTO> GetAppointments(string userId)
         {
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Appointment, AppointmentDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Appointment>, List<AppointmentDTO>>(Database.Appointments.GetAll());
+            return mapper.Map<IEnumerable<Appointment>, List<AppointmentDTO>>(Database.Appointments.Find(a => a.UserId==userId));
         }
-
         public AppointmentDTO GetAppointment(int id)
         {
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Appointment, AppointmentDTO>()).CreateMapper();

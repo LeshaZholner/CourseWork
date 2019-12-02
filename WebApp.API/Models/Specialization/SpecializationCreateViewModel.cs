@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace WebApp.API.Models
+namespace WebApp.API.Models.Specialization
 {
     public class SpecializationCreateViewModel
     {

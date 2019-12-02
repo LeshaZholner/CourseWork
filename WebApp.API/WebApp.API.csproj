@@ -209,13 +209,13 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AppointmentCreateViewModel.cs" />
-    <Compile Include="Models\AppointmentViewModel.cs" />
-    <Compile Include="Models\DoctorCreateViewModel.cs" />
-    <Compile Include="Models\DoctorViewModel.cs" />
+    <Compile Include="Models\Appointment\AppointmentCreateModel.cs" />
+    <Compile Include="Models\Appointment\AppointmentViewModel.cs" />
+    <Compile Include="Models\Doctor\DoctorCreateModel.cs" />
+    <Compile Include="Models\Doctor\DoctorViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\SpecializationCreateViewModel.cs" />
-    <Compile Include="Models\SpecializationViewModel.cs" />
+    <Compile Include="Models\Specialization\SpecializationCreateViewModel.cs" />
+    <Compile Include="Models\Specialization\SpecializationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
