@@ -87,9 +87,10 @@ namespace WebApp.API.Controllers
             {
                 return NotFound();
             }
-            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<AppointmentCreateModel, AppointmentDTO>()).CreateMapper();
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<AppointmentCreateModel, AppointmentDTO>().ForMember(a => a.Doctor, opt => opt.Ignore())).CreateMapper();
             var appointmentDTO = mapper.Map<AppointmentCreateModel, AppointmentDTO>(value);
             appointmentDTO.Id = id;
+            appointmentDTO.UserId = UserManager.FindById(User.Identity.GetUserId()).Id;
             appointmentService.Update(appointmentDTO);
             return Ok();
         }
@@ -112,11 +113,6 @@ namespace WebApp.API.Controllers
             
             var appointments = mapper.Map<IEnumerable<AppointmentDTO>, IEnumerable<AppointmentViewModel>>(appointmentDTO);
 
-            foreach (var appointment in appointments)
-            {
-                appointment.Doctor = mapper.Map<DoctorDTO, DoctorViewModel>(doctorService.GetDoctor(appointment.DoctorId));
-                appointment.Doctor.Specialization = mapper.Map<SpecializationDTO, SpecializationViewModel>(specializationService.GetSpecialization(appointment.Doctor.SpecializationId));
-            }
             return appointments;
         }
     }

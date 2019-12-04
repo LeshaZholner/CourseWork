@@ -12,13 +12,13 @@ namespace WebApp.DAL.UoW
     {
         private AppointmentContext context;
         private IRepository<Doctor> _doctors;
-        private IRepository<Appointment> _appointment;
+        private IFindRepository<Appointment> _appointment;
         private IRepository<Specialization> _specializations;
 
         private bool disposed = false;
 
         public IRepository<Doctor> Doctors => _doctors;
-        public IRepository<Appointment> Appointments => _appointment;
+        public IFindRepository<Appointment> Appointments => _appointment;
         public IRepository<Specialization> Specializations => _specializations;
 
         public UnitOfWork(string connectionString)

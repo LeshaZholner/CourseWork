@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApp.DAL.Entities;
+using System.Data.Entity;
 
 namespace WebApp.DAL.Repositories
 {
-    public class AppointmentRepository : IRepository<Appointment>
+    public class AppointmentRepository : IFindRepository<Appointment>
     {
         private AppointmentContext context;
 
@@ -29,19 +30,22 @@ namespace WebApp.DAL.Repositories
             context.SaveChanges();
         }
 
-        public IEnumerable<Appointment> Find(Func<Appointment, bool> predicate)
+        public IEnumerable<Appointment> Find(string userId)
         {
-            return context.Appointments.Where(predicate).ToList();
+            var apps = context.Appointments.Where(a => a.UserId == userId).Include(a => a.Doctor).Include("Doctor.Specialization").ToList();
+            return apps;
         }
 
         public Appointment Get(int id)
         {
-            return context.Appointments.Find(id);
+            var appointment = context.Appointments.Where(a => a.Id == id).Include(a => a.Doctor).Include("Doctor.Specialization").FirstOrDefault();
+            return appointment;
         }
 
         public IEnumerable<Appointment> GetAll()
         {
-            return context.Appointments.ToList();
+            var apps = context.Appointments.Include(a => a.Doctor).Include("Doctor.Specialization").ToList();
+            return apps;
         }
 
         public void Update(Appointment item)

@@ -11,6 +11,7 @@ namespace WebApp.BLL.DTO
         public int Id { get; set; }
         public string UserId { get; set; }
         public int DoctorId { get; set; }
+        public DoctorDTO Doctor { get; set; }
         public DateTime DateAppointment { get; set; }
         public TimeSpan TimeFrom { get; set; }
         public TimeSpan TimeTo { get; set; }

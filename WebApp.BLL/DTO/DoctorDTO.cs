@@ -10,6 +10,7 @@ namespace WebApp.BLL.DTO
     {
         public int Id { get; set; }
         public int SpecializationId { get; set; }
+        public SpecializationDTO Specialization { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string PhoneNumber { get; set; }

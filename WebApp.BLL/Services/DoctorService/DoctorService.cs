@@ -28,13 +28,15 @@ namespace WebApp.BLL.Services.DoctorService
             }
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Doctor, DoctorDTO>()).CreateMapper();
             return mapper.Map<Doctor, DoctorDTO>(doctor);
-
-            //return new DoctorDTO { Id = doctor.Id, FirstName = doctor.FirstName, SecondName = doctor.SecondName, PhoneNumber = doctor.PhoneNumber, SpecializationId = doctor.SpecializationId };
         }
 
         public IEnumerable<DoctorDTO> GetDoctors()
         {
-            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Doctor, DoctorDTO>()).CreateMapper();
+            var mapper = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Doctor, DoctorDTO>();
+                cfg.CreateMap<Specialization, SpecializationDTO>();
+            }).CreateMapper();
             return mapper.Map<IEnumerable<Doctor>, List<DoctorDTO>>(Database.Doctors.GetAll());
         }
 

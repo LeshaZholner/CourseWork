@@ -28,11 +28,6 @@ namespace WebApp.DAL.Repositories
             context.Specializations.Remove(spec);
         }
 
-        public IEnumerable<Specialization> Find(Func<Specialization, bool> predicate)
-        {
-            return context.Specializations.Where(predicate).ToList();
-        }
-
         public Specialization Get(int id)
         {
             return context.Specializations.Find(id); 

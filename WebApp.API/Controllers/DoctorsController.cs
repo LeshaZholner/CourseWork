@@ -56,11 +56,7 @@ namespace WebApp.API.Controllers
             }).CreateMapper();
 
             var doctors = mapper.Map<IEnumerable<DoctorDTO>, IEnumerable<DoctorViewModel>>(doctorsDTO);
-            foreach (var doctor in doctors)
-            {
-                doctor.Specialization = mapper.Map<SpecializationDTO, SpecializationViewModel>(specializationService.GetSpecialization(doctor.SpecializationId));
-            }
-
+            
             return doctors;
         }
 

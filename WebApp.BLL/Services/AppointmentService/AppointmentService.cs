@@ -45,12 +45,22 @@ namespace WebApp.BLL.Services.AppointmentService
 
         public IEnumerable<AppointmentDTO> GetAppointments(string userId)
         {
-            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Appointment, AppointmentDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Appointment>, List<AppointmentDTO>>(Database.Appointments.Find(a => a.UserId==userId));
+            var mapper = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Appointment, AppointmentDTO>();
+                cfg.CreateMap<Doctor, DoctorDTO>();
+                cfg.CreateMap<Specialization, SpecializationDTO>();
+            }).CreateMapper();
+            return mapper.Map<IEnumerable<Appointment>, List<AppointmentDTO>>(Database.Appointments.Find(userId));
         }
         public AppointmentDTO GetAppointment(int id)
         {
-            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<Appointment, AppointmentDTO>()).CreateMapper();
+            var mapper = new AutoMapper.MapperConfiguration(cfg => 
+            {
+                cfg.CreateMap<Appointment, AppointmentDTO>();
+                cfg.CreateMap<Doctor, DoctorDTO>();
+                cfg.CreateMap<Specialization, SpecializationDTO>();
+            }).CreateMapper();
             return mapper.Map<Appointment, AppointmentDTO>(Database.Appointments.Get(id));
         }
 
@@ -61,7 +71,7 @@ namespace WebApp.BLL.Services.AppointmentService
 
         public void Update(AppointmentDTO appointmentDTO)
         {
-            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<AppointmentDTO, Appointment>()).CreateMapper();
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<AppointmentDTO, Appointment>().ForMember(a => a.Doctor, opt => opt.Ignore())).CreateMapper();
             var appointment = mapper.Map<AppointmentDTO, Appointment>(appointmentDTO);
             Database.Appointments.Update(appointment);
 

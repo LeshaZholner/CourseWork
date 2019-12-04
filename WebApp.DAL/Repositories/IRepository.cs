@@ -9,7 +9,6 @@ namespace WebApp.DAL.Repositories
     public interface IRepository<T>
     {
         IEnumerable<T> GetAll();
-        IEnumerable<T> Find(Func<T, bool> predicate);
         T Get(int id);
         int Create(T item);
         void Update(T item);

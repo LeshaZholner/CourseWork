@@ -11,7 +11,7 @@ namespace WebApp.DAL.UoW
     public interface IUnitOfWork : IDisposable
     {
         IRepository<Doctor> Doctors { get; }
-        IRepository<Appointment> Appointments { get; }
+        IFindRepository<Appointment> Appointments { get; }
         IRepository<Specialization> Specializations { get; }
         void Save();
     }
