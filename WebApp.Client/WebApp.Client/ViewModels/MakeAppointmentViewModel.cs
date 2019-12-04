@@ -12,6 +12,8 @@ using System.Runtime.CompilerServices;
 using WebApp.Client.Services.DoctorServices;
 using System.Collections.ObjectModel;
 using WebApp.Client.Services;
+using WebApp.Client.Models.Appointment;
+using WebApp.Client.Models.Doctor;
 
 namespace WebApp.Client.ViewModels
 {
@@ -49,9 +51,9 @@ namespace WebApp.Client.ViewModels
         }
 
 
-        private ObservableCollection<Doctor> doctors;
-        private Doctor selectDoctor;
-        public ObservableCollection<Doctor> Doctors 
+        private ObservableCollection<DoctorView> doctors;
+        private DoctorView selectDoctor;
+        public ObservableCollection<DoctorView> Doctors 
         {
             get { return doctors; }
             set
@@ -60,7 +62,7 @@ namespace WebApp.Client.ViewModels
                 OnPropertChanged("Doctors");
             }
         }
-        public Doctor SelectDoctor 
+        public DoctorView SelectDoctor 
         {
             get { return selectDoctor; }
             set
@@ -83,7 +85,7 @@ namespace WebApp.Client.ViewModels
             {
                 return new Command(async () =>
                 {
-                    Doctors = new ObservableCollection<Doctor>(await doctorServices.GetDoctorsAsync(selectSpecialization.Id));
+                    Doctors = new ObservableCollection<DoctorView>(await doctorServices.GetDoctorsAsync(selectSpecialization.Id));
                 });
             }
         }
@@ -95,15 +97,12 @@ namespace WebApp.Client.ViewModels
                 return new Command(async () =>
                 {
                     var userInfo = await apiServices.UserInfoAsync();
-                    var appointment = new Appointment()
+                    var appointment = new AppointmentCreate()
                     {
                         DoctorId = selectDoctor.Id,
-                        PhoneNumber = userInfo.Phonenumber,
                         DateAppointment = DateAppointment,
                         TimeTo = TimeTo,
                         TimeFrom = TimeFrom,
-                        FirstName = userInfo.FirstName,
-                        LastName = userInfo.LastName
                     };
                     await appointmentServices.MakeAppointmentAsync(appointment);
                 });

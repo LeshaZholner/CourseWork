@@ -7,7 +7,7 @@
     <StackLayout>
         <Button Command="{Binding MakeAppointmentCommand}" 
                 Text="Add"/>
-        <ListView ItemsSource="{Binding AppointmentViews}"
+        <ListView ItemsSource="{Binding AppointmentsView}"
                   HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -31,20 +31,13 @@
                             <Button Text="&#xf00d;" FontFamily="{StaticResource fa-solid-900}" Command="{Binding Path=BindingContext.RamoveAppointmentCommand, Source={x:Reference appointmentsPage}}" CommandParameter="{Binding }" 
                                     Grid.Column="3" Grid.Row="0" BorderWidth="0"/>
 
-                            <Label Text="{Binding DoctorName}"
+                            <Label Text="{Binding Doctor.FirstName}"
                                    Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4"/>
-                            <Label Text="{Binding DoctorSpecialization}"
+                            <Label Text="{Binding Doctor.Specialization.Name}"
                                    Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"/>
                             <Label Text="{Binding DateAppointment}"
                                    Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4"/>
-                            <!--<Label Text="{Binding DateAppointment, StringFormat='Date = {0:N}'}"/>-->
                         </Grid>
-                        
-                           
-                            <!--<Label Text="{Binding DateAppointment}"/>
-                            <Label Text="{Binding Path=TimeFrom, StringFormat='{0:c}'}"/>
-                            <Label Text="{Binding Path=TimeTo, StringFormat='{0:c}'}"/>-->
-
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

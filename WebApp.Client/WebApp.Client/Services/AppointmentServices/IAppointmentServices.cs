@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using WebApp.Client.Models;
+using WebApp.Client.Models.Appointment;
 
 namespace WebApp.Client.Services.AppointmentServices
 {
     public interface IAppointmentServices
     {
-        Task<bool> MakeAppointmentAsync(Appointment appointment);
+        Task<bool> MakeAppointmentAsync(AppointmentCreate appointment);
         Task<bool> DeleteAppointmentAsync(int id);
-        Task<List<Appointment>> GetAppointmentAsync();
-        Task<bool> UpdateAppointmentment(Appointment appointment);
+        Task<List<AppointmentView>> GetAppointmentAsync();
+        Task<bool> UpdateAppointmentment(AppointmentCreate appointment);
     }
 }

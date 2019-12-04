@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using WebApp.Client.DI;
-using WebApp.Client.Models;
 using WebApp.Client.Services.AppointmentServices;
 using Xamarin.Forms;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +13,7 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using WebApp.Client.Services.DoctorServices;
 using WebApp.Client.Services.SpecializationServices;
+using WebApp.Client.Models.Appointment;
 
 namespace WebApp.Client.ViewModels
 {
@@ -22,42 +22,21 @@ namespace WebApp.Client.ViewModels
         private IAppointmentServices appointmentServices = Bootstrap.ServiceProvider.GetService<IAppointmentServices>();
         private IDoctorServices doctorServices = Bootstrap.ServiceProvider.GetService<IDoctorServices>();
         private ISpecializationServices specializationServices = Bootstrap.ServiceProvider.GetService<ISpecializationServices>();
-        private ObservableCollection<Appointment> _appointments;
+
         private ObservableCollection<AppointmentView> _appointmentsView;
 
-        public AppointmentsViewModel(List<Appointment> appointments)
+        public AppointmentsViewModel(List<AppointmentView> appointments)
         {
-            _appointments = new ObservableCollection<Appointment>(appointments);
+            _appointmentsView = new ObservableCollection<AppointmentView>(appointments);
         }
 
-        public ObservableCollection<Appointment> Appointments 
+        public ObservableCollection<AppointmentView> AppointmentsView 
         {
-            get { return _appointments; }
+            get { return _appointmentsView; }
             set {
-                _appointments = value;
+                _appointmentsView = value;
                 OnPropertChanged("Appointments");
             } 
-        }
-
-        public ObservableCollection<AppointmentView> AppointmentViews
-        {
-            get 
-            {
-                var appointmentsView = new ObservableCollection<AppointmentView>();
-                foreach (var appointment in _appointments)
-                {
-                    AppointmentView appointmentView = new AppointmentView();
-                    //var doctor = doctorServices.GetDoctorAsync(appointment.DoctorId).Result;
-                    //appointmentView.DoctorName = doctor.FirstName + " " + doctor.SecondName;
-                    //var specialization = specializationServices.GetSpecializationAsync(doctor.SpecializationId).Result;
-                    //appointmentView.DoctorSpecialization = specialization.Name;
-                    appointmentView.DoctorName = "Name";
-                    appointmentView.DoctorSpecialization = "test";
-                    appointmentView.DateAppointment = $"Date {appointment.DateAppointment.ToShortDateString()} from {appointment.TimeFrom} to {appointment.TimeTo}";
-                    appointmentsView.Add(appointmentView);
-                }
-                return appointmentsView;
-            }
         }
 
         public ICommand MakeAppointmentCommand
@@ -75,9 +54,9 @@ namespace WebApp.Client.ViewModels
             get
             {
                 return new Command(async (item) => {
-                    Appointment appointment = item as Appointment;
+                    AppointmentView appointment = item as AppointmentView;
                     await appointmentServices.DeleteAppointmentAsync(appointment.Id);
-                    _appointments.Remove(appointment);
+                    _appointmentsView.Remove(appointment);
                 });
             }
         }
@@ -88,7 +67,7 @@ namespace WebApp.Client.ViewModels
             {
                 return new Command(async (item) =>
                 {
-                    Appointment appointment = item as Appointment;
+                    AppointmentView appointment = item as AppointmentView;
                     await Application.Current.MainPage.Navigation.PushAsync(new EditAppointmentPage(appointment));
                 });
             }

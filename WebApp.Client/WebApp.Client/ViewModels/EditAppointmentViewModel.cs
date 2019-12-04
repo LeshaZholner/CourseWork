@@ -7,7 +7,7 @@ using WebApp.Client.DI;
 using WebApp.Client.Services.AppointmentServices;
 using Xamarin.Forms;
 using Microsoft.Extensions.DependencyInjection;
-using WebApp.Client.Models;
+using WebApp.Client.Models.Appointment;
 
 namespace WebApp.Client.ViewModels
 {
@@ -15,11 +15,16 @@ namespace WebApp.Client.ViewModels
     {
         private IAppointmentServices appointmentServices = Bootstrap.ServiceProvider.GetService<IAppointmentServices>();
 
-        public Appointment SelectAppointment { get; set; }
+        public AppointmentCreate SelectAppointment { get; set; }
 
-        public EditAppointmentViewModel(Appointment appointment)
+        public EditAppointmentViewModel(AppointmentView appointment)
         {
-            SelectAppointment = appointment;
+            SelectAppointment = new AppointmentCreate();
+            SelectAppointment.Id = appointment.Id;
+            SelectAppointment.DoctorId = appointment.DoctorId;
+            SelectAppointment.DateAppointment = appointment.DateAppointment;
+            SelectAppointment.TimeFrom = appointment.TimeFrom;
+            SelectAppointment.TimeTo = appointment.TimeTo;
         }
 
         public ICommand SaveAppointmentCommand
