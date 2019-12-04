@@ -28,12 +28,26 @@ namespace WebApp.Admin.Controllers
         public ActionResult Index()
         {
             var users = _userManager.Users.ToList();
-            return View(users);
+            var usersView = new List<UserViewModel>();
+            foreach (var user in users)
+            {
+                var claims = _userManager.GetClaims(user.Id);
+                var userView = new UserViewModel();
+                userView.Id = user.Id;
+                userView.Email = user.Email;
+                userView.FirstName = claims.First(c => c.Type == "FirstName").Value;
+                userView.LastName = claims.First(c => c.Type == "LastName").Value;
+                userView.PhoneNumber = claims.First(c => c.Type == "Phonenumber").Value;
+                usersView.Add(userView);
+            }
+
+            return View(usersView);
         }
 
         // GET: AspNetUsers/Create
         public ActionResult Create()
         {
+            ViewBag.DoctorId = new SelectList(db.Doctors, "Id", "FirstName");
             return View();
         }
 
@@ -46,17 +60,20 @@ namespace WebApp.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var doctor = db.Doctors.Find(model.DoctorId);
                 
                 var user = new ApplicationUser()
                 {
                     Email = model.Email,
-                    PhoneNumber = model.PhoneNumber
+                    PhoneNumber = doctor.PhoneNumber
                 };
-                
+
                 _userManager.Create(user, model.Password);
-                _userManager.AddClaim(user.Id, new Claim("FirstName", model.FirstName));
-                _userManager.AddClaim(user.Id, new Claim("LastName", model.LastName));
-                _userManager.AddClaim(user.Id, new Claim("Phonenumber", model.PhoneNumber));
+                _userManager.AddClaim(user.Id, new Claim("FirstName", doctor.FirstName));
+                _userManager.AddClaim(user.Id, new Claim("LastName", doctor.SecondName));
+                _userManager.AddClaim(user.Id, new Claim("Phonenumber", doctor.PhoneNumber));
+
+                _userManager.AddToRole(user.Id, "Doctor");
                 return RedirectToAction("Index");
             }
 
@@ -98,7 +115,12 @@ namespace WebApp.Admin.Controllers
                     user.Email = model.Email;
                     user.PhoneNumber = model.PhoneNumber;
                 }
+                var claims = _userManager.GetClaims(user.Id);
                 _userManager.Update(user);
+                _userManager.RemoveClaim(user.Id, claims.First(c => c.Type == "FirstName"));
+                _userManager.RemoveClaim(user.Id, claims.First(c => c.Type == "LastName"));
+                _userManager.RemoveClaim(user.Id, claims.First(c => c.Type == "Phonenumber"));
+
                 _userManager.AddClaim(user.Id, new Claim("FirstName", model.FirstName));
                 _userManager.AddClaim(user.Id, new Claim("LastName", model.LastName));
                 _userManager.AddClaim(user.Id, new Claim("Phonenumber", model.PhoneNumber));
@@ -130,6 +152,10 @@ namespace WebApp.Admin.Controllers
             var aspNetUser = _userManager.FindById(id);
             if(User != null)
             {
+                var claims = _userManager.GetClaims(id);
+                _userManager.RemoveClaim(id, claims.First(c => c.Type == "FirstName"));
+                _userManager.RemoveClaim(id, claims.First(c => c.Type == "LastName"));
+                _userManager.RemoveClaim(id, claims.First(c => c.Type == "Phonenumber"));
                 _userManager.Delete(aspNetUser);
             }
             return RedirectToAction("Index");

@@ -11,6 +11,13 @@ namespace WebApp.Admin.Models
     {
         public IEnumerable<Doctor> Doctors { get; set; }
         public IEnumerable<Specialization> Specializations { get; set; }
-        public IEnumerable<ApplicationUser> Users { get; set; }
+        public IEnumerable<UserViewModel> Users { get; set; }
+
+        public MainPageViewModels()
+        {
+            Doctors = new List<Doctor>();
+            Specializations = new List<Specialization>();
+            Users = new List<UserViewModel>();
+        }
     }
 }
