@@ -13,6 +13,7 @@ namespace WebApp.DAL.UoW
         IRepository<Doctor> Doctors { get; }
         IFindRepository<Appointment> Appointments { get; }
         IRepository<Specialization> Specializations { get; }
+        IFindRepository<DoctorAvailability> DoctorAvailability { get; }
         void Save();
     }
 }

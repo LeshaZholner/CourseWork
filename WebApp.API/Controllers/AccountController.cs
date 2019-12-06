@@ -336,7 +336,7 @@ namespace WebApp.API.Controllers
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email};
             
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
+            await UserManager.AddToRoleAsync(user.Id, "Patient");
             await UserManager.AddClaimAsync(user.Id, new Claim("FirstName", model.Firstname));
             await UserManager.AddClaimAsync(user.Id, new Claim("LastName", model.Lastname));
             await UserManager.AddClaimAsync(user.Id, new Claim("Phonenumber", model.Phonenumber));

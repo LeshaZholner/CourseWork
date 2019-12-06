@@ -12,7 +12,6 @@ using WebApp.API.Models.Specialization;
 using WebApp.BLL.DTO;
 using WebApp.BLL.Services.AppointmentService;
 using WebApp.BLL.Services.DoctorService;
-using WebApp.BLL.Services.SpecializationService;
 
 namespace WebApp.API.Controllers
 {
@@ -21,12 +20,10 @@ namespace WebApp.API.Controllers
     {
         IAppointmentService appointmentService;
         IDoctorService doctorService;
-        ISpecializationService specializationService;
-        public AppointmentsController(IAppointmentService appointmentService, IDoctorService doctorService, ISpecializationService specializationService)
+        public AppointmentsController(IAppointmentService appointmentService, IDoctorService doctorService)
         {
             this.appointmentService = appointmentService;
             this.doctorService = doctorService;
-            this.specializationService = specializationService;
         }
 
         public ApplicationUserManager UserManager

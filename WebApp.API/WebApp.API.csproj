@@ -202,6 +202,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
+    <Compile Include="Controllers\DoctorAvailabilityController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\SpecializationsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -211,6 +212,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment\AppointmentCreateModel.cs" />
     <Compile Include="Models\Appointment\AppointmentViewModel.cs" />
+    <Compile Include="Models\DoctorAvailability\DoctorAvailabilityViewModel.cs" />
     <Compile Include="Models\Doctor\DoctorCreateModel.cs" />
     <Compile Include="Models\Doctor\DoctorViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -233,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DoctorAvailability\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

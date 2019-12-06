@@ -20,6 +20,7 @@
         public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<Specialization> Specializations { get; set; }
 
+        public virtual DbSet<DoctorAvailability> DoctorAvailability { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Doctor>()
@@ -44,8 +45,15 @@
 
             modelBuilder.Entity<Specialization>().Property(a => a.Name).IsRequired();
 
+            modelBuilder.Entity<DoctorAvailability>()
+                .HasRequired(d => d.Doctor)
+                .WithMany(d => d.DoctorAccessibilities)
+                .HasForeignKey(d => d.DoctorId);
+            modelBuilder.Entity<DoctorAvailability>().Property(d => d.DoctorId).IsRequired();
+            modelBuilder.Entity<DoctorAvailability>().Property(d => d.DateAvailability).IsRequired();
+            modelBuilder.Entity<DoctorAvailability>().Property(d => d.TimeFrom).IsRequired();
+            modelBuilder.Entity<DoctorAvailability>().Property(d => d.TimeTo).IsRequired();
 
-            
         }
 
     }

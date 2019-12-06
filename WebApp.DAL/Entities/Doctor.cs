@@ -15,5 +15,6 @@ namespace WebApp.DAL.Entities
         public string PhoneNumber { get; set; }
         public virtual Specialization Specialization { get; set; }
         public ICollection<Appointment> Appointments { get; set; }
+        public ICollection<DoctorAvailability> DoctorAccessibilities { get; set; }
     }
 }

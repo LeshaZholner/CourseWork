@@ -14,12 +14,14 @@ namespace WebApp.DAL.UoW
         private IRepository<Doctor> _doctors;
         private IFindRepository<Appointment> _appointment;
         private IRepository<Specialization> _specializations;
+        private IFindRepository<DoctorAvailability> _doctorAvailability;
 
         private bool disposed = false;
 
         public IRepository<Doctor> Doctors => _doctors;
         public IFindRepository<Appointment> Appointments => _appointment;
         public IRepository<Specialization> Specializations => _specializations;
+        public IFindRepository<DoctorAvailability> DoctorAvailability => _doctorAvailability;
 
         public UnitOfWork(string connectionString)
         {
@@ -27,6 +29,7 @@ namespace WebApp.DAL.UoW
             _doctors = new DoctorRepository(context);
             _appointment = new AppointmentRepository(context);
             _specializations = new SpecializationRepository(context);
+            _doctorAvailability = new DoctorAvailabilityRepository(context);
         }
         public void Dispose()
         {

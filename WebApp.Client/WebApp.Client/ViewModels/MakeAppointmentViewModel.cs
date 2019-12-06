@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using WebApp.Client.Services;
 using WebApp.Client.Models.Appointment;
 using WebApp.Client.Models.Doctor;
+using WebApp.Client.Services.DoctorAvailabilityServices;
 
 namespace WebApp.Client.ViewModels
 {
@@ -22,7 +23,7 @@ namespace WebApp.Client.ViewModels
         private IAppointmentServices appointmentServices = Bootstrap.ServiceProvider.GetService<IAppointmentServices>();
         private IDoctorServices doctorServices = Bootstrap.ServiceProvider.GetService<IDoctorServices>();
         private IApiServices apiServices = Bootstrap.ServiceProvider.GetService<IApiServices>();
-
+        private IDoctorAvailabilityService doctorAvailabilityServices = Bootstrap.ServiceProvider.GetService<IDoctorAvailabilityService>();
         public int DoctorId { get; set; }
         public DateTime DateAppointment { get; set; } = DateTime.Now;
         public TimeSpan TimeFrom { get; set; }
@@ -72,8 +73,27 @@ namespace WebApp.Client.ViewModels
             }
         }
 
+        private ObservableCollection<DoctorAvailabilityView> doctorAvailabilityViews;
+        private DoctorAvailabilityView selectDoctorAvailabilityView;
+        public ObservableCollection<DoctorAvailabilityView> DoctorAvailabilityViews
+        {
+            get { return doctorAvailabilityViews; }
+            set
+            {
+                doctorAvailabilityViews = value;
+                OnPropertChanged("DoctorAvailabilityViews");
+            }
+        }
+        public DoctorAvailabilityView SelectDoctorAvailabilityView
+        {
+            get { return selectDoctorAvailabilityView; }
+            set
+            {
+                selectDoctorAvailabilityView = value;
+                OnPropertChanged("SelectDoctorAvailabilityView");
+            }
+        }
 
-        
         public MakeAppointmentViewModel(List<Specialization> specializations)
         {
             this.specializations = specializations;
@@ -89,7 +109,29 @@ namespace WebApp.Client.ViewModels
                 });
             }
         }
+        
+        public ICommand GetDoctorAvailabilitiesCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    DoctorAvailabilityViews = new ObservableCollection<DoctorAvailabilityView>(await doctorAvailabilityServices.GetDoctorAvailabilitiesAsync(selectDoctor.Id));
+                });
+            }
+        }
+        
 
+        public ICommand GetTimeCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    DoctorAvailabilityViews = new ObservableCollection<DoctorAvailabilityView>(await doctorAvailabilityServices.GetDoctorAvailabilitiesAsync(selectDoctor.Id));
+                });
+            }
+        }
         public ICommand MakeAppointmentCommand
         {
             get

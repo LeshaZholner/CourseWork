@@ -48,12 +48,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\AppointmentDTO.cs" />
+    <Compile Include="DTO\DoctorAvailabilityDTO.cs" />
     <Compile Include="DTO\DoctorDTO.cs" />
     <Compile Include="DTO\SpecializationDTO.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AppointmentService\AppointmentService.cs" />
+    <Compile Include="Services\DoctorAvailabilityService\DoctorAvailabilityService.cs" />
+    <Compile Include="Services\DoctorAvailabilityService\IDoctorAvailabilityService.cs" />
     <Compile Include="Services\DoctorService\DoctorService.cs" />
     <Compile Include="Services\AppointmentService\IAppointmentService.cs" />
     <Compile Include="Services\DoctorService\IDoctorService.cs" />

@@ -56,10 +56,12 @@
     <Compile Include="AppointmentContext.cs" />
     <Compile Include="Entities\Appointment.cs" />
     <Compile Include="Entities\Doctor.cs" />
+    <Compile Include="Entities\DoctorAvailability.cs" />
     <Compile Include="Entities\Specialization.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AppointmentRepository.cs" />
+    <Compile Include="Repositories\DoctorAvailabilityRepository.cs" />
     <Compile Include="Repositories\DoctorRepository.cs" />
     <Compile Include="Repositories\IFindRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />

@@ -24,14 +24,44 @@
         <Picker Title="select doctor"
                 ItemsSource="{Binding Doctors}"
                 ItemDisplayBinding="{Binding FirstName}"
-                SelectedItem="{Binding SelectDoctor}"/>
-        <Label Text="Date"/>
+                SelectedItem="{Binding SelectDoctor}">
+            <Picker.Behaviors>
+                <behaviorsPack:EventToCommandBehavior
+                        EventName="SelectedIndexChanged"
+                        Command="{Binding GetDoctorAvailabilitiesCommand}"/>
+            </Picker.Behaviors>
+        </Picker>
+        
+        <Picker Title="select date"
+                ItemsSource="{Binding DoctorAvailabilityViews}"
+                ItemDisplayBinding="{Binding DateAvailability}"
+                SelectedItem="{Binding SelectDoctorAvailabilityView}">
+
+            <Picker.Behaviors>
+                <behaviorsPack:EventToCommandBehavior
+                        EventName="SelectedIndexChanged"
+                        Command="{Binding GetTimeCommand}"/>
+            </Picker.Behaviors>
+
+        </Picker>
+        <!--<Picker Title="select time"
+                ItemsSource="{Binding  Specializations}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectSpecialization}">
+
+            <Picker.Behaviors>
+                <behaviorsPack:EventToCommandBehavior
+                        EventName="SelectedIndexChanged"
+                        Command="{Binding GetDoctorsCommand}"/>
+            </Picker.Behaviors>
+        </Picker>-->
+        <!--<Label Text="Date"/>
         <DatePicker Date="{Binding DateAppointment}"
                     MinimumDate="{x:Static system:DateTime.Today}"/>
         <Label Text="Time From"/>
         <TimePicker Time="{Binding TimeFrom}"/>
         <Label Text="Time To"/>
-        <TimePicker Time="{Binding TimeTo}"/>
+        <TimePicker Time="{Binding TimeTo}"/>-->
         <Button Command="{Binding MakeAppointmentCommand}"
                 Text="Add new appointment"/>
     </StackLayout>
