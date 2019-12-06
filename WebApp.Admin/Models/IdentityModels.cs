@@ -35,5 +35,6 @@ namespace WebApp.Admin.Models
         public System.Data.Entity.DbSet<Specialization> Specializations { get; set; }
 
         public System.Data.Entity.DbSet<Doctor> Doctors { get; set; }
+        public DbSet<DoctorAvailability> DoctorAccessibilities { get; set; }
     }
 }

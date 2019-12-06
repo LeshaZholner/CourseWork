@@ -18,10 +18,12 @@ namespace WebApp.Admin.Controllers
     {
         private UserManager<ApplicationUser> _userManager;
         private ApplicationDbContext db = new ApplicationDbContext();
+
         public UsersController()
         {
             //_userManager = userManager;
             _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            
         }
 
         // GET: AspNetUsers
@@ -65,10 +67,11 @@ namespace WebApp.Admin.Controllers
                 var user = new ApplicationUser()
                 {
                     Email = model.Email,
+                    UserName = model.Email,
                     PhoneNumber = doctor.PhoneNumber
                 };
 
-                _userManager.Create(user, model.Password);
+                var result = _userManager.Create(user, model.Password);
                 _userManager.AddClaim(user.Id, new Claim("FirstName", doctor.FirstName));
                 _userManager.AddClaim(user.Id, new Claim("LastName", doctor.SecondName));
                 _userManager.AddClaim(user.Id, new Claim("Phonenumber", doctor.PhoneNumber));

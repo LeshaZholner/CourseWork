@@ -170,11 +170,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DoctorAvailabilitiesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SpecializationsController.cs" />
+    <Compile Include="CustomValidation\CompareTime.cs" />
+    <Compile Include="CustomValidation\ScheduleDate.cs" />
+    <Compile Include="Models\DoctorAvailability.cs" />
     <Compile Include="Models\Doctors\Doctor.cs" />
     <Compile Include="Models\Doctors\DoctorCreateModel.cs" />
     <Compile Include="Models\Doctors\DoctorViewModel.cs" />
@@ -261,6 +265,10 @@
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\DoctorAvailabilities\Create.cshtml" />
+    <Content Include="Views\DoctorAvailabilities\Delete.cshtml" />
+    <Content Include="Views\DoctorAvailabilities\Edit.cshtml" />
+    <Content Include="Views\DoctorAvailabilities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
