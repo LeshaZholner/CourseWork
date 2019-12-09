@@ -42,26 +42,13 @@
                         EventName="SelectedIndexChanged"
                         Command="{Binding GetTimeCommand}"/>
             </Picker.Behaviors>
-
         </Picker>
-        <!--<Picker Title="select time"
-                ItemsSource="{Binding  Specializations}"
-                ItemDisplayBinding="{Binding Name}"
-                SelectedItem="{Binding SelectSpecialization}">
-
-            <Picker.Behaviors>
-                <behaviorsPack:EventToCommandBehavior
-                        EventName="SelectedIndexChanged"
-                        Command="{Binding GetDoctorsCommand}"/>
-            </Picker.Behaviors>
-        </Picker>-->
-        <!--<Label Text="Date"/>
-        <DatePicker Date="{Binding DateAppointment}"
-                    MinimumDate="{x:Static system:DateTime.Today}"/>
-        <Label Text="Time From"/>
-        <TimePicker Time="{Binding TimeFrom}"/>
-        <Label Text="Time To"/>
-        <TimePicker Time="{Binding TimeTo}"/>-->
+        <Picker Title="select time"
+                ItemsSource="{Binding TimeDoctorAvailability}"
+                ItemDisplayBinding="{Binding Minutes}"
+                SelectedItem="{Binding SelectTime}">
+            
+        </Picker>
         <Button Command="{Binding MakeAppointmentCommand}"
                 Text="Add new appointment"/>
     </StackLayout>

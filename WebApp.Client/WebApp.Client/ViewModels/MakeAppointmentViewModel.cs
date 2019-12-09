@@ -25,10 +25,6 @@ namespace WebApp.Client.ViewModels
         private IApiServices apiServices = Bootstrap.ServiceProvider.GetService<IApiServices>();
         private IDoctorAvailabilityService doctorAvailabilityServices = Bootstrap.ServiceProvider.GetService<IDoctorAvailabilityService>();
         public int DoctorId { get; set; }
-        public DateTime DateAppointment { get; set; } = DateTime.Now;
-        public TimeSpan TimeFrom { get; set; }
-        public TimeSpan TimeTo { get; set; }
-
 
         private List<Specialization> specializations;
         private Specialization selectSpecialization;
@@ -53,8 +49,7 @@ namespace WebApp.Client.ViewModels
 
 
         private ObservableCollection<DoctorView> doctors;
-        private DoctorView selectDoctor;
-        public ObservableCollection<DoctorView> Doctors 
+        public ObservableCollection<DoctorView> Doctors
         {
             get { return doctors; }
             set
@@ -63,6 +58,8 @@ namespace WebApp.Client.ViewModels
                 OnPropertChanged("Doctors");
             }
         }
+
+        private DoctorView selectDoctor;
         public DoctorView SelectDoctor 
         {
             get { return selectDoctor; }
@@ -74,7 +71,6 @@ namespace WebApp.Client.ViewModels
         }
 
         private ObservableCollection<DoctorAvailabilityView> doctorAvailabilityViews;
-        private DoctorAvailabilityView selectDoctorAvailabilityView;
         public ObservableCollection<DoctorAvailabilityView> DoctorAvailabilityViews
         {
             get { return doctorAvailabilityViews; }
@@ -84,6 +80,8 @@ namespace WebApp.Client.ViewModels
                 OnPropertChanged("DoctorAvailabilityViews");
             }
         }
+
+        private DoctorAvailabilityView selectDoctorAvailabilityView;
         public DoctorAvailabilityView SelectDoctorAvailabilityView
         {
             get { return selectDoctorAvailabilityView; }
@@ -93,6 +91,32 @@ namespace WebApp.Client.ViewModels
                 OnPropertChanged("SelectDoctorAvailabilityView");
             }
         }
+
+        private ObservableCollection<TimeSpan> timeDoctorAvailability;
+        public ObservableCollection<TimeSpan> TimeDoctorAvailability
+        {
+            get
+            {
+                return timeDoctorAvailability;
+            }
+            set
+            {
+                timeDoctorAvailability = value;
+                OnPropertChanged("TimeDoctorAvailability");
+            }
+        }
+
+        private TimeSpan selectTime;
+        public TimeSpan SelectTime
+        {
+            get { return selectTime; }
+            set
+            {
+                selectTime = value;
+                OnPropertChanged("SelectTime");
+            }
+        }
+
 
         public MakeAppointmentViewModel(List<Specialization> specializations)
         {
@@ -126,9 +150,9 @@ namespace WebApp.Client.ViewModels
         {
             get
             {
-                return new Command(async () =>
+                return new Command(() =>
                 {
-                    DoctorAvailabilityViews = new ObservableCollection<DoctorAvailabilityView>(await doctorAvailabilityServices.GetDoctorAvailabilitiesAsync(selectDoctor.Id));
+                    TimeDoctorAvailability = GetRangeTime(selectDoctorAvailabilityView.TimeFrom, selectDoctorAvailabilityView.TimeTo, new TimeSpan(0, 30, 0));
                 });
             }
         }
@@ -142,9 +166,9 @@ namespace WebApp.Client.ViewModels
                     var appointment = new AppointmentCreate()
                     {
                         DoctorId = selectDoctor.Id,
-                        DateAppointment = DateAppointment,
-                        TimeTo = TimeTo,
-                        TimeFrom = TimeFrom,
+                        DateAppointment = selectDoctorAvailabilityView.DateAvailability,
+                        TimeTo = selectTime,
+                        TimeFrom = selectTime.Add(new TimeSpan(0,30,0)),
                     };
                     await appointmentServices.MakeAppointmentAsync(appointment);
                 });
@@ -156,6 +180,18 @@ namespace WebApp.Client.ViewModels
         protected virtual void OnPropertChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private ObservableCollection<TimeSpan> GetRangeTime(TimeSpan timeFrom, TimeSpan timeTo, TimeSpan step)
+        {
+            var times = new ObservableCollection<TimeSpan>();
+            for (int i = 0; timeFrom.Add(TimeSpan.FromTicks(step.Ticks * i)) < timeTo; i++)
+            {
+                var time = timeFrom.Add(TimeSpan.FromTicks(step.Ticks * i));
+                times.Add(time);
+            }
+
+            return times;
         }
     }
 }

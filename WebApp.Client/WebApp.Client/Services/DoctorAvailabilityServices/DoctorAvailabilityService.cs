@@ -16,7 +16,7 @@ namespace WebApp.Client.Services.DoctorAvailabilityServices
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Current.Properties["access_token"].ToString());
 
-            var response = await client.GetAsync(AppSettingsManager.Settings["Url"] + $"/api/DoctorAvailability?doctorId=1{id}");
+            var response = await client.GetAsync(AppSettingsManager.Settings["Url"] + $"/api/DoctorAvailability?doctorId={id}");
             var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<DoctorAvailabilityView>>(content);
         }
