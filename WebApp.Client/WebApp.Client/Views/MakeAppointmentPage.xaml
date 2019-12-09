@@ -47,7 +47,6 @@
                 ItemsSource="{Binding TimeDoctorAvailability}"
                 ItemDisplayBinding="{Binding Minutes}"
                 SelectedItem="{Binding SelectTime}">
-            
         </Picker>
         <Button Command="{Binding MakeAppointmentCommand}"
                 Text="Add new appointment"/>

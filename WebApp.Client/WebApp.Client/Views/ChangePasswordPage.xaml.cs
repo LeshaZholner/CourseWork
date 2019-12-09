@@ -15,6 +15,8 @@ namespace WebApp.Client.Views
         public ChangePasswordPage()
         {
             InitializeComponent();
+            saveBtn.IsEnabled = false;
+            
         }
     }
 }
