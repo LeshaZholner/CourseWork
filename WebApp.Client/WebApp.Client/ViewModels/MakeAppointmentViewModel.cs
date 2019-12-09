@@ -92,8 +92,8 @@ namespace WebApp.Client.ViewModels
             }
         }
 
-        private ObservableCollection<TimeSpan> timeDoctorAvailability;
-        public ObservableCollection<TimeSpan> TimeDoctorAvailability
+        private ObservableCollection<TimeInterval> timeDoctorAvailability;
+        public ObservableCollection<TimeInterval> TimeDoctorAvailability
         {
             get
             {
@@ -106,8 +106,8 @@ namespace WebApp.Client.ViewModels
             }
         }
 
-        private TimeSpan selectTime;
-        public TimeSpan SelectTime
+        private TimeInterval selectTime;
+        public TimeInterval SelectTime
         {
             get { return selectTime; }
             set
@@ -152,7 +152,10 @@ namespace WebApp.Client.ViewModels
             {
                 return new Command(() =>
                 {
-                    TimeDoctorAvailability = GetRangeTime(selectDoctorAvailabilityView.TimeFrom, selectDoctorAvailabilityView.TimeTo, new TimeSpan(0, 30, 0));
+                    var timeInterval = new TimeInterval();
+                    timeInterval.TimeFrom = selectDoctorAvailabilityView.TimeFrom;
+                    timeInterval.TimeTo = selectDoctorAvailabilityView.TimeTo;
+                    TimeDoctorAvailability = timeInterval.GetRangeTime(new TimeSpan(0, 30, 0));
                 });
             }
         }
@@ -167,8 +170,8 @@ namespace WebApp.Client.ViewModels
                     {
                         DoctorId = selectDoctor.Id,
                         DateAppointment = selectDoctorAvailabilityView.DateAvailability,
-                        TimeTo = selectTime,
-                        TimeFrom = selectTime.Add(new TimeSpan(0,30,0)),
+                        TimeTo = selectTime.TimeTo,
+                        TimeFrom = selectTime.TimeFrom,
                     };
                     await appointmentServices.MakeAppointmentAsync(appointment);
                 });
@@ -180,18 +183,6 @@ namespace WebApp.Client.ViewModels
         protected virtual void OnPropertChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private ObservableCollection<TimeSpan> GetRangeTime(TimeSpan timeFrom, TimeSpan timeTo, TimeSpan step)
-        {
-            var times = new ObservableCollection<TimeSpan>();
-            for (int i = 0; timeFrom.Add(TimeSpan.FromTicks(step.Ticks * i)) < timeTo; i++)
-            {
-                var time = timeFrom.Add(TimeSpan.FromTicks(step.Ticks * i));
-                times.Add(time);
-            }
-
-            return times;
         }
     }
 }

@@ -23,7 +23,7 @@
         </Picker>
         <Picker Title="select doctor"
                 ItemsSource="{Binding Doctors}"
-                ItemDisplayBinding="{Binding FirstName}"
+                ItemDisplayBinding="{Binding DoctorName}"
                 SelectedItem="{Binding SelectDoctor}">
             <Picker.Behaviors>
                 <behaviorsPack:EventToCommandBehavior
@@ -34,7 +34,7 @@
         
         <Picker Title="select date"
                 ItemsSource="{Binding DoctorAvailabilityViews}"
-                ItemDisplayBinding="{Binding DateAvailability}"
+                ItemDisplayBinding="{Binding DateAvailability, StringFormat='{0:MMMM d, yyyy}'}"
                 SelectedItem="{Binding SelectDoctorAvailabilityView}">
 
             <Picker.Behaviors>
@@ -45,7 +45,7 @@
         </Picker>
         <Picker Title="select time"
                 ItemsSource="{Binding TimeDoctorAvailability}"
-                ItemDisplayBinding="{Binding Minutes}"
+                ItemDisplayBinding="{Binding Interval}"
                 SelectedItem="{Binding SelectTime}">
         </Picker>
         <Button Command="{Binding MakeAppointmentCommand}"

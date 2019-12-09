@@ -31,11 +31,11 @@
                             <Button Text="&#xf00d;" FontFamily="{StaticResource fa-solid-900}" Command="{Binding Path=BindingContext.RamoveAppointmentCommand, Source={x:Reference appointmentsPage}}" CommandParameter="{Binding }" 
                                     Grid.Column="3" Grid.Row="0" BorderWidth="0"/>
 
-                            <Label Text="{Binding Doctor.FirstName}"
+                            <Label Text="{Binding Doctor.DoctorName}"
                                    Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4"/>
                             <Label Text="{Binding Doctor.Specialization.Name}"
                                    Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"/>
-                            <Label Text="{Binding DateAppointment}"
+                            <Label Text="{Binding DateAppointment, StringFormat='{0:MMMM d, yyyy}'}"
                                    Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4"/>
                         </Grid>
                     </ViewCell>
