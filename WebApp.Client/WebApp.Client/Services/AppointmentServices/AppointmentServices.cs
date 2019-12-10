@@ -58,5 +58,15 @@ namespace WebApp.Client.Services.AppointmentServices
 
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<List<AppointmentView>> GetAppointmentAsync(int doctorId, DateTime date)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Current.Properties["access_token"].ToString());
+
+            var response = await client.GetAsync(AppSettingsManager.Settings["Url"] + $"/api/appointments/GetAppointments?doctorid={doctorId}&date={date.ToString("yyyyMMdd")}");
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<AppointmentView>>(content);
+        }
     }
 }

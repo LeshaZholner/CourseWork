@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using WebApp.Client.Services.DoctorServices;
 using WebApp.Client.Services.SpecializationServices;
 using WebApp.Client.Models.Appointment;
+using WebApp.Client.Services.DoctorAvailabilityServices;
 
 namespace WebApp.Client.ViewModels
 {
@@ -22,6 +23,7 @@ namespace WebApp.Client.ViewModels
         private IAppointmentServices appointmentServices = Bootstrap.ServiceProvider.GetService<IAppointmentServices>();
         private IDoctorServices doctorServices = Bootstrap.ServiceProvider.GetService<IDoctorServices>();
         private ISpecializationServices specializationServices = Bootstrap.ServiceProvider.GetService<ISpecializationServices>();
+        private IDoctorAvailabilityService doctorAvailabilityServices = Bootstrap.ServiceProvider.GetService<IDoctorAvailabilityService>();
 
         private ObservableCollection<AppointmentView> _appointmentsView;
 
@@ -68,7 +70,8 @@ namespace WebApp.Client.ViewModels
                 return new Command(async (item) =>
                 {
                     AppointmentView appointment = item as AppointmentView;
-                    await Application.Current.MainPage.Navigation.PushAsync(new EditAppointmentPage(appointment));
+                    var doctorAvailability = await doctorAvailabilityServices.GetDoctorAvailabilitiesAsync(appointment.DoctorId);
+                    await Application.Current.MainPage.Navigation.PushAsync(new EditAppointmentPage(appointment, doctorAvailability));
                 });
             }
         }

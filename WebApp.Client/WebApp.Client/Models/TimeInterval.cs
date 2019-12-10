@@ -17,9 +17,9 @@ namespace WebApp.Client.Models
         public TimeSpan TimeFrom { get; set; }
         public TimeSpan TimeTo { get; set; }
 
-        public ObservableCollection<TimeInterval> GetRangeTime(TimeSpan step)
+        public List<TimeInterval> GetRangeTime(TimeSpan step)
         {
-            var times = new ObservableCollection<TimeInterval>();
+            var times = new List<TimeInterval>();
 
             for (int i = 0; TimeFrom.Add(TimeSpan.FromTicks(step.Ticks * i)) < TimeTo; i++)
             {

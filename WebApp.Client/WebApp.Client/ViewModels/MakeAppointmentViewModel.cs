@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using WebApp.Client.Services;
 using WebApp.Client.Models.Appointment;
 using WebApp.Client.Models.Doctor;
+using System.Linq;
 using WebApp.Client.Services.DoctorAvailabilityServices;
 
 namespace WebApp.Client.ViewModels
@@ -150,12 +151,16 @@ namespace WebApp.Client.ViewModels
         {
             get
             {
-                return new Command(() =>
+                return new Command(async () =>
                 {
                     var timeInterval = new TimeInterval();
                     timeInterval.TimeFrom = selectDoctorAvailabilityView.TimeFrom;
                     timeInterval.TimeTo = selectDoctorAvailabilityView.TimeTo;
-                    TimeDoctorAvailability = timeInterval.GetRangeTime(new TimeSpan(0, 30, 0));
+                    var times = timeInterval.GetRangeTime(new TimeSpan(0, 30, 0));
+                    var app = await appointmentServices.GetAppointmentAsync(selectDoctor.Id, SelectDoctorAvailabilityView.DateAvailability);
+                    times.RemoveAll(t => app.Select(a => a.TimeFrom).Contains(t.TimeFrom));
+
+                    TimeDoctorAvailability = new ObservableCollection<TimeInterval>(times);
                 });
             }
         }
@@ -174,6 +179,7 @@ namespace WebApp.Client.ViewModels
                         TimeFrom = selectTime.TimeFrom,
                     };
                     await appointmentServices.MakeAppointmentAsync(appointment);
+                    await Application.Current.MainPage.Navigation.PopToRootAsync();
                 });
             }
         }

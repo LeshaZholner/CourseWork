@@ -5,15 +5,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="WebApp.Client.Views.EditAppointmentPage"
-             xmlns:system="clr-namespace:System;assembly=mscorlib">
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack">
     <ContentPage.Content>
         <StackLayout>
-            <DatePicker Date="{Binding  SelectAppointment.DateAppointment}"
-                    MinimumDate="{x:Static system:DateTime.Today}"/>
-            <Label Text="Time From"/>
-            <TimePicker Time="{Binding  SelectAppointment.TimeFrom}"/>
-            <Label Text="Time To"/>
-            <TimePicker Time="{Binding  SelectAppointment.TimeTo}"/>
+
+            <Picker Title="select date"
+                ItemsSource="{Binding DoctorAvailabilityViews}"
+                ItemDisplayBinding="{Binding DateAvailability, StringFormat='{0:MMMM d, yyyy}'}"
+                SelectedItem="{Binding SelectDoctorAvailabilityView}">
+
+                <Picker.Behaviors>
+                    <behaviorsPack:EventToCommandBehavior
+                        EventName="SelectedIndexChanged"
+                        Command="{Binding GetTimeCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
+            <Picker Title="select time"
+                ItemsSource="{Binding TimeDoctorAvailability}"
+                ItemDisplayBinding="{Binding Interval}"
+                SelectedItem="{Binding SelectTime}">
+            </Picker>
             <Button Command="{Binding SaveAppointmentCommand}"
                 Text="Save"/>
         </StackLayout>

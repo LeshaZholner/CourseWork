@@ -15,7 +15,6 @@ namespace WebApp.Client.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MakeAppointmentPage : ContentPage
     {
-        private IDoctorServices doctorServices = Bootstrap.ServiceProvider.GetService<IDoctorServices>();
         private ISpecializationServices specializationServices = Bootstrap.ServiceProvider.GetService<ISpecializationServices>();
         public MakeAppointmentPage()
         {

@@ -11,6 +11,7 @@ namespace WebApp.Client.Services.AppointmentServices
         Task<bool> MakeAppointmentAsync(AppointmentCreate appointment);
         Task<bool> DeleteAppointmentAsync(int id);
         Task<List<AppointmentView>> GetAppointmentAsync();
+        Task<List<AppointmentView>> GetAppointmentAsync(int doctorId, DateTime date);
         Task<bool> UpdateAppointmentment(AppointmentCreate appointment);
     }
 }
