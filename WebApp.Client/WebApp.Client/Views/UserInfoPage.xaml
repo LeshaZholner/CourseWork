@@ -8,9 +8,9 @@
              x:Class="WebApp.Client.Views.UserInfoPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding UserInfo.FirstName}"/>
-            <Label Text="{Binding UserInfo.LastName}"/>
-            <Label Text="{Binding UserInfo.Phonenumber}"/>
+            <Label FontSize="Medium" Text="{Binding UserInfo.FirstName, StringFormat='First name: {0}'}"/>
+            <Label FontSize="Medium" Text="{Binding UserInfo.LastName, StringFormat='Last name: {0}'}"/>
+            <Label FontSize="Medium" Text="{Binding UserInfo.Phonenumber, StringFormat='Phonenumber: {0}'}"/>
             <Button Text="ChangePassword" Command="{Binding ChangePasswordCommand}"/>
         </StackLayout>
     </ContentPage.Content>

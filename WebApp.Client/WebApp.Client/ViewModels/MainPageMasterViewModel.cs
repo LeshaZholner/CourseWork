@@ -36,7 +36,7 @@ namespace WebApp.Client.ViewModels
             {
                 return new Command(async () =>
                 {
-                    var page = (Page)Activator.CreateInstance(SelectItem.TargetType);
+                    var page = Activator.CreateInstance(SelectItem.TargetType) as Page;
                     page.Title = SelectItem.Title;
 
                     if(page is LoginPage p)
@@ -46,8 +46,8 @@ namespace WebApp.Client.ViewModels
                     }
                     else
                     {
-                        var navigationPage = (NavigationPage)(Application.Current.MainPage);
-                        var masterPage = (MainPage)(navigationPage.RootPage);
+                        var navigationPage = Application.Current.MainPage as NavigationPage;
+                        var masterPage = navigationPage.RootPage as MainPage;
 
                         masterPage.Detail = new NavigationPage(page);
                         masterPage.IsPresented = false;

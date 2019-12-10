@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApp.Client.DI;
 using WebApp.Client.Models;
+using WebApp.Client.Models.Appointment;
 using WebApp.Client.Services.AppointmentServices;
 using WebApp.Client.ViewModels;
 using Xamarin.Forms;
@@ -24,8 +25,7 @@ namespace WebApp.Client.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            var appointments = await appointmentServices.GetAppointmentAsync();
-            BindingContext = new AppointmentsViewModel(appointments);
+            BindingContext = new AppointmentsViewModel(await appointmentServices.GetAppointmentAsync());
         }
     }
 }
