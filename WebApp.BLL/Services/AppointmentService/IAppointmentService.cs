@@ -11,6 +11,7 @@ namespace WebApp.BLL.Services.AppointmentService
     {
         int MakeAppointment(AppointmentDTO appointmentDTO);
         IEnumerable<AppointmentDTO> GetAppointments(string userId);
+        IEnumerable<AppointmentDTO> GetAppointments(int doctorId, string date);
         void DeleteAppointment(int id);
         AppointmentDTO GetAppointment(int id);
         void Update(AppointmentDTO appointmentDTO);

@@ -112,5 +112,19 @@ namespace WebApp.API.Controllers
 
             return appointments;
         }
+
+        public IEnumerable<AppointmentViewModel> GetAppointments(int doctorId, string date)
+        {
+            var appointmentDTO = appointmentService.GetAppointments(doctorId, date);
+            var mapper = new AutoMapper.MapperConfiguration(cfg => {
+                cfg.CreateMap<AppointmentDTO, AppointmentViewModel>();
+                cfg.CreateMap<DoctorDTO, DoctorViewModel>();
+                cfg.CreateMap<SpecializationDTO, SpecializationViewModel>();
+            }).CreateMapper();
+
+            var appointments = mapper.Map<IEnumerable<AppointmentDTO>, IEnumerable<AppointmentViewModel>>(appointmentDTO);
+
+            return appointments;
+        }
     }
 }

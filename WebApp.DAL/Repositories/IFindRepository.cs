@@ -8,6 +8,6 @@ namespace WebApp.DAL.Repositories
 {
     public interface IFindRepository<T> : IRepository<T>
     {
-        IEnumerable<T> Find(string userId);
+        IEnumerable<T> Find(Func<T, bool> predicate);
     }
 }

@@ -51,7 +51,7 @@ namespace WebApp.BLL.Services.AppointmentService
                 cfg.CreateMap<Doctor, DoctorDTO>();
                 cfg.CreateMap<Specialization, SpecializationDTO>();
             }).CreateMapper();
-            return mapper.Map<IEnumerable<Appointment>, List<AppointmentDTO>>(Database.Appointments.Find(userId));
+            return mapper.Map<IEnumerable<Appointment>, List<AppointmentDTO>>(Database.Appointments.Find(a => a.UserId==userId));
         }
         public AppointmentDTO GetAppointment(int id)
         {
@@ -75,6 +75,18 @@ namespace WebApp.BLL.Services.AppointmentService
             var appointment = mapper.Map<AppointmentDTO, Appointment>(appointmentDTO);
             Database.Appointments.Update(appointment);
 
+        }
+
+        public IEnumerable<AppointmentDTO> GetAppointments(int doctorId, string date)
+        {
+
+            var mapper = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Appointment, AppointmentDTO>();
+                cfg.CreateMap<Doctor, DoctorDTO>();
+                cfg.CreateMap<Specialization, SpecializationDTO>();
+            }).CreateMapper();
+            return mapper.Map<IEnumerable<Appointment>, List<AppointmentDTO>>(Database.Appointments.Find(a => a.DoctorID== doctorId && a.DateAppointment.ToString("yyyyMMdd") == date));
         }
     }
 }

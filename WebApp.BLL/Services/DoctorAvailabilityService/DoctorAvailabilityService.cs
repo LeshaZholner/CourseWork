@@ -23,7 +23,7 @@ namespace WebApp.BLL.Services.DoctorAvailabilityService
             Database.Dispose();
         }
 
-        public IEnumerable<DoctorAvailabilityDTO> GetDoctorAvailabilitys(string userId)
+        public IEnumerable<DoctorAvailabilityDTO> GetDoctorAvailabilitys(int doctorId)
         {
             var mapper = new AutoMapper.MapperConfiguration(cfg =>
             {
@@ -32,7 +32,7 @@ namespace WebApp.BLL.Services.DoctorAvailabilityService
                 cfg.CreateMap<Specialization, SpecializationDTO>();
             }).CreateMapper();
 
-            return mapper.Map<IEnumerable<DoctorAvailability>, List<DoctorAvailabilityDTO>>(Database.DoctorAvailability.Find(userId));
+            return mapper.Map<IEnumerable<DoctorAvailability>, List<DoctorAvailabilityDTO>>(Database.DoctorAvailability.Find(d => d.DoctorId == doctorId));
         }
     }
 }

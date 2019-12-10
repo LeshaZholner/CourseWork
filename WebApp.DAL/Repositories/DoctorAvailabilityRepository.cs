@@ -36,10 +36,9 @@ namespace WebApp.DAL.Repositories
             return context.DoctorAvailability.Where(d => d.Id == id).Include(d => d.Doctor).Include("Doctor.Specialization").FirstOrDefault();
         }
 
-        public IEnumerable<DoctorAvailability> Find(string doctorId)
+        public IEnumerable<DoctorAvailability> Find(Func<DoctorAvailability,bool> predicate)
         {
-            int id = int.Parse(doctorId);
-            return context.DoctorAvailability.Where(d => d.DoctorId == id).Include(d => d.Doctor).Include("Doctor.Specialization");
+            return context.DoctorAvailability.Where(predicate).AsQueryable().Include(d => d.Doctor).Include("Doctor.Specialization");
         }
 
         public IEnumerable<DoctorAvailability> GetAll()

@@ -30,10 +30,9 @@ namespace WebApp.DAL.Repositories
             context.SaveChanges();
         }
 
-        public IEnumerable<Appointment> Find(string userId)
+        public IEnumerable<Appointment> Find(Func<Appointment, bool> predicate)
         {
-            var apps = context.Appointments.Where(a => a.UserId == userId).Include(a => a.Doctor).Include("Doctor.Specialization").ToList();
-            return apps;
+            return context.Appointments.Where(predicate).AsQueryable().Include(a => a.Doctor).Include("Doctor.Specialization").ToList();
         }
 
         public Appointment Get(int id)

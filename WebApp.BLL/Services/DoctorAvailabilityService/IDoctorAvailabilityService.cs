@@ -9,7 +9,7 @@ namespace WebApp.BLL.Services.DoctorAvailabilityService
 {
     public interface IDoctorAvailabilityService
     {
-        IEnumerable<DoctorAvailabilityDTO> GetDoctorAvailabilitys(string userId);
+        IEnumerable<DoctorAvailabilityDTO> GetDoctorAvailabilitys(int doctorId);
         void Dispose();
     }
 }

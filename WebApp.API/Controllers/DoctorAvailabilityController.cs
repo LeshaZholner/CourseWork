@@ -32,7 +32,7 @@ namespace WebApp.API.Controllers
             }
         }
 
-        public IEnumerable<DoctorAvailabilityViewModel> Get(string doctorId)
+        public IEnumerable<DoctorAvailabilityViewModel> Get(int doctorId)
         {
             var doctorAvailabilityDTO = doctorAvailabilityService.GetDoctorAvailabilitys(doctorId);
             var mapper = new AutoMapper.MapperConfiguration(cfg => {
