@@ -5,10 +5,13 @@
 }
 
 <h2>Index</h2>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create", routeValues: null, htmlAttributes: new { @class = "btn btn-sm btn-primary", @role = "button" })
+    </p>
+}
 
-<p>
-    @Html.ActionLink("Create New", "Create", routeValues: null, htmlAttributes: new { @class = "btn btn-sm btn-primary", @role = "button" })
-</p>
 <table class="table">
     <tr>
         <th>
@@ -26,25 +29,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Specialization.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecondName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-primary", @role = "button" }) |
-            @Html.ActionLink("Delete", "Delete", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-danger", @role = "button" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Specialization.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-primary", @role = "button" }) 
+                    @Html.ActionLink("Delete", "Delete", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-danger", @role = "button" })
+                </td>
+            }
+            
+        </tr>
+    }
 
 </table>

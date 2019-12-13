@@ -11,11 +11,14 @@ using WebApp.Admin.Models;
 
 namespace WebApp.Admin.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class DoctorAvailabilitiesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: DoctorAvailabilities
+        [OverrideAuthorization]
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             var doctorAccessibilities = db.DoctorAccessibilities.Include(d => d.Doctor);

@@ -13,7 +13,7 @@ using WebApp.Admin.Models;
 
 namespace WebApp.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class UsersController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
@@ -21,12 +21,13 @@ namespace WebApp.Admin.Controllers
 
         public UsersController()
         {
-            //_userManager = userManager;
             _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             
         }
 
         // GET: AspNetUsers
+        [OverrideAuthorization]
+        [Authorize]
         public ActionResult Index()
         {
             var users = _userManager.Users.ToList();

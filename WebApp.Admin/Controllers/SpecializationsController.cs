@@ -11,12 +11,14 @@ using WebApp.Admin.Models.Specializations;
 
 namespace WebApp.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class SpecializationsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Specializations
+        [OverrideAuthorization]
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Specializations.ToList());

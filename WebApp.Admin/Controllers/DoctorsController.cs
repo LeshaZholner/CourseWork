@@ -11,12 +11,14 @@ using WebApp.Admin.Models.Doctors;
 
 namespace WebApp.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class DoctorsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Doctors
+        [OverrideAuthorization]
+        [Authorize]
         public ActionResult Index()
         {
             var doctors = db.Doctors.Include(d => d.Specialization);
@@ -24,7 +26,6 @@ namespace WebApp.Admin.Controllers
         }
 
         // GET: Doctors/Create
-        [Authorize(Roles ="Admin")]
         public ActionResult Create()
         {
             ViewBag.SpecializationId = new SelectList(db.Specializations, "Id", "Name");
