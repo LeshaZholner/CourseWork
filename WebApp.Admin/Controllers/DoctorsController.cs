@@ -24,6 +24,7 @@ namespace WebApp.Admin.Controllers
         }
 
         // GET: Doctors/Create
+        [Authorize(Roles ="Admin")]
         public ActionResult Create()
         {
             ViewBag.SpecializationId = new SelectList(db.Specializations, "Id", "Name");

@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
-@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+@if (User.Identity.IsAuthenticated)
 {
     <div class="container">
     <div class="row">

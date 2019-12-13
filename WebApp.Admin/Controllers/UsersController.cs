@@ -139,12 +139,24 @@ namespace WebApp.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var aspNetUser = _userManager.FindById(id);
-            if (aspNetUser == null)
+            var user = _userManager.FindById(id);
+
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(aspNetUser);
+
+            var usersView = new UserViewModel();
+            
+            var claims = _userManager.GetClaims(user.Id);
+            var userView = new UserViewModel();
+            userView.Id = user.Id;
+            userView.Email = user.Email;
+            userView.FirstName = claims.First(c => c.Type == "FirstName").Value;
+            userView.LastName = claims.First(c => c.Type == "LastName").Value;
+            userView.PhoneNumber = claims.First(c => c.Type == "Phonenumber").Value;
+
+            return View(userView);
         } 
 
         // POST: AspNetUsers/Delete/5
