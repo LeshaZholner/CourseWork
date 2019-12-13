@@ -7,10 +7,21 @@
              xmlns:vm="clr-namespace:WebApp.Client.ViewModels"
              x:Class="WebApp.Client.Views.UserInfoPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label FontSize="Medium" Text="{Binding UserInfo.FirstName, StringFormat='First name: {0}'}"/>
-            <Label FontSize="Medium" Text="{Binding UserInfo.LastName, StringFormat='Last name: {0}'}"/>
-            <Label FontSize="Medium" Text="{Binding UserInfo.Phonenumber, StringFormat='Phonenumber: {0}'}"/>
+        <StackLayout Margin="5">
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="Medium"  Text="&#xf007;" FontFamily="{StaticResource fa-solid-900}"/>
+                <Label FontSize="Medium" Text="{Binding UserInfo.FirstName, StringFormat=' {0} '}"/>
+                <Label FontSize="Medium" Text="{Binding UserInfo.LastName, StringFormat='{0}'}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="Medium"  Text="&#xf1fa;" FontFamily="{StaticResource fa-solid-900}"/>
+                <Label FontSize="Medium" Text="{Binding UserInfo.Email, StringFormat=' {0}'}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="Medium"  Text="&#xf095;" FontFamily="{StaticResource fa-solid-900}"/>
+                <Label FontSize="Medium" Text="{Binding UserInfo.Phonenumber, StringFormat=' {0}'}"/>
+            </StackLayout>
+            
             <Button Text="ChangePassword" Command="{Binding ChangePasswordCommand}"/>
         </StackLayout>
     </ContentPage.Content>
