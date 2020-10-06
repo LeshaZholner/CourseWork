@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApp.DAL.Entities;
+using System.Data.Entity;
 
 namespace WebApp.DAL.Repositories
 {
@@ -16,9 +17,12 @@ namespace WebApp.DAL.Repositories
             this.context = context;
         }
 
-        public void Create(Doctor item)
+        public int Create(Doctor item)
         {
-            context.Doctors.Add(item);
+            var doctorentity = context.Doctors.Add(item);
+            context.SaveChanges();
+
+            return doctorentity.Id;
         }
 
         public void Delete(int id)
@@ -27,20 +31,14 @@ namespace WebApp.DAL.Repositories
             context.Doctors.Remove(item);
         }
 
-        public IEnumerable<Doctor> Find(Func<Doctor, bool> predicate)
-        {
-            return context.Doctors.Where(predicate).ToList();
-        }
-
         public Doctor Get(int id)
         {
-            var item = context.Doctors.Find(id);
-            return item != null ? item : throw new Exception($"Doctor {id} not found");  
+            return context.Doctors.Where(d => d.Id == id).Include(d => d.Specialization).FirstOrDefault();
         }
 
         public IEnumerable<Doctor> GetAll()
         {
-            return context.Doctors.ToList();
+            return context.Doctors.Include(d => d.Specialization).ToList();
         }
 
         public void Update(Doctor item)

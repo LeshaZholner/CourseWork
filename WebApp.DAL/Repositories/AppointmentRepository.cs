@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApp.DAL.Entities;
+using System.Data.Entity;
 
 namespace WebApp.DAL.Repositories
 {
-    public class AppointmentRepository : IRepository<Appointment>
+    public class AppointmentRepository : IFindRepository<Appointment>
     {
         private AppointmentContext context;
 
@@ -15,36 +16,45 @@ namespace WebApp.DAL.Repositories
         {
             this.context = context;
         }
-        public void Create(Appointment item)
+        public int Create(Appointment item)
         {
-            context.Appointments.Add(item);
+            var appointmentEntity = context.Appointments.Add(item);
+            context.SaveChanges();
+            return appointmentEntity.Id;
         }
 
         public void Delete(int id)
         {
             var item = Get(id);
             context.Appointments.Remove(item);
+            context.SaveChanges();
         }
 
         public IEnumerable<Appointment> Find(Func<Appointment, bool> predicate)
         {
-            return context.Appointments.Where(predicate).ToList();
+            return context.Appointments.Where(predicate).AsQueryable().Include(a => a.Doctor).Include("Doctor.Specialization").ToList();
         }
 
         public Appointment Get(int id)
         {
-            var item = context.Appointments.Find(id);
-            return item != null ? item : throw new Exception($"Appointment ${id} not found");
+            var appointment = context.Appointments.Where(a => a.Id == id).Include(a => a.Doctor).Include("Doctor.Specialization").FirstOrDefault();
+            return appointment;
         }
 
         public IEnumerable<Appointment> GetAll()
         {
-            return context.Appointments.ToList();
+            var apps = context.Appointments.Include(a => a.Doctor).Include("Doctor.Specialization").ToList();
+            return apps;
         }
 
         public void Update(Appointment item)
         {
-            context.Entry(item).State = System.Data.Entity.EntityState.Modified;
+            var appointment = context.Appointments.Find(item.Id);
+            if(appointment != null)
+            {
+                context.Entry(appointment).CurrentValues.SetValues(item);
+                context.SaveChanges();
+            }
         }
     }
 }

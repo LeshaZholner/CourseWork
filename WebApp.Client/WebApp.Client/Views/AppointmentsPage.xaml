@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:WebApp.Client.ViewModels"
+             x:Class="WebApp.Client.Views.AppointmentsPage"
+             x:Name="appointmentsPage">
+    <StackLayout>
+        <Button Command="{Binding MakeAppointmentCommand}" 
+                Text="Add"/>
+        <ListView ItemsSource="{Binding AppointmentsView}"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="5">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                                <Button HeightRequest="45" WidthRequest="45" Text="&#xf044;" FontFamily="{StaticResource fa-solid-900}"
+                                        Command="{Binding Path=BindingContext.EditAppointmentCommand, Source={x:Reference appointmentsPage}}" 
+                                        CommandParameter="{Binding }"
+                                        BorderWidth="0" />
+                                <Button HeightRequest="45" WidthRequest="45" Text="&#xf00d;" FontFamily="{StaticResource fa-solid-900}" 
+                                        Command="{Binding Path=BindingContext.RamoveAppointmentCommand, Source={x:Reference appointmentsPage}}" 
+                                        CommandParameter="{Binding }" 
+                                        BorderWidth="0"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label FontSize="Medium"  Text="&#xf0f0;" FontFamily="{StaticResource fa-solid-900}"/>
+                                <Label Text="{Binding Doctor.DoctorName, StringFormat=' {0},'}"/>
+                                <Label Text="{Binding Doctor.Specialization.Name, StringFormat='{0}'}"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label FontSize="Medium"  Text="&#xf073;" FontFamily="{StaticResource fa-solid-900}"/>
+                                <Label Text="{Binding DateAppointment, StringFormat=' {0:MMMM d, yyyy}'}"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label FontSize="Medium"  Text="&#xf017;" FontFamily="{StaticResource fa-solid-900}"/>
+                                <Label Text="{Binding TimeFrom, StringFormat=' {0:hh\\:mm}'}"/>
+                                <Label Text="{Binding TimeTo, StringFormat='- {0:hh\\:mm}'}"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+    </StackLayout>
+    
+</ContentPage>

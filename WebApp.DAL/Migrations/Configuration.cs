@@ -9,11 +9,7 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-        }
-
-        protected override void Seed(WebApp.DAL.AppointmentContext context)
-        {
+            AutomaticMigrationsEnabled = true;
         }
     }
 }

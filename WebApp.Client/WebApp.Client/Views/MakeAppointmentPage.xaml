@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModel="clr-namespace:WebApp.Client.ViewModels"
+             mc:Ignorable="d"
+             xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             x:Class="WebApp.Client.Views.MakeAppointmentPage">
+    <StackLayout>
+        <Picker Title="select specialization"
+                ItemsSource="{Binding  Specializations}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectSpecialization}">
+
+            <Picker.Behaviors>
+                <behaviorsPack:EventToCommandBehavior
+                        EventName="SelectedIndexChanged"
+                        Command="{Binding GetDoctorsCommand}"/>      
+            </Picker.Behaviors>
+            
+        </Picker>
+        <Picker Title="select doctor"
+                ItemsSource="{Binding Doctors}"
+                ItemDisplayBinding="{Binding DoctorName}"
+                SelectedItem="{Binding SelectDoctor}">
+            <Picker.Behaviors>
+                <behaviorsPack:EventToCommandBehavior
+                        EventName="SelectedIndexChanged"
+                        Command="{Binding GetDoctorAvailabilitiesCommand}"/>
+            </Picker.Behaviors>
+        </Picker>
+        
+        <Picker Title="select date"
+                ItemsSource="{Binding DoctorAvailabilityViews}"
+                ItemDisplayBinding="{Binding DateAvailability, StringFormat='{0:MMMM d, yyyy}'}"
+                SelectedItem="{Binding SelectDoctorAvailabilityView}">
+
+            <Picker.Behaviors>
+                <behaviorsPack:EventToCommandBehavior
+                        EventName="SelectedIndexChanged"
+                        Command="{Binding GetTimeCommand}"/>
+            </Picker.Behaviors>
+        </Picker>
+        <Picker Title="select time"
+                ItemsSource="{Binding TimeDoctorAvailability}"
+                ItemDisplayBinding="{Binding Interval}"
+                SelectedItem="{Binding SelectTime}">
+        </Picker>
+        <Button Command="{Binding MakeAppointmentCommand}"
+                Text="Add new appointment"/>
+    </StackLayout>
+</ContentPage>

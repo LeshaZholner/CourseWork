@@ -1,0 +1,150 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Input;
+using WebApp.Client.DI;
+using WebApp.Client.Services;
+using Xamarin.Forms;
+using Microsoft.Extensions.DependencyInjection;
+using WebApp.Client.Views;
+using WebApp.Client.Models;
+using System.ComponentModel;
+using WebApp.Client.Helpers;
+using System.Linq;
+
+namespace WebApp.Client.ViewModels
+{
+    public class RegisterViewModel : INotifyPropertyChanged
+    {
+        private IApiServices apiServices = Bootstrap.ServiceProvider.GetService<IApiServices>();
+
+        private RegisterBindingModel registerModel;
+        
+        public RegisterViewModel()
+        {
+            registerModel = new RegisterBindingModel();
+        }
+
+        public string Email
+        {
+            get { return registerModel.Email; }
+            set
+            {
+                if (registerModel.Email != value)
+                {
+                    registerModel.Email = value;
+                    OnPropertyChanged("Email");
+                }
+            }
+        }
+        public string Password
+        {
+            get { return registerModel.Password; }
+            set
+            {
+                if (registerModel.Password != value)
+                {
+                    registerModel.Password = value;
+                    OnPropertyChanged("Password");
+                }
+            }
+        }
+        public string ConfirmPassword
+        {
+            get { return registerModel.ConfirmPassword; }
+            set
+            {
+                if (registerModel.ConfirmPassword != value)
+                {
+                    registerModel.ConfirmPassword = value;
+                    OnPropertyChanged("ConfirmPassword");
+                }
+            }
+        }
+
+        public string FirstName
+        {
+            get { return registerModel.FirstName; }
+            set
+            {
+                if(registerModel.FirstName != value)
+                {
+                    registerModel.FirstName = value;
+                    OnPropertyChanged("FirstName");
+                }
+            }
+        }
+
+        public string LastName
+        {
+            get { return registerModel.LastName; }
+            set
+            {
+                if (registerModel.LastName != value)
+                {
+                    registerModel.LastName = value;
+                    OnPropertyChanged("LastName");
+                }
+            }
+        }
+
+        public string PhoneNumber
+        {
+            get { return registerModel.PhoneNumber; }
+            set
+            {
+                if (registerModel.PhoneNumber != value)
+                {
+                    registerModel.PhoneNumber = value;
+                    OnPropertyChanged("PhoneNumber");
+                }
+            }
+        }
+
+        public bool IsValid
+        {
+            get
+            {
+                return ValidationHelper.IsRegisterPageValidation(Email, Password, ConfirmPassword, PhoneNumber, FirstName, LastName);
+            }
+        }
+
+        public ICommand RegisterCommand
+        {
+            get
+            {
+                return new Command(async() => 
+                {
+                    var request = await apiServices.RegisterAsync(registerModel);
+
+                    if (request.IsSucces)
+                    {
+                        await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Error", request.ErrorRequest.GetMessage(), "Ok");
+                    }
+                });
+            }
+        }
+
+        public ICommand LoginCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
+                });
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+    }
+}

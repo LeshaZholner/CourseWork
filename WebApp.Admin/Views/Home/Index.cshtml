@@ -1,0 +1,92 @@
+﻿@model WebApp.Admin.Models.MainPageViewModels
+@{
+    ViewBag.Title = "Home Page";
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Users</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Users.Take(5))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @Html.ActionLink("Users", "", "Users", routeValues: null, htmlAttributes: new { @class = "btn btn-sm btn-primary", @role = "button" })
+        </div>
+        <div class="col-md-4">
+            <h2>Doctors</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Doctors.Take(5))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SecondName)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.ActionLink("Doctors", "", "Doctors", routeValues: null, htmlAttributes: new { @class = "btn btn-sm btn-primary", @role = "button" })
+        </div>
+        <div />
+        <div class="col-md-4">
+            <h2>Specialization</h2>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Specializations.Take(5))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.ActionLink("Specializations", "", "Specializations", routeValues: null, htmlAttributes: new { @class = "btn btn-sm btn-primary", @role = "button" })
+        </div>
+    </div>
+</div>
+
+}
+    
+    

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:WebApp.Client.Behaviors"
+             mc:Ignorable="d"
+             x:Class="WebApp.Client.Views.RegisterPage"
+             xmlns:vm="clr-namespace:WebApp.Client.ViewModels"
+             NavigationPage.HasNavigationBar="false">
+
+    <ContentPage.BindingContext>
+        <vm:RegisterViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout Orientation="Vertical">
+
+        <Entry Text="{Binding Email}"
+               Placeholder="email"
+               AutomationId="email">
+            <Entry.Behaviors>
+                <local:EmailValidatorBehavior x:Name="EmailValidator"/>
+            </Entry.Behaviors>
+        </Entry>
+        <Entry Text="{Binding Password}"
+               Placeholder="password"
+               IsPassword="True"
+               x:Name="password"
+               AutomationId="password">
+            <Entry.Behaviors>
+                <local:PasswordValidationBehavior x:Name="PasswordValidator"/>
+            </Entry.Behaviors>
+        </Entry>
+        <Entry Text="{Binding ConfirmPassword}"
+               Placeholder="confirm password"
+               IsPassword="True"
+               AutomationId="confirmPassword">
+            <Entry.Behaviors>
+                <local:CompareValidationBehavior x:Name="ConfirmPasswordValidator" BindingContext="{x:Reference password}" Text="{Binding Text}"/>
+            </Entry.Behaviors>
+        </Entry>
+        <Entry Text="{Binding FirstName}"
+               Placeholder="firstname"
+               AutomationId="firstname">
+            <Entry.Behaviors>
+                <local:RequiredValidationBehavior x:Name="FirstNameValidator"/>
+            </Entry.Behaviors>
+        </Entry>
+        <Entry Text="{Binding LastName}"
+               Placeholder="lastname"
+               AutomationId="lastname">
+            <Entry.Behaviors>
+                <local:RequiredValidationBehavior x:Name="LastNameValidator"/>
+            </Entry.Behaviors>
+        </Entry>
+        <Entry Text="{Binding PhoneNumber}"
+               Placeholder="phonenumber"
+               AutomationId="phonenumber">
+            <Entry.Behaviors>
+                <local:PhonenumberValidationBehavior x:Name="PhonenumberValidator"/>
+            </Entry.Behaviors>
+        </Entry>
+        <Button Command="{Binding RegisterCommand}"
+                Text="Register"
+                x:Name="registerBtn">
+            <Button.Triggers>
+                <MultiTrigger TargetType="Button">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Source={x:Reference EmailValidator}, Path=IsValid}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding Source={x:Reference PasswordValidator}, Path=IsValid}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding Source={x:Reference ConfirmPasswordValidator}, Path=IsValid}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding Source={x:Reference FirstNameValidator}, Path=IsValid}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding Source={x:Reference LastNameValidator}, Path=IsValid}"
+                                          Value="true"/>
+                        <BindingCondition Binding="{Binding Source={x:Reference PhonenumberValidator}, Path=IsValid}"
+                                          Value="true"/> 
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiTrigger>
+            </Button.Triggers>
+        </Button>
+        <Button IsEnabled="True" 
+                Command="{Binding LoginCommand}"
+                Text="Login"/>
+    </StackLayout>
+</ContentPage>

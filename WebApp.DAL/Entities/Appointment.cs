@@ -9,10 +9,11 @@ namespace WebApp.DAL.Entities
     public class Appointment
     {
         public int Id { get; set; }
-        public string NumberPhone { get; set; }
+        public string UserId { get; set; }
         public int DoctorID { get; set; }
-        public Doctor Doctor { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
+        public virtual Doctor Doctor { get; set; }
+        public DateTime DateAppointment { get; set; }
+        public TimeSpan TimeFrom { get; set; }
+        public TimeSpan TimeTo { get; set; }
     }
 }

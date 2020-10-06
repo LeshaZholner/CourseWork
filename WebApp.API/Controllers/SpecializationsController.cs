@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using WebApp.API.Models.Specialization;
+using WebApp.BLL.DTO;
+using WebApp.BLL.Services.SpecializationService;
+
+namespace WebApp.API.Controllers
+{
+    public class SpecializationsController : ApiController
+    {
+        ISpecializationService specializationService;
+
+        public SpecializationsController(ISpecializationService serv)
+        {
+            specializationService = serv;
+        }
+
+        public IHttpActionResult Get(int id)
+        {
+            var specializationDTO = specializationService.GetSpecialization(id);
+            if (specializationDTO == null)
+            {
+                return NotFound();
+            }
+
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<SpecializationDTO, SpecializationViewModel>()).CreateMapper();
+            var specialization = mapper.Map<SpecializationDTO, SpecializationViewModel>(specializationDTO);
+
+            return Ok(specialization);
+        }
+
+        public IEnumerable<SpecializationViewModel> GetSpecialization()
+        {
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<SpecializationDTO, SpecializationViewModel>()).CreateMapper();
+            return mapper.Map<IEnumerable<SpecializationDTO>, List<SpecializationViewModel>>(specializationService.GetSpecializations());
+        }
+
+        public IHttpActionResult Post([FromBody]SpecializationCreateViewModel value)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<SpecializationCreateViewModel, SpecializationDTO>()).CreateMapper();
+            var id = specializationService.AddSpecialization(mapper.Map<SpecializationCreateViewModel, SpecializationDTO>(value));
+
+            return CreatedAtRoute("DefaultApi", new { id }, value);
+        }
+    }
+}

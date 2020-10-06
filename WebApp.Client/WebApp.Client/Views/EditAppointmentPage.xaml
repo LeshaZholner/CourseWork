@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="WebApp.Client.Views.EditAppointmentPage"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Picker Title="select date"
+                ItemsSource="{Binding DoctorAvailabilityViews}"
+                ItemDisplayBinding="{Binding DateAvailability, StringFormat='{0:MMMM d, yyyy}'}"
+                SelectedItem="{Binding SelectDoctorAvailabilityView}">
+
+                <Picker.Behaviors>
+                    <behaviorsPack:EventToCommandBehavior
+                        EventName="SelectedIndexChanged"
+                        Command="{Binding GetTimeCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
+            <Picker Title="select time"
+                ItemsSource="{Binding TimeDoctorAvailability}"
+                ItemDisplayBinding="{Binding Interval}"
+                SelectedItem="{Binding SelectTime}">
+            </Picker>
+            <Button Command="{Binding SaveAppointmentCommand}"
+                Text="Save"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:vm="clr-namespace:WebApp.Client.ViewModels"
+             x:Class="WebApp.Client.Views.UserInfoPage">
+    <ContentPage.Content>
+        <StackLayout Margin="5">
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="Medium"  Text="&#xf007;" FontFamily="{StaticResource fa-solid-900}"/>
+                <Label FontSize="Medium" Text="{Binding UserInfo.FirstName, StringFormat=' {0} '}"/>
+                <Label FontSize="Medium" Text="{Binding UserInfo.LastName, StringFormat='{0}'}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="Medium"  Text="&#xf1fa;" FontFamily="{StaticResource fa-solid-900}"/>
+                <Label FontSize="Medium" Text="{Binding UserInfo.Email, StringFormat=' {0}'}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="Medium"  Text="&#xf095;" FontFamily="{StaticResource fa-solid-900}"/>
+                <Label FontSize="Medium" Text="{Binding UserInfo.Phonenumber, StringFormat=' {0}'}"/>
+            </StackLayout>
+            
+            <Button Text="ChangePassword" Command="{Binding ChangePasswordCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
